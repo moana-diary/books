@@ -1,49 +1,41 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="theme-color" content="#F7F2E6" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <title>우리의 책장</title>
 
   <style>
-    /* =========================
-       기본 설정
-    ========================= */
+    :root {
+      --cream: #f7f3e9;
+      --paper: #fffdf7;
+      --green: #0e4b37;
+      --green-dark: #093d2c;
+      --ink: #20241f;
+      --muted: #6f7068;
+      --yellow: #e9b936;
+      --coral: #d97968;
+      --beige: #ead9b4;
+      --line: rgba(20, 50, 38, .18);
+    }
 
     * {
-      margin: 0;
-      padding: 0;
       box-sizing: border-box;
     }
 
-    :root {
-      --cream: #F7F2E6;
-      --green: #084B39;
-      --yellow: #EDB62E;
-      --coral: #D97C6D;
-      --beige: #EEE1C0;
-      --light-beige: #F4EBD6;
-      --text: #232323;
-      --gray: #66635D;
-    }
-
-    html {
-      scroll-behavior: smooth;
-    }
-
+    html,
     body {
-      background: var(--cream);
-      color: var(--text);
+      margin: 0;
+      padding: 0;
+      background: #ebe8e0;
+      color: var(--ink);
       font-family:
         -apple-system,
         BlinkMacSystemFont,
-        "Apple SD Gothic Neo",
         "Pretendard",
-        "Noto Sans KR",
+        "Apple SD Gothic Neo",
         sans-serif;
-      word-break: keep-all;
     }
 
     button,
@@ -51,978 +43,1044 @@
       font: inherit;
     }
 
-    a {
-      color: inherit;
-      text-decoration: none;
+    button {
+      cursor: pointer;
     }
 
-
-    /* =========================
-       전체 페이지
-    ========================= */
-
-    .page {
+    .app {
       width: 100%;
-      max-width: 760px;
+      max-width: 520px;
+      min-height: 100vh;
       margin: 0 auto;
-      padding: 0 28px 80px;
+      overflow: hidden;
+      background:
+        radial-gradient(
+          circle at 50% 20%,
+          rgba(255,255,255,.55),
+          transparent 34%
+        ),
+        var(--cream);
     }
 
 
-    /* =========================
-       상단 헤더
-    ========================= */
+    /* --------------------
+       상단
+    -------------------- */
 
-    .header {
-      height: 120px;
+    .top {
       display: flex;
+      align-items: center;
       justify-content: space-between;
-      align-items: center;
+      padding: 36px 32px 0;
     }
 
-    .logo {
-      font-size: 20px;
-      font-weight: 800;
-      letter-spacing: -0.7px;
+    .mini-brand {
+      font-size: 17px;
+      font-weight: 900;
+      letter-spacing: -.7px;
     }
 
-    .header-shapes {
+    .marks {
       display: flex;
       align-items: center;
-      gap: 10px;
+      gap: 8px;
     }
 
-    .shape-circle {
+    .yellow-circle {
       width: 18px;
       height: 18px;
       border-radius: 50%;
       background: var(--yellow);
     }
 
-    .shape-square {
+    .green-square {
       width: 18px;
       height: 18px;
       background: var(--green);
     }
 
 
-    /* =========================
-       메인 타이틀
-    ========================= */
+    /* --------------------
+       타이틀
+    -------------------- */
 
     .hero {
-      padding-top: 46px;
+      padding: 94px 37px 0;
     }
 
-    .hero-title {
+    .title {
+      margin: 0;
       color: var(--green);
-      font-size: clamp(70px, 13vw, 108px);
-      font-weight: 900;
-      line-height: 0.88;
+      font-size: clamp(63px, 17vw, 88px);
+      font-weight: 950;
+      line-height: .87;
       letter-spacing: -7px;
     }
 
-    .hero-title span {
+    .title span {
       display: block;
     }
 
-    .hero-description {
-      margin-top: 58px;
-    }
-
-    .hero-label {
+    .archive {
+      margin-top: 45px;
       color: var(--green);
-      font-size: 17px;
+      font-size: 13px;
       font-weight: 900;
-      letter-spacing: 5px;
+      letter-spacing: 4px;
     }
 
-    .hero-copy {
-      margin-top: 20px;
-      color: var(--gray);
-      font-size: 18px;
-      line-height: 1.7;
-      letter-spacing: -0.4px;
-    }
-
-
-    /* =========================
-       책장 일러스트
-    ========================= */
-
-    .bookshelf-area {
-      width: 100%;
-      margin: 36px auto 54px;
-    }
-
-    .bookshelf-illustration {
-      display: block;
-      width: 100%;
-      height: auto;
-      overflow: visible;
+    .description {
+      margin: 17px 0 0;
+      color: #585b54;
+      font-size: 15px;
+      line-height: 1.6;
+      letter-spacing: -.3px;
     }
 
 
-    /* =========================
-       OUR SHELVES
-    ========================= */
+    /* --------------------
+       일러스트
+    -------------------- */
+
+    .illustration {
+      position: relative;
+      height: 365px;
+      margin: 27px 29px 0;
+    }
+
+
+    /* 위 선반 */
+
+    .upper-shelf {
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 180px;
+      height: 18px;
+      border-radius: 20px;
+      background: var(--green);
+      z-index: 10;
+    }
+
+
+    /* 아래 선반 */
+
+    .lower-shelf {
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 26px;
+      height: 18px;
+      border-radius: 20px;
+      background: var(--green);
+      z-index: 10;
+    }
+
+
+    /* 다리 */
+
+    .leg-left,
+    .leg-right {
+      position: absolute;
+      top: 194px;
+      width: 15px;
+      height: 144px;
+      background: #d7b981;
+    }
+
+    .leg-left {
+      left: 15px;
+    }
+
+    .leg-right {
+      right: 15px;
+    }
+
+
+    /* 식물 */
+
+    .plant {
+      position: absolute;
+      left: 24px;
+      top: 69px;
+      width: 93px;
+      height: 112px;
+      z-index: 4;
+    }
+
+    .pot {
+      position: absolute;
+      left: 19px;
+      bottom: 0;
+      width: 61px;
+      height: 65px;
+      border-radius: 45% 45% 40% 40%;
+      background: #ecdfbf;
+    }
+
+    .stem {
+      position: absolute;
+      left: 48px;
+      top: 20px;
+      width: 4px;
+      height: 55px;
+      transform: rotate(-3deg);
+      border-radius: 5px;
+      background: var(--green);
+    }
+
+    .leaf {
+      position: absolute;
+      width: 34px;
+      height: 19px;
+      background: var(--green);
+    }
+
+    .leaf1 {
+      left: 44px;
+      top: 8px;
+      transform: rotate(-48deg);
+      border-radius: 100% 0 100% 0;
+    }
+
+    .leaf2 {
+      left: 17px;
+      top: 25px;
+      transform: rotate(43deg);
+      border-radius: 0 100% 0 100%;
+    }
+
+    .leaf3 {
+      left: 47px;
+      top: 42px;
+      transform: rotate(-24deg);
+      border-radius: 100% 0 100% 0;
+    }
+
+
+    /* 책 */
+
+    .book {
+      position: absolute;
+      bottom: 185px;
+      border-radius: 3px 3px 0 0;
+    }
+
+    .book1 {
+      left: 122px;
+      width: 29px;
+      height: 127px;
+      background: var(--green);
+    }
+
+    .book2 {
+      left: 153px;
+      width: 30px;
+      height: 116px;
+      background: #eee1c0;
+      border-left: 1px solid rgba(0,0,0,.12);
+    }
+
+    .book3 {
+      left: 184px;
+      width: 29px;
+      height: 127px;
+      background: var(--yellow);
+    }
+
+    .book4 {
+      left: 214px;
+      width: 29px;
+      height: 111px;
+      background: var(--coral);
+    }
+
+    .book3::after,
+    .book4::after {
+      position: absolute;
+      left: 3px;
+      right: 3px;
+      bottom: 15px;
+      height: 2px;
+      background: rgba(255,255,255,.65);
+      content: "";
+    }
+
+
+    /* 액자 */
+
+    .frame {
+      position: absolute;
+      right: 67px;
+      top: 93px;
+      width: 84px;
+      height: 92px;
+      transform: skew(-4deg);
+      border: 4px solid var(--green);
+      background: #f8f4e8;
+      z-index: 3;
+    }
+
+    .frame-sun {
+      position: absolute;
+      top: 26px;
+      left: 28px;
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: var(--yellow);
+    }
+
+    .frame-wave {
+      position: absolute;
+      left: 26px;
+      bottom: 15px;
+      width: 35px;
+      height: 12px;
+      border-radius: 0 0 50% 50%;
+      background: var(--green);
+    }
+
+
+    /* 노란 원 */
+
+    .decor-circle {
+      position: absolute;
+      right: 12px;
+      top: 143px;
+      width: 39px;
+      height: 39px;
+      border-radius: 50%;
+      background: var(--yellow);
+    }
+
+
+    /* 아래쪽 책 */
+
+    .stack {
+      position: absolute;
+      left: 50%;
+      bottom: 39px;
+      width: 150px;
+      height: 83px;
+      transform: translateX(-50%);
+      z-index: 6;
+    }
+
+    .stack-green {
+      position: absolute;
+      left: 7px;
+      bottom: 0;
+      width: 136px;
+      height: 39px;
+      border-radius: 2px;
+      background: var(--green);
+    }
+
+    .stack-cream {
+      position: absolute;
+      left: 20px;
+      bottom: 37px;
+      width: 110px;
+      height: 31px;
+      border: 1px solid var(--ink);
+      background: #f4ead1;
+    }
+
+    .stack-yellow {
+      position: absolute;
+      left: 30px;
+      bottom: 66px;
+      width: 91px;
+      height: 23px;
+      border-radius: 2px;
+      background: var(--yellow);
+    }
+
+
+    /* 그릇 */
+
+    .bowl {
+      position: absolute;
+      left: 40px;
+      bottom: 42px;
+      width: 70px;
+      height: 39px;
+      overflow: hidden;
+      border-radius: 0 0 60px 60px;
+      background: var(--coral);
+      z-index: 6;
+    }
+
+
+    /* 램프 */
+
+    .lamp {
+      position: absolute;
+      right: 37px;
+      bottom: 41px;
+      width: 74px;
+      height: 108px;
+      z-index: 6;
+    }
+
+    .lamp-shade {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 74px;
+      height: 55px;
+      border-radius: 50px 50px 0 0;
+      background: #efe1bf;
+    }
+
+    .lamp-stem {
+      position: absolute;
+      left: 34px;
+      top: 50px;
+      width: 9px;
+      height: 47px;
+      border-radius: 5px;
+      background: var(--coral);
+      border: 1px solid var(--green);
+    }
+
+    .lamp-base {
+      position: absolute;
+      left: 17px;
+      bottom: 0;
+      width: 42px;
+      height: 16px;
+      border-radius: 30px 30px 5px 5px;
+      background: var(--green);
+    }
+
+    .lamp-top {
+      position: absolute;
+      left: 31px;
+      top: -7px;
+      width: 15px;
+      height: 8px;
+      border-radius: 10px 10px 0 0;
+      background: var(--green);
+    }
+
+
+    /* 그림자 */
+
+    .shadow {
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 15px;
+      height: 13px;
+      border-radius: 50%;
+      background: rgba(214,190,142,.3);
+    }
+
+
+    /* --------------------
+       사용자 책장
+    -------------------- */
 
     .shelves-section {
-      margin-top: 10px;
+      padding: 0 29px 50px;
     }
 
-    .section-title {
+    .section-label {
       display: flex;
       align-items: center;
-      gap: 13px;
-      margin-bottom: 20px;
-
+      gap: 11px;
+      margin-bottom: 18px;
       color: var(--green);
-      font-size: 18px;
-      font-weight: 900;
+      font-size: 14px;
+      font-weight: 950;
       letter-spacing: 3px;
     }
 
     .section-dot {
-      width: 12px;
-      height: 12px;
-      background: var(--yellow);
+      width: 11px;
+      height: 11px;
       border-radius: 50%;
-      flex-shrink: 0;
+      background: var(--yellow);
     }
 
-
-    /* =========================
-       책장 카드
-    ========================= */
-
-    .shelf-list {
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-    }
-
-    .shelf-card {
-      width: 100%;
-      min-height: 88px;
-      padding: 0 28px;
-
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-
+    .users {
+      overflow: hidden;
       background: var(--green);
-      color: #fff;
-
-      transition:
-        transform 0.2s ease,
-        opacity 0.2s ease;
     }
 
-    .shelf-card:active {
-      transform: scale(0.985);
-      opacity: 0.92;
+    .user-button {
+      display: flex;
+      width: 100%;
+      min-height: 78px;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 25px;
+      border: 0;
+      border-bottom: 1px solid rgba(255,255,255,.15);
+      background: transparent;
+      color: white;
+      text-align: left;
     }
 
-    .shelf-name {
-      font-size: 20px;
-      font-weight: 700;
-      letter-spacing: -0.7px;
+    .user-button:last-child {
+      border-bottom: 0;
+    }
+
+    .user-name {
+      font-size: 17px;
+      font-weight: 800;
     }
 
     .arrow {
-      font-size: 37px;
+      font-size: 30px;
       font-weight: 200;
-      line-height: 1;
-      transform: translateY(-2px);
     }
 
-
-    /* =========================
-       새 사용자 추가
-    ========================= */
+    .status {
+      padding: 25px;
+      color: rgba(255,255,255,.72);
+      text-align: center;
+      font-size: 13px;
+    }
 
     .add-user {
       width: 100%;
-      height: 76px;
+      height: 59px;
       margin-top: 12px;
-
-      border: 1.5px dashed rgba(8, 75, 57, 0.3);
+      border: 1px dashed rgba(14,75,55,.45);
       background: transparent;
-      color: rgba(8, 75, 57, 0.5);
-
-      font-size: 17px;
-      font-weight: 700;
-
-      cursor: pointer;
-    }
-
-    .add-user:hover {
-      background: rgba(8, 75, 57, 0.035);
-    }
-
-
-    /* =========================
-       하단
-    ========================= */
-
-    .footer {
-      margin-top: 74px;
-      padding-top: 30px;
-      border-top: 1px solid rgba(8, 75, 57, 0.12);
-    }
-
-    .footer-title {
       color: var(--green);
-      font-size: 13px;
+      font-size: 14px;
+      font-weight: 800;
+    }
+
+
+    /* --------------------
+       모달
+    -------------------- */
+
+    .overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 100;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 25px;
+      background: rgba(8,39,28,.58);
+    }
+
+    .overlay.show {
+      display: flex;
+    }
+
+    .modal {
+      width: 100%;
+      max-width: 360px;
+      padding: 27px;
+      background: var(--cream);
+      border-top: 8px solid var(--green);
+    }
+
+    .modal-mark {
+      width: 34px;
+      height: 34px;
+      margin-bottom: 20px;
+      border-radius: 50%;
+      background: var(--yellow);
+    }
+
+    .modal h2 {
+      margin: 0 0 20px;
+      color: var(--green);
+      font-size: 26px;
       font-weight: 900;
-      letter-spacing: 3px;
+      letter-spacing: -1.5px;
     }
 
-    .footer-copy {
-      margin-top: 10px;
-      color: #8B877E;
-      font-size: 13px;
+    .modal input {
+      width: 100%;
+      height: 53px;
+      padding: 0 14px;
+      border: 1px solid var(--line);
+      border-radius: 0;
+      outline: none;
+      background: var(--paper);
+    }
+
+    .modal-actions {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+      margin-top: 12px;
+    }
+
+    .modal-actions button {
+      height: 50px;
+      border: 1px solid var(--green);
+      font-weight: 800;
+    }
+
+    .cancel {
+      background: transparent;
+      color: var(--green);
+    }
+
+    .confirm {
+      background: var(--green);
+      color: white;
     }
 
 
-    /* =========================
-       모바일
-    ========================= */
-
-    @media (max-width: 600px) {
-
-      .page {
-        padding-left: 28px;
-        padding-right: 28px;
-        padding-bottom: 60px;
-      }
-
-      .header {
-        height: 106px;
-      }
-
-      .logo {
-        font-size: 18px;
-      }
-
-      .shape-circle,
-      .shape-square {
-        width: 16px;
-        height: 16px;
-      }
+    @media (max-width: 390px) {
 
       .hero {
-        padding-top: 42px;
+        padding-left: 29px;
+        padding-right: 29px;
       }
 
-      .hero-title {
-        font-size: 76px;
-        letter-spacing: -6px;
+      .title {
+        font-size: 66px;
       }
 
-      .hero-description {
-        margin-top: 51px;
+      .illustration {
+        transform: scale(.93);
+        transform-origin: center top;
+        margin-left: 16px;
+        margin-right: 16px;
       }
 
-      .hero-label {
-        font-size: 15px;
-        letter-spacing: 4px;
-      }
-
-      .hero-copy {
-        margin-top: 17px;
-        font-size: 16px;
-      }
-
-      .bookshelf-area {
-        margin-top: 25px;
-        margin-bottom: 42px;
-      }
-
-      .section-title {
-        font-size: 16px;
-        letter-spacing: 3px;
-        margin-bottom: 17px;
-      }
-
-      .section-dot {
-        width: 11px;
-        height: 11px;
-      }
-
-      .shelf-card {
-        min-height: 82px;
-        padding: 0 25px;
-      }
-
-      .shelf-name {
-        font-size: 18px;
-      }
     }
-
-
-    /* =========================
-       아주 작은 화면
-    ========================= */
-
-    @media (max-width: 380px) {
-
-      .page {
-        padding-left: 22px;
-        padding-right: 22px;
-      }
-
-      .hero-title {
-        font-size: 67px;
-      }
-    }
-
   </style>
 </head>
 
 
 <body>
 
-  <main class="page">
+<main class="app">
+
+  <!-- 상단 -->
+
+  <header class="top">
+
+    <div class="mini-brand">
+      우리의 책장
+    </div>
+
+    <div class="marks">
+      <span class="yellow-circle"></span>
+      <span class="green-square"></span>
+    </div>
+
+  </header>
 
 
-    <!-- =====================
-         HEADER
-    ====================== -->
+  <!-- 메인 타이틀 -->
 
-    <header class="header">
+  <section class="hero">
 
-      <div class="logo">
-        우리의 책장
+    <h1 class="title">
+      <span>우리의</span>
+      <span>책장</span>
+    </h1>
+
+    <div class="archive">
+      MONTHLY READING ARCHIVE
+    </div>
+
+    <p class="description">
+      한 달 동안 읽은 책을 한 권씩 모아보세요.
+    </p>
+
+  </section>
+
+
+  <!-- 책장 일러스트 -->
+
+  <section class="illustration">
+
+    <div class="shadow"></div>
+
+    <div class="plant">
+      <div class="stem"></div>
+      <div class="leaf leaf1"></div>
+      <div class="leaf leaf2"></div>
+      <div class="leaf leaf3"></div>
+      <div class="pot"></div>
+    </div>
+
+    <div class="book book1"></div>
+    <div class="book book2"></div>
+    <div class="book book3"></div>
+    <div class="book book4"></div>
+
+    <div class="frame">
+      <div class="frame-sun"></div>
+      <div class="frame-wave"></div>
+    </div>
+
+    <div class="decor-circle"></div>
+
+    <div class="upper-shelf"></div>
+
+    <div class="leg-left"></div>
+    <div class="leg-right"></div>
+
+    <div class="bowl"></div>
+
+    <div class="stack">
+      <div class="stack-green"></div>
+      <div class="stack-cream"></div>
+      <div class="stack-yellow"></div>
+    </div>
+
+    <div class="lamp">
+      <div class="lamp-top"></div>
+      <div class="lamp-shade"></div>
+      <div class="lamp-stem"></div>
+      <div class="lamp-base"></div>
+    </div>
+
+    <div class="lower-shelf"></div>
+
+  </section>
+
+
+  <!-- 사용자 -->
+
+  <section class="shelves-section">
+
+    <div class="section-label">
+      OUR SHELVES
+      <span class="section-dot"></span>
+    </div>
+
+    <div
+      class="users"
+      id="users"
+    >
+      <div class="status">
+        불러오는 중…
       </div>
+    </div>
 
-      <div class="header-shapes" aria-hidden="true">
-        <div class="shape-circle"></div>
-        <div class="shape-square"></div>
-      </div>
+    <button
+      class="add-user"
+      id="openAddUser"
+      type="button"
+    >
+      ＋ 새 사용자 추가
+    </button>
 
-    </header>
+  </section>
 
+</main>
 
 
-    <!-- =====================
-         HERO
-    ====================== -->
+<!-- 사용자 추가 팝업 -->
 
-    <section class="hero">
+<div
+  class="overlay"
+  id="userOverlay"
+>
 
-      <h1 class="hero-title">
-        <span>우리의</span>
-        <span>책장</span>
-      </h1>
+  <div class="modal">
 
+    <div class="modal-mark"></div>
 
-      <div class="hero-description">
+    <h2>
+      새 사용자
+    </h2>
 
-        <div class="hero-label">
-          MONTHLY READING ARCHIVE
-        </div>
+    <input
+      id="newUserName"
+      type="text"
+      maxlength="20"
+      placeholder="이름을 입력하세요"
+    >
 
-        <p class="hero-copy">
-          한 달 동안 읽은 책을 한 권씩 모아보세요.
-        </p>
-
-      </div>
-
-
-
-      <!-- =====================
-           책장 일러스트
-      ====================== -->
-
-      <div
-        class="bookshelf-area"
-        aria-label="책과 소품이 놓인 책장"
-      >
-
-        <svg
-          class="bookshelf-illustration"
-          viewBox="0 0 760 440"
-          xmlns="http://www.w3.org/2000/svg"
-          role="img"
-        >
-
-
-          <!-- 바닥 그림자 -->
-
-          <ellipse
-            cx="380"
-            cy="417"
-            rx="335"
-            ry="13"
-            fill="#E9DFC8"
-            opacity="0.8"
-          />
-
-
-          <!-- =================
-               위 선반
-          ================== -->
-
-          <rect
-            x="45"
-            y="220"
-            width="670"
-            height="25"
-            rx="12.5"
-            fill="#084B39"
-          />
-
-
-          <!-- 선반 기둥 -->
-
-          <rect
-            x="70"
-            y="241"
-            width="18"
-            height="151"
-            rx="5"
-            fill="#D8C398"
-          />
-
-          <rect
-            x="672"
-            y="241"
-            width="18"
-            height="151"
-            rx="5"
-            fill="#D8C398"
-          />
-
-
-
-          <!-- =================
-               화분
-          ================== -->
-
-
-          <!-- 왼쪽 잎 -->
-
-          <path
-            d="
-              M143 145
-              C113 129 101 107 104 84
-              C132 89 151 109 143 145
-            "
-            fill="#084B39"
-          />
-
-
-          <!-- 오른쪽 잎 -->
-
-          <path
-            d="
-              M154 145
-              C177 117 203 112 222 118
-              C209 143 187 155 154 145
-            "
-            fill="#084B39"
-          />
-
-
-          <!-- 위 잎 -->
-
-          <path
-            d="
-              M149 127
-              C147 95 164 72 184 63
-              C188 91 177 114 149 127
-            "
-            fill="#084B39"
-          />
-
-
-          <!-- 줄기 -->
-
-          <path
-            d="
-              M150 165
-              C151 143 153 121 157 98
-            "
-            fill="none"
-            stroke="#084B39"
-            stroke-width="5"
-            stroke-linecap="round"
-          />
-
-
-          <!-- 화분 -->
-
-          <path
-            d="
-              M100 166
-              C100 137 123 116 153 116
-              C183 116 207 137 207 166
-              C207 198 189 220 153 220
-              C118 220 100 198 100 166
-            "
-            fill="#EFE2C1"
-          />
-
-
-
-          <!-- =================
-               세워진 책
-          ================== -->
-
-
-          <!-- 초록책 -->
-
-          <rect
-            x="235"
-            y="70"
-            width="50"
-            height="150"
-            rx="5"
-            fill="#084B39"
-          />
-
-
-          <!-- 크림책 -->
-
-          <rect
-            x="286"
-            y="87"
-            width="44"
-            height="133"
-            rx="4"
-            fill="#EFE2BD"
-          />
-
-
-          <!-- 노란책 -->
-
-          <rect
-            x="331"
-            y="70"
-            width="48"
-            height="150"
-            rx="5"
-            fill="#EDB62E"
-          />
-
-
-          <!-- 코랄책 -->
-
-          <rect
-            x="380"
-            y="88"
-            width="46"
-            height="132"
-            rx="5"
-            fill="#D97C6D"
-          />
-
-
-          <!-- 책 디테일 -->
-
-          <line
-            x1="340"
-            y1="190"
-            x2="371"
-            y2="190"
-            stroke="#F9EDC9"
-            stroke-width="3"
-          />
-
-          <line
-            x1="388"
-            y1="106"
-            x2="420"
-            y2="106"
-            stroke="#F4D3CC"
-            stroke-width="3"
-          />
-
-
-
-          <!-- =================
-               액자
-          ================== -->
-
-          <g transform="rotate(4 535 160)">
-
-            <rect
-              x="478"
-              y="101"
-              width="125"
-              height="119"
-              fill="#F7F2E6"
-              stroke="#084B39"
-              stroke-width="7"
-            />
-
-            <circle
-              cx="540"
-              cy="150"
-              r="25"
-              fill="#EDB62E"
-            />
-
-
-            <path
-              d="
-                M514 184
-                C527 201 552 202 566 184
-                C550 178 529 178 514 184
-              "
-              fill="#084B39"
-            />
-
-          </g>
-
-
-
-          <!-- 오른쪽 노란 오브제 -->
-
-          <circle
-            cx="650"
-            cy="180"
-            r="29"
-            fill="#EDB62E"
-          />
-
-
-
-          <!-- =================
-               아래 선반
-          ================== -->
-
-          <rect
-            x="45"
-            y="390"
-            width="670"
-            height="25"
-            rx="12.5"
-            fill="#084B39"
-          />
-
-
-
-          <!-- =================
-               코랄 그릇
-          ================== -->
-
-          <path
-            d="
-              M105 330
-              H225
-              C218 363 198 384 165 384
-              C132 384 113 363 105 330
-            "
-            fill="#D97C6D"
-          />
-
-          <rect
-            x="147"
-            y="382"
-            width="38"
-            height="8"
-            rx="4"
-            fill="#D97C6D"
-          />
-
-
-
-          <!-- =================
-               눕혀진 책
-          ================== -->
-
-
-          <!-- 아래 초록 -->
-
-          <rect
-            x="290"
-            y="351"
-            width="235"
-            height="39"
-            rx="5"
-            fill="#084B39"
-          />
-
-
-          <!-- 중간 크림 -->
-
-          <rect
-            x="307"
-            y="315"
-            width="202"
-            height="38"
-            rx="4"
-            fill="#F5EBD2"
-            stroke="#242424"
-            stroke-width="2"
-          />
-
-
-          <!-- 위 노랑 -->
-
-          <rect
-            x="327"
-            y="280"
-            width="163"
-            height="35"
-            rx="5"
-            fill="#EDB62E"
-          />
-
-
-          <line
-            x1="476"
-            y1="282"
-            x2="476"
-            y2="313"
-            stroke="#F8E5A1"
-            stroke-width="3"
-          />
-
-
-
-          <!-- =================
-               조명
-          ================== -->
-
-
-          <!-- 조명 몸통 -->
-
-          <rect
-            x="604"
-            y="321"
-            width="16"
-            height="58"
-            rx="8"
-            fill="#D97C6D"
-          />
-
-
-          <!-- 조명 중간 -->
-
-          <rect
-            x="600"
-            y="350"
-            width="24"
-            height="22"
-            rx="10"
-            fill="#EDB62E"
-            stroke="#084B39"
-            stroke-width="4"
-          />
-
-
-          <!-- 갓 -->
-
-          <path
-            d="
-              M555 316
-              C555 278 579 256 612 256
-              C645 256 670 278 670 316
-              Z
-            "
-            fill="#EFE2BD"
-          />
-
-
-          <!-- 윗부분 -->
-
-          <rect
-            x="603"
-            y="246"
-            width="20"
-            height="12"
-            rx="6"
-            fill="#084B39"
-          />
-
-
-          <!-- 받침 -->
-
-          <path
-            d="
-              M578 390
-              C581 370 595 360 612 360
-              C630 360 644 370 647 390
-              Z
-            "
-            fill="#084B39"
-          />
-
-
-        </svg>
-
-      </div>
-
-
-    </section>
-
-
-
-    <!-- =====================
-         OUR SHELVES
-    ====================== -->
-
-    <section class="shelves-section">
-
-      <div class="section-title">
-        <span>OUR SHELVES</span>
-        <span class="section-dot"></span>
-      </div>
-
-
-      <div class="shelf-list">
-
-        <!-- 모아나 책장 -->
-
-        <a
-          class="shelf-card"
-          href="#"
-          onclick="openShelf(event, '모아나')"
-        >
-
-          <span class="shelf-name">
-            모아나의 책장
-          </span>
-
-          <span class="arrow">
-            ›
-          </span>
-
-        </a>
-
-      </div>
-
-
-
-      <!-- 사용자 추가 -->
+    <div class="modal-actions">
 
       <button
+        class="cancel"
+        id="cancelUser"
         type="button"
-        class="add-user"
-        onclick="addUser()"
       >
-        + 새 사용자 추가
+        취소
       </button>
 
+      <button
+        class="confirm"
+        id="saveUser"
+        type="button"
+      >
+        추가
+      </button>
 
-    </section>
+    </div>
+
+  </div>
+
+</div>
 
 
+<script>
 
-    <!-- =====================
-         FOOTER
-    ====================== -->
+const API_URL =
+  "https://script.google.com/macros/s/AKfycbw-cPd8n-ccEu1m2q7lam22zmIcsmR83jL5AAJHEaNrYvqsZ7NbryXt0jBDxIwiTOze/exec";
 
-    <footer class="footer">
 
-      <div class="footer-title">
-        READ · KEEP · REMEMBER
+const usersBox =
+  document.getElementById("users");
+
+const userOverlay =
+  document.getElementById("userOverlay");
+
+const nameInput =
+  document.getElementById("newUserName");
+
+
+loadUsers();
+
+
+async function loadUsers() {
+
+  try {
+
+    const response = await fetch(
+      API_URL +
+      "?action=users&t=" +
+      Date.now()
+    );
+
+    const data =
+      JSON.parse(
+        await response.text()
+      );
+
+    if (!data.success) {
+      throw new Error(
+        data.message || "불러오기 실패"
+      );
+    }
+
+    renderUsers(
+      data.users || []
+    );
+
+  } catch (error) {
+
+    console.error(error);
+
+    usersBox.innerHTML = `
+      <div class="status">
+        사용자 정보를 불러오지 못했어요.
       </div>
+    `;
 
-      <p class="footer-copy">
-        우리가 읽은 책을 한곳에 차곡차곡.
-      </p>
+  }
 
-    </footer>
-
-
-  </main>
+}
 
 
+function renderUsers(users) {
 
-  <script>
+  usersBox.innerHTML = "";
 
-    /* =========================
-       책장 클릭
-    ========================= */
+  if (!users.length) {
 
-    function openShelf(event, userName) {
+    usersBox.innerHTML = `
+      <div class="status">
+        아직 등록된 사용자가 없어요.
+      </div>
+    `;
+
+    return;
+  }
+
+  users.forEach(function(item) {
+
+    const name =
+      typeof item === "string"
+        ? item
+        : item.name;
+
+    if (!name) return;
+
+
+    const button =
+      document.createElement("button");
+
+    button.type = "button";
+    button.className = "user-button";
+
+
+    const nameSpan =
+      document.createElement("span");
+
+    nameSpan.className = "user-name";
+    nameSpan.textContent =
+      name + "의 책장";
+
+
+    const arrow =
+      document.createElement("span");
+
+    arrow.className = "arrow";
+    arrow.textContent = "›";
+
+
+    button.appendChild(nameSpan);
+    button.appendChild(arrow);
+
+
+    button.onclick = function() {
+
+      localStorage.setItem(
+        "currentBookUser",
+        name
+      );
+
+      window.location.href =
+        "./shelf.html?user=" +
+        encodeURIComponent(name);
+
+    };
+
+
+    usersBox.appendChild(button);
+
+  });
+
+}
+
+
+document
+  .getElementById("openAddUser")
+  .onclick = function() {
+
+    userOverlay.classList.add("show");
+
+    setTimeout(function() {
+      nameInput.focus();
+    }, 50);
+
+  };
+
+
+document
+  .getElementById("cancelUser")
+  .onclick = closeModal;
+
+
+document
+  .getElementById("saveUser")
+  .onclick = addUser;
+
+
+nameInput.addEventListener(
+  "keydown",
+  function(event) {
+
+    if (event.key === "Enter") {
 
       event.preventDefault();
-
-      /*
-        나중에 책장 상세 페이지가 생기면
-        아래 코드를 원하는 페이지 주소로 바꾸면 됨.
-
-        예:
-        window.location.href = "shelf.html?user=" + userName;
-      */
-
-      console.log(userName + "의 책장");
+      addUser();
 
     }
 
+  }
+);
 
 
-    /* =========================
-       사용자 추가
-    ========================= */
+userOverlay.onclick =
+  function(event) {
 
-    function addUser() {
+    if (event.target === userOverlay) {
+      closeModal();
+    }
 
-      const name = prompt("새 사용자의 이름을 입력해주세요.");
-
-      if (!name) return;
-
-
-      const shelfList =
-        document.querySelector(".shelf-list");
+  };
 
 
-      const newShelf =
-        document.createElement("a");
+function closeModal() {
+
+  userOverlay.classList.remove("show");
+
+}
 
 
-      newShelf.className = "shelf-card";
-      newShelf.href = "#";
+async function addUser() {
 
+  const name =
+    nameInput.value.trim();
 
-      newShelf.innerHTML = `
-        <span class="shelf-name">
-          ${escapeHtml(name)}의 책장
-        </span>
+  if (!name) {
 
-        <span class="arrow">
-          ›
-        </span>
-      `;
+    alert("이름을 입력해주세요.");
+    return;
 
+  }
 
-      newShelf.addEventListener(
-        "click",
-        function(event) {
-          openShelf(event, name);
+  try {
+
+    const response =
+      await fetch(
+        API_URL,
+        {
+          method: "POST",
+
+          headers: {
+            "Content-Type":
+              "text/plain;charset=utf-8"
+          },
+
+          body: JSON.stringify({
+            action: "addUser",
+            name: name
+          })
         }
       );
 
 
-      shelfList.appendChild(newShelf);
+    const data =
+      JSON.parse(
+        await response.text()
+      );
+
+
+    if (!data.success) {
+
+      throw new Error(
+        data.message ||
+        "추가 실패"
+      );
 
     }
 
 
+    nameInput.value = "";
 
-    /* =========================
-       입력 문자 안전 처리
-    ========================= */
+    closeModal();
 
-    function escapeHtml(text) {
+    await loadUsers();
 
-      const div =
-        document.createElement("div");
 
-      div.textContent = text;
+  } catch (error) {
 
-      return div.innerHTML;
+    console.error(error);
 
-    }
+    alert(
+      "사용자를 추가하지 못했어요."
+    );
 
-  </script>
+  }
 
+}
+
+</script>
 
 </body>
 </html>

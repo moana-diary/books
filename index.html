@@ -5,23 +5,35 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="referrer" content="no-referrer">
 
-  <title>책을 꽂자</title>
+  <title>우리의 책장</title>
 
   <style>
+    :root {
+      --cream: #f6f2e9;
+      --paper: #fffdf8;
+      --green: #123d2b;
+      --green2: #1d503b;
+      --ink: #171b18;
+      --muted: #77766e;
+      --mustard: #e4b63d;
+      --coral: #d98272;
+      --line: rgba(23, 27, 24, .18);
+    }
+
     * {
       box-sizing: border-box;
     }
 
     body {
       margin: 0;
+      background: #e9e6df;
+      color: var(--ink);
       font-family:
         -apple-system,
         BlinkMacSystemFont,
         "Pretendard",
         "Apple SD Gothic Neo",
         sans-serif;
-      background: #ebe6df;
-      color: #443d37;
     }
 
     button,
@@ -29,173 +41,268 @@
       font: inherit;
     }
 
+    button {
+      cursor: pointer;
+    }
+
     .app {
+      position: relative;
       width: 100%;
       max-width: 500px;
       min-height: 100vh;
-      margin: auto;
-      padding: 58px 22px 40px;
-      background:
-        linear-gradient(
-          180deg,
-          #fbf9f5,
-          #f2ede6
-        );
+      margin: 0 auto;
+      overflow: hidden;
+      background: var(--cream);
     }
 
-    .small {
-      margin-bottom: 9px;
-      color: #a09489;
-      font-size: 10px;
-      font-weight: 800;
-      letter-spacing: 2px;
-    }
-
-    h1 {
-      margin: 0;
-      font-size: 36px;
-      letter-spacing: -1.5px;
-    }
-
-    .intro {
-      margin: 12px 0 36px;
-      color: #92877e;
-      font-size: 13px;
-      line-height: 1.7;
-    }
-
-    .preview {
-      margin-bottom: 40px;
-    }
-
-    .preview-books {
+    .top {
       display: flex;
-      height: 125px;
-      align-items: flex-end;
-      justify-content: center;
-      gap: 5px;
+      align-items: center;
+      justify-content: space-between;
+      padding: 28px 28px 0;
     }
 
-    .preview-books i {
-      display: block;
-      border-radius: 3px 3px 1px 1px;
+    .brand {
+      font-size: 15px;
+      font-weight: 800;
+      letter-spacing: -.4px;
     }
 
-    .preview-books i:nth-child(1) {
-      width: 25px;
-      height: 85px;
-      background: #987067;
+    .top-mark {
+      display: flex;
+      gap: 6px;
+      align-items: center;
     }
 
-    .preview-books i:nth-child(2) {
-      width: 29px;
-      height: 105px;
-      background: #76816d;
+    .mini-circle {
+      width: 13px;
+      height: 13px;
+      border-radius: 50%;
+      background: var(--mustard);
     }
 
-    .preview-books i:nth-child(3) {
-      width: 22px;
-      height: 95px;
-      background: #b18b61;
+    .mini-square {
+      width: 13px;
+      height: 13px;
+      background: var(--green);
     }
 
-    .preview-books i:nth-child(4) {
-      width: 31px;
-      height: 115px;
-      background: #746860;
+    .hero {
+      position: relative;
+      padding: 75px 34px 38px;
     }
 
-    .preview-books i:nth-child(5) {
-      width: 26px;
-      height: 91px;
-      background: #a47d70;
-    }
-
-    .board {
-      height: 15px;
-      border-radius: 2px 2px 5px 5px;
-      background:
-        linear-gradient(
-          #b88b68,
-          #95694b
-        );
-      box-shadow:
-        0 7px 8px
-        rgba(70,50,36,.15);
-    }
-
-    .card {
-      padding: 22px;
-      border: 1px solid #e6ded7;
-      border-radius: 24px;
-      background: #fffdfa;
-    }
-
-    .card h2 {
+    .hero h1 {
+      position: relative;
+      z-index: 2;
       margin: 0;
-      font-size: 18px;
+      color: var(--green);
+      font-family:
+        Georgia,
+        "Times New Roman",
+        "Noto Serif KR",
+        serif;
+      font-size: clamp(52px, 15vw, 76px);
+      font-weight: 700;
+      line-height: .98;
+      letter-spacing: -5px;
     }
 
-    .description {
-      margin: 7px 0 17px;
-      color: #9b9189;
+    .hero h1 span {
+      display: block;
+    }
+
+    .english {
+      margin-top: 24px;
+      color: var(--green);
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 2.1px;
+    }
+
+    .hero-copy {
+      max-width: 220px;
+      margin-top: 11px;
+      color: #575950;
+      font-size: 13px;
+      line-height: 1.65;
+    }
+
+    /* 장식 도형 */
+
+    .shape-set {
+      position: relative;
+      height: 205px;
+      margin-top: 32px;
+    }
+
+    .plate {
+      position: absolute;
+      left: 50%;
+      bottom: 6px;
+      width: 270px;
+      height: 72px;
+      transform: translateX(-50%);
+      border-radius: 50%;
+      background: var(--green);
+    }
+
+    .shape-main {
+      position: absolute;
+      left: 50%;
+      bottom: 47px;
+      width: 155px;
+      height: 118px;
+      transform: translateX(-50%);
+      border-radius: 76px 76px 45px 45px;
+      background: #eee6d4;
+      border: 2px solid var(--ink);
+    }
+
+    .shape-main::after {
+      position: absolute;
+      top: -16px;
+      left: 50%;
+      width: 98px;
+      height: 30px;
+      transform: translateX(-50%);
+      border-radius: 50%;
+      background: var(--coral);
+      border: 2px solid var(--ink);
+      content: "";
+    }
+
+    .shape-dot {
+      position: absolute;
+      right: 42px;
+      top: 7px;
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      background: var(--mustard);
+    }
+
+    .shape-small {
+      position: absolute;
+      left: 41px;
+      top: 48px;
+      width: 34px;
+      height: 34px;
+      border: 2px solid var(--green);
+      transform: rotate(12deg);
+    }
+
+    .section {
+      padding: 0 26px 36px;
+    }
+
+    .section-title {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin: 0 0 12px;
+      color: var(--green);
       font-size: 12px;
+      font-weight: 900;
+      letter-spacing: 1.1px;
     }
 
-    .names {
+    .section-title::after {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--mustard);
+      content: "";
+    }
+
+    .user-card {
+      overflow: hidden;
+      border: 1px solid var(--green);
+      background: var(--green);
+    }
+
+    .users {
       display: flex;
       flex-direction: column;
-      gap: 9px;
     }
 
-    .name {
+    .user-button {
+      display: flex;
       width: 100%;
-      padding: 15px 16px;
-      border: 1px solid #e6ded7;
-      border-radius: 15px;
-      background: white;
-      color: #514a44;
+      align-items: center;
+      justify-content: space-between;
+      padding: 19px 19px;
+      border: 0;
+      border-bottom: 1px solid rgba(255,255,255,.16);
+      background: transparent;
+      color: #fffdf8;
       text-align: left;
-      font-weight: 800;
-      cursor: pointer;
+      font-size: 15px;
+      font-weight: 700;
     }
 
-    .name::after {
-      float: right;
-      content: "›";
-      color: #b3aaa2;
-      font-size: 19px;
+    .user-button:last-child {
+      border-bottom: 0;
     }
 
-    .add {
-      width: 100%;
-      margin-top: 11px;
-      padding: 14px;
-      border: 1px dashed #b8aa9f;
-      border-radius: 15px;
-      background: #f1ebe5;
-      color: #766b62;
-      font-weight: 800;
-      cursor: pointer;
+    .user-button .arrow {
+      font-size: 23px;
+      font-weight: 300;
     }
 
     .status {
-      padding: 18px;
-      color: #999088;
+      padding: 22px;
+      color: rgba(255,255,255,.72);
       text-align: center;
       font-size: 12px;
-      line-height: 1.7;
     }
+
+    .add-user {
+      width: 100%;
+      margin-top: 11px;
+      padding: 16px;
+      border: 1px dashed var(--green);
+      background: transparent;
+      color: var(--green);
+      font-size: 14px;
+      font-weight: 800;
+    }
+
+    .footer {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      margin: 2px 26px 0;
+      padding: 23px 0 36px;
+      border-top: 1px solid var(--line);
+    }
+
+    .footer-en {
+      color: var(--green);
+      font-family: Georgia, serif;
+      font-size: 17px;
+      font-weight: 700;
+      line-height: 1.1;
+    }
+
+    .footer-small {
+      color: var(--muted);
+      font-size: 10px;
+      line-height: 1.5;
+      text-align: right;
+    }
+
+    /* 이름 추가 */
 
     .overlay {
       position: fixed;
       inset: 0;
+      z-index: 100;
       display: none;
       align-items: center;
       justify-content: center;
       padding: 24px;
-      background: rgba(42,38,34,.4);
-      backdrop-filter: blur(4px);
+      background: rgba(16, 28, 22, .54);
     }
 
     .overlay.show {
@@ -204,47 +311,57 @@
 
     .modal {
       width: 100%;
-      max-width: 380px;
-      padding: 24px;
-      border-radius: 24px;
-      background: #fbf9f5;
+      max-width: 360px;
+      padding: 25px;
+      background: var(--cream);
+      border: 1px solid var(--green);
     }
 
-    .modal h3 {
-      margin: 0 0 16px;
+    .modal-mark {
+      width: 36px;
+      height: 8px;
+      margin-bottom: 15px;
+      background: var(--mustard);
+    }
+
+    .modal h2 {
+      margin: 0 0 18px;
+      color: var(--green);
+      font-family: Georgia, "Noto Serif KR", serif;
+      font-size: 26px;
     }
 
     .modal input {
       width: 100%;
-      height: 50px;
-      padding: 0 13px;
-      border: 1px solid #ddd4cc;
-      border-radius: 14px;
+      height: 52px;
+      padding: 0 14px;
+      border: 1px solid var(--line);
+      border-radius: 0;
       outline: none;
+      background: var(--paper);
+      color: var(--ink);
     }
 
-    .actions {
-      display: flex;
+    .modal-actions {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
       gap: 8px;
-      margin-top: 13px;
+      margin-top: 12px;
     }
 
-    .actions button {
-      flex: 1;
-      padding: 13px;
-      border: 0;
-      border-radius: 13px;
+    .modal-actions button {
+      height: 48px;
+      border: 1px solid var(--green);
       font-weight: 800;
-      cursor: pointer;
     }
 
     .cancel {
-      background: #eee7e1;
-      color: #756c64;
+      background: transparent;
+      color: var(--green);
     }
 
-    .save {
-      background: #82736a;
+    .confirm {
+      background: var(--green);
       color: white;
     }
   </style>
@@ -254,94 +371,127 @@
 
 <main class="app">
 
-  <div class="small">
-    MONTHLY BOOKSHELF
-  </div>
+  <div class="top">
 
-  <h1>
-    우리의 책장
-  </h1>
-
-  <p class="intro">
-    한 달 동안 읽은 책을<br>
-    한 권씩 책장에 모아두어요.
-  </p>
-
-  <div class="preview">
-
-    <div class="preview-books">
-      <i></i>
-      <i></i>
-      <i></i>
-      <i></i>
-      <i></i>
+    <div class="brand">
+      우리의 책장
     </div>
 
-    <div class="board"></div>
+    <div class="top-mark">
+      <span class="mini-circle"></span>
+      <span class="mini-square"></span>
+    </div>
 
   </div>
 
-  <section class="card">
 
-    <h2>
-      누구의 책장을 볼까요?
-    </h2>
+  <section class="hero">
 
-    <p class="description">
-      이름을 선택해주세요.
+    <h1>
+      <span>우리의</span>
+      <span>책장</span>
+    </h1>
+
+    <div class="english">
+      MONTHLY READING ARCHIVE
+    </div>
+
+    <p class="hero-copy">
+      한 달 동안 읽은 책을
+      한 권씩 모아보세요.
     </p>
 
-    <div
-      class="names"
-      id="names"
-    >
-      <div class="status">
-        불러오는 중…
+    <div class="shape-set">
+      <div class="shape-small"></div>
+      <div class="shape-dot"></div>
+      <div class="plate"></div>
+      <div class="shape-main"></div>
+    </div>
+
+  </section>
+
+
+  <section class="section">
+
+    <h2 class="section-title">
+      OUR SHELVES
+    </h2>
+
+    <div class="user-card">
+
+      <div
+        class="users"
+        id="users"
+      >
+        <div class="status">
+          불러오는 중…
+        </div>
       </div>
+
     </div>
 
     <button
-      class="add"
-      id="addButton"
+      class="add-user"
+      id="openAddUser"
       type="button"
     >
-      ＋ 새 이름 추가
+      ＋ 새 사용자 추가
     </button>
 
   </section>
 
+
+  <footer class="footer">
+
+    <div class="footer-en">
+      READ.<br>
+      KEEP.<br>
+      REPEAT.
+    </div>
+
+    <div class="footer-small">
+      BOOKS WE FINISHED<br>
+      MONTH BY MONTH
+    </div>
+
+  </footer>
+
 </main>
+
 
 <div
   class="overlay"
-  id="overlay"
+  id="userOverlay"
 >
 
   <div class="modal">
 
-    <h3>
-      이름 추가
-    </h3>
+    <div class="modal-mark"></div>
+
+    <h2>
+      새 사용자
+    </h2>
 
     <input
-      id="newName"
-      placeholder="이름"
+      id="newUserName"
+      type="text"
       maxlength="20"
+      placeholder="이름을 입력하세요"
     >
 
-    <div class="actions">
+    <div class="modal-actions">
 
       <button
         class="cancel"
-        id="cancel"
+        id="cancelUser"
         type="button"
       >
         취소
       </button>
 
       <button
-        class="save"
-        id="save"
+        class="confirm"
+        id="saveUser"
         type="button"
       >
         추가
@@ -353,17 +503,23 @@
 
 </div>
 
+
 <script>
 
 const API_URL =
   "https://script.google.com/macros/s/AKfycbw-cPd8n-ccEu1m2q7lam22zmIcsmR83jL5AAJHEaNrYvqsZ7NbryXt0jBDxIwiTOze/exec";
 
 
-const names =
-  document.getElementById("names");
+const usersBox =
+  document.getElementById(
+    "users"
+  );
 
-const overlay =
-  document.getElementById("overlay");
+
+const userOverlay =
+  document.getElementById(
+    "userOverlay"
+  );
 
 
 loadUsers();
@@ -388,7 +544,11 @@ async function loadUsers() {
 
 
     if (!data.success) {
-      throw new Error(data.message);
+
+      throw new Error(
+        data.message
+      );
+
     }
 
 
@@ -401,10 +561,10 @@ async function loadUsers() {
 
     console.error(error);
 
-    names.innerHTML = `
+
+    usersBox.innerHTML = `
       <div class="status">
-        이름을 불러오지 못했어요.<br>
-        Apps Script 연결을 확인해주세요.
+        사용자 정보를 불러오지 못했어요.
       </div>
     `;
 
@@ -415,14 +575,15 @@ async function loadUsers() {
 
 function renderUsers(users) {
 
-  names.innerHTML = "";
+  usersBox.innerHTML =
+    "";
 
 
   if (!users.length) {
 
-    names.innerHTML = `
+    usersBox.innerHTML = `
       <div class="status">
-        아직 등록된 이름이 없어요.
+        아직 등록된 사용자가 없어요.
       </div>
     `;
 
@@ -454,11 +615,15 @@ function renderUsers(users) {
       button.type =
         "button";
 
-      button.className =
-        "name";
 
-      button.textContent =
-        name + "의 책장";
+      button.className =
+        "user-button";
+
+
+      button.innerHTML = `
+        <span>${escapeHtml(name)}의 책장</span>
+        <span class="arrow">›</span>
+      `;
 
 
       button.onclick =
@@ -470,14 +635,14 @@ function renderUsers(users) {
           );
 
 
-          location.href =
-            "shelf.html?user=" +
+          window.location.href =
+            "./shelf.html?user=" +
             encodeURIComponent(name);
 
         };
 
 
-      names.appendChild(
+      usersBox.appendChild(
         button
       );
 
@@ -488,44 +653,81 @@ function renderUsers(users) {
 
 
 document
-  .getElementById("addButton")
+  .getElementById("openAddUser")
   .onclick =
     function() {
 
-      overlay.classList.add(
+      userOverlay.classList.add(
         "show"
       );
 
+
       document
-        .getElementById("newName")
+        .getElementById("newUserName")
         .focus();
 
     };
 
 
 document
-  .getElementById("cancel")
+  .getElementById("cancelUser")
   .onclick =
-    function() {
-
-      overlay.classList.remove(
-        "show"
-      );
-
-    };
+    closeUserModal;
 
 
 document
-  .getElementById("save")
+  .getElementById("saveUser")
   .onclick =
     addUser;
+
+
+document
+  .getElementById("newUserName")
+  .addEventListener(
+    "keydown",
+    function(event) {
+
+      if (event.key === "Enter") {
+
+        event.preventDefault();
+
+        addUser();
+
+      }
+
+    }
+  );
+
+
+userOverlay.onclick =
+  function(event) {
+
+    if (
+      event.target ===
+      userOverlay
+    ) {
+
+      closeUserModal();
+
+    }
+
+  };
+
+
+function closeUserModal() {
+
+  userOverlay.classList.remove(
+    "show"
+  );
+
+}
 
 
 async function addUser() {
 
   const input =
     document.getElementById(
-      "newName"
+      "newUserName"
     );
 
 
@@ -573,15 +775,19 @@ async function addUser() {
 
 
     if (!data.success) {
-      throw new Error(data.message);
+
+      throw new Error(
+        data.message
+      );
+
     }
 
 
-    input.value = "";
+    input.value =
+      "";
 
-    overlay.classList.remove(
-      "show"
-    );
+
+    closeUserModal();
 
     loadUsers();
 
@@ -591,10 +797,24 @@ async function addUser() {
     console.error(error);
 
     alert(
-      "이름을 추가하지 못했어요."
+      "사용자를 추가하지 못했어요."
     );
 
   }
+
+}
+
+
+function escapeHtml(value) {
+
+  return String(
+    value || ""
+  )
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#039;");
 
 }
 

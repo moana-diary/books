@@ -5,23 +5,34 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="referrer" content="no-referrer">
 
-  <title>나의 책장</title>
+  <title>우리의 책장</title>
 
   <style>
+    :root {
+      --cream: #f6f2e9;
+      --paper: #fffdf8;
+      --green: #123d2b;
+      --ink: #171b18;
+      --muted: #77766e;
+      --mustard: #e4b63d;
+      --coral: #d98272;
+      --line: rgba(23, 27, 24, .18);
+    }
+
     * {
       box-sizing: border-box;
     }
 
     body {
       margin: 0;
+      background: #e9e6df;
+      color: var(--ink);
       font-family:
         -apple-system,
         BlinkMacSystemFont,
         "Pretendard",
         "Apple SD Gothic Neo",
         sans-serif;
-      background: #ebe6df;
-      color: #433c37;
     }
 
     button {
@@ -34,108 +45,134 @@
       max-width: 520px;
       min-height: 100vh;
       margin: 0 auto;
-      padding-bottom: 105px;
-      background:
-        linear-gradient(
-          180deg,
-          #fbf9f5,
-          #f2ede6
-        );
+      padding-bottom: 120px;
+      background: var(--cream);
     }
 
     .top {
-      display: flex;
+      display: grid;
+      grid-template-columns: 44px 1fr 44px;
       align-items: center;
-      padding: 18px 20px 0;
+      padding: 22px 22px 0;
     }
 
     .back {
       display: flex;
-      width: 40px;
-      height: 40px;
-      align-items: center;
-      justify-content: center;
-      border-radius: 50%;
-      background: white;
-      color: #675e57;
-      text-decoration: none;
-      font-size: 23px;
-      box-shadow: 0 3px 12px rgba(57,45,36,.05);
-    }
-
-    .logo {
-      margin-left: auto;
-      color: #a0978f;
-      font-size: 10px;
-      font-weight: 800;
-      letter-spacing: 1.5px;
-    }
-
-    .header {
-      padding: 28px 20px 8px;
-      text-align: center;
-    }
-
-    .header h1 {
-      margin: 0;
-      font-size: 29px;
-      letter-spacing: -1.2px;
-    }
-
-    .header p {
-      margin: 7px 0 0;
-      color: #9a918a;
-      font-size: 12px;
-    }
-
-    .month {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 17px;
-      margin-top: 18px;
-    }
-
-    .month button {
-      display: flex;
-      width: 38px;
-      height: 38px;
+      width: 42px;
+      height: 42px;
       align-items: center;
       justify-content: center;
       border: 0;
       background: transparent;
-      color: #736a63;
-      font-size: 25px;
+      color: var(--ink);
+      text-decoration: none;
+      font-size: 34px;
+      font-weight: 300;
     }
 
-    .month-info {
-      width: 170px;
+    .top-title {
+      color: var(--green);
       text-align: center;
+      font-size: 16px;
+      font-weight: 900;
     }
 
-    .month-info strong {
-      display: block;
-      font-size: 20px;
+    .grid-icon {
+      display: grid;
+      width: 23px;
+      height: 23px;
+      grid-template-columns: 1fr 1fr;
+      gap: 4px;
+      justify-self: end;
     }
 
-    .month-info span {
+    .grid-icon i {
+      border: 2px solid var(--green);
+    }
+
+    .month-wrap {
+      padding: 62px 30px 0;
+    }
+
+    .month-row {
+      display: flex;
+      align-items: flex-end;
+      gap: 20px;
+    }
+
+    .month-number {
+      color: var(--green);
+      font-family:
+        Georgia,
+        "Times New Roman",
+        serif;
+      font-size: 100px;
+      line-height: .75;
+      letter-spacing: -8px;
+    }
+
+    .month-meta {
+      padding-bottom: 4px;
+    }
+
+    .month-meta strong {
       display: block;
-      margin-top: 5px;
-      color: #a19891;
+      color: var(--ink);
+      font-size: 18px;
+      font-weight: 700;
+    }
+
+    .month-meta span {
+      display: block;
+      margin-top: 7px;
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    .coral-dot {
+      width: 35px;
+      height: 35px;
+      margin-left: auto;
+      margin-bottom: 5px;
+      border-radius: 50%;
+      background: var(--coral);
+    }
+
+    .month-nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-top: 30px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid var(--green);
+    }
+
+    .month-nav button {
+      padding: 7px 10px;
+      border: 0;
+      background: transparent;
+      color: var(--green);
+      font-size: 26px;
+    }
+
+    .month-name {
+      color: var(--muted);
       font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 1.5px;
     }
 
-    /* 책 */
+    /* 책장 */
 
     .shelf-area {
-      padding: 42px 16px 0;
+      padding: 70px 20px 0;
     }
 
     .books {
       display: flex;
-      min-height: 245px;
+      min-height: 285px;
       align-items: flex-end;
-      gap: 3px;
+      gap: 2px;
       padding: 0 8px;
       overflow-x: auto;
       scrollbar-width: none;
@@ -151,17 +188,17 @@
       overflow: hidden;
       border: 0;
       border-radius: 3px 3px 1px 1px;
-      background: #8b7567;
+      background: #ebe6d9;
       box-shadow:
-        1px 1px 3px rgba(52,40,32,.16);
-      transition: transform .15s ease;
+        2px 3px 6px rgba(26, 30, 25, .15);
+      transition: transform .16s ease;
     }
 
     .spine:active {
-      transform: translateY(-6px);
+      transform: translateY(-7px);
     }
 
-    .spine-image {
+    .spine img {
       display: block;
       width: 100%;
       height: 100%;
@@ -174,76 +211,67 @@
       height: 100%;
       align-items: center;
       justify-content: center;
-      padding: 5px 3px;
+      padding: 8px 3px;
     }
 
     .fallback span {
-      max-height: 94%;
+      max-height: 92%;
       overflow: hidden;
       writing-mode: vertical-rl;
-      color: white;
-      font-size: 9px;
-      font-weight: 700;
-      line-height: 1.3;
+      color: var(--ink);
+      font-size: 11px;
+      font-weight: 800;
     }
 
-    /* 판자 */
-
-    .wood {
-      position: relative;
-      height: 18px;
-      border-radius: 2px 2px 6px 6px;
-      background:
-        linear-gradient(
-          180deg,
-          #ba8c68,
-          #966b4d 60%,
-          #80583e
-        );
+    .shelf-line {
+      height: 8px;
+      border-radius: 2px;
+      background: var(--green);
       box-shadow:
-        0 8px 10px rgba(64,45,32,.17);
-    }
-
-    .wood::after {
-      position: absolute;
-      right: 4%;
-      bottom: -6px;
-      left: 4%;
-      height: 6px;
-      border-radius: 0 0 6px 6px;
-      background: #714c35;
-      content: "";
+        0 5px 8px rgba(21, 54, 40, .1);
     }
 
     .empty {
-      padding: 80px 10px 105px;
-      color: #9c948d;
+      padding: 100px 15px 115px;
+      color: var(--muted);
       text-align: center;
       font-size: 13px;
-      line-height: 1.8;
     }
 
-    /* 새 책 버튼 */
+    /* 새 책 */
 
-    .add {
+    .add-book {
       position: fixed;
-      left: 50%;
-      bottom: 22px;
-      z-index: 20;
-      width: calc(100% - 40px);
-      max-width: 470px;
-      padding: 16px;
-      transform: translateX(-50%);
+      right: max(24px, calc((100vw - 520px) / 2 + 24px));
+      bottom: 28px;
+      z-index: 30;
+      display: flex;
+      width: 112px;
+      height: 112px;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
       border: 0;
-      border-radius: 17px;
-      background: #817168;
+      border-radius: 50%;
+      background: var(--green);
       color: white;
-      font-weight: 800;
       box-shadow:
-        0 8px 20px rgba(66,49,39,.14);
+        0 10px 24px rgba(18,61,43,.2);
     }
 
-    /* 팝업 */
+    .add-book .plus {
+      font-size: 43px;
+      font-weight: 200;
+      line-height: .8;
+    }
+
+    .add-book .text {
+      margin-top: 10px;
+      font-size: 12px;
+      font-weight: 800;
+    }
+
+    /* 상세 */
 
     .overlay {
       position: fixed;
@@ -252,8 +280,7 @@
       display: none;
       align-items: flex-end;
       justify-content: center;
-      background: rgba(42,38,34,.4);
-      backdrop-filter: blur(4px);
+      background: rgba(15, 26, 20, .52);
     }
 
     .overlay.show {
@@ -263,135 +290,133 @@
     .modal {
       width: 100%;
       max-width: 520px;
-      max-height: 88vh;
+      max-height: 89vh;
       overflow-y: auto;
-      padding: 12px 22px 28px;
-      border-radius: 27px 27px 0 0;
-      background: #fbf9f5;
+      padding: 30px 25px 28px;
+      background: var(--cream);
+      border-top: 7px solid var(--green);
     }
 
-    .handle {
-      width: 40px;
-      height: 4px;
-      margin: 0 auto 23px;
-      border-radius: 5px;
-      background: #d6cfc9;
+    .detail-number {
+      margin-bottom: 19px;
+      color: var(--coral);
+      font-family: Georgia, serif;
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 1px;
     }
 
-    .modal-top {
+    .detail-top {
       display: flex;
-      gap: 18px;
+      gap: 19px;
+      align-items: flex-start;
     }
 
     .cover {
-      width: 105px;
-      height: 150px;
+      width: 106px;
+      height: 153px;
       flex-shrink: 0;
-      border-radius: 5px;
-      background: #e4ddd7;
+      border: 1px solid var(--line);
       object-fit: cover;
-      box-shadow:
-        0 6px 16px rgba(49,37,28,.13);
+      background: #e6e1d5;
     }
 
-    .info {
+    .detail-info {
       min-width: 0;
       flex: 1;
     }
 
-    .info h2 {
-      margin: 2px 0 8px;
-      font-size: 20px;
-      line-height: 1.4;
+    .detail-info h2 {
+      margin: 0 0 9px;
+      color: var(--green);
+      font-family:
+        Georgia,
+        "Noto Serif KR",
+        serif;
+      font-size: 26px;
+      line-height: 1.25;
     }
 
     .author {
-      color: #70675f;
       font-size: 13px;
       line-height: 1.5;
     }
 
     .publisher {
       margin-top: 4px;
-      color: #9c938c;
+      color: var(--muted);
       font-size: 12px;
     }
 
     .rating-label {
       display: block;
-      margin-top: 16px;
-      color: #a0978f;
+      margin-top: 17px;
+      color: var(--muted);
       font-size: 10px;
-      font-weight: 800;
-    }
-
-    .stars {
-      margin-top: 3px;
-      color: #d29a43;
-      font-size: 19px;
+      font-weight: 900;
       letter-spacing: 1px;
     }
 
-    .details {
-      margin-top: 23px;
-      padding: 14px 0;
-      border-top: 1px solid #e5ded8;
-      border-bottom: 1px solid #e5ded8;
+    .stars {
+      margin-top: 5px;
+      color: var(--green);
+      font-size: 21px;
+      letter-spacing: 2px;
     }
 
-    .row {
-      display: flex;
-      gap: 12px;
-      padding: 6px 0;
-      font-size: 12px;
-      line-height: 1.5;
+    .detail-table {
+      margin-top: 25px;
+      padding: 16px 0;
+      border-top: 1px solid var(--ink);
+      border-bottom: 1px solid var(--line);
     }
 
-    .label {
-      width: 65px;
-      flex-shrink: 0;
-      color: #a09790;
+    .detail-row {
+      display: grid;
+      grid-template-columns: 80px 1fr;
+      padding: 7px 0;
+      font-size: 13px;
     }
 
-    .value {
-      color: #5d554f;
+    .detail-label {
+      color: var(--muted);
+      font-weight: 700;
     }
 
-    .loading {
-      color: #a09790;
+    .detail-value {
+      font-weight: 600;
     }
 
-    .buttons {
+    .detail-actions {
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 8px;
       margin-top: 18px;
     }
 
-    .buttons button {
-      padding: 13px;
-      border: 0;
-      border-radius: 13px;
+    .detail-actions button {
+      height: 50px;
+      border: 1px solid var(--green);
       font-weight: 800;
     }
 
     .edit {
-      background: #817168;
+      background: var(--green);
       color: white;
     }
 
     .delete {
-      background: #eee5df;
-      color: #9c5e58;
+      background: transparent;
+      color: var(--green);
     }
 
     .close {
       width: 100%;
+      padding: 15px;
       margin-top: 7px;
-      padding: 12px;
       border: 0;
       background: transparent;
-      color: #99908a;
+      color: var(--muted);
     }
   </style>
 </head>
@@ -409,47 +434,63 @@
       ‹
     </a>
 
-    <div class="logo">
-      MONTHLY BOOKSHELF
+    <div class="top-title">
+      우리의 책장
+    </div>
+
+    <div class="grid-icon">
+      <i></i><i></i><i></i><i></i>
     </div>
 
   </div>
 
-  <header class="header">
 
-    <h1 id="owner"></h1>
+  <section class="month-wrap">
 
-    <p>
-      한 달 동안 읽은 책들
-    </p>
+    <div class="month-row">
 
-  </header>
+      <div
+        class="month-number"
+        id="monthNumber"
+      ></div>
 
-  <div class="month">
+      <div class="month-meta">
 
-    <button
-      id="prev"
-      type="button"
-    >
-      ‹
-    </button>
+        <strong id="yearLabel"></strong>
 
-    <div class="month-info">
+        <span id="count"></span>
 
-      <strong id="monthTitle"></strong>
+      </div>
 
-      <span id="count"></span>
+      <div class="coral-dot"></div>
 
     </div>
 
-    <button
-      id="next"
-      type="button"
-    >
-      ›
-    </button>
+    <div class="month-nav">
 
-  </div>
+      <button
+        id="prev"
+        type="button"
+      >
+        ‹
+      </button>
+
+      <div
+        class="month-name"
+        id="monthName"
+      ></div>
+
+      <button
+        id="next"
+        type="button"
+      >
+        ›
+      </button>
+
+    </div>
+
+  </section>
+
 
   <section class="shelf-area">
 
@@ -463,26 +504,25 @@
       id="empty"
       style="display:none;"
     >
-      이번 달에는 아직 책이 없어요.<br>
-      첫 책을 꽂아볼까요?
+      이번 달에는 아직 책이 없어요.
     </div>
 
-    <div class="wood"></div>
+    <div class="shelf-line"></div>
 
   </section>
 
 </main>
 
+
 <button
-  class="add"
+  class="add-book"
   id="addBook"
   type="button"
 >
-  ＋ 새 책 꽂기
+  <span class="plus">＋</span>
+  <span class="text">새 책 꽂기</span>
 </button>
 
-
-<!-- 책 상세 팝업 -->
 
 <div
   class="overlay"
@@ -491,20 +531,22 @@
 
   <div class="modal">
 
-    <div class="handle"></div>
+    <div class="detail-number">
+      READING RECORD
+    </div>
 
-    <div class="modal-top">
+    <div class="detail-top">
 
       <img
         class="cover"
         id="cover"
-        alt="책 표지"
         referrerpolicy="no-referrer"
+        alt="책 표지"
       >
 
-      <div class="info">
+      <div class="detail-info">
 
-        <h2 id="title"></h2>
+        <h2 id="detailTitle"></h2>
 
         <div
           class="author"
@@ -517,7 +559,7 @@
         ></div>
 
         <span class="rating-label">
-          내 별점
+          MY RATING
         </span>
 
         <div
@@ -529,31 +571,28 @@
 
     </div>
 
-    <div class="details">
 
-      <div class="row">
-        <span class="label">완독일</span>
-        <span class="value" id="finishDate"></span>
+    <div class="detail-table">
+
+      <div class="detail-row">
+        <span class="detail-label">완독일</span>
+        <span class="detail-value" id="finishDate"></span>
       </div>
 
-      <div class="row">
-        <span class="label">출간일</span>
-        <span class="value" id="publishDate"></span>
+      <div class="detail-row">
+        <span class="detail-label">출간일</span>
+        <span class="detail-value" id="publishDate"></span>
       </div>
 
-      <div class="row">
-        <span class="label">페이지</span>
-        <span class="value" id="pages"></span>
-      </div>
-
-      <div class="row">
-        <span class="label">판형</span>
-        <span class="value" id="size"></span>
+      <div class="detail-row">
+        <span class="detail-label">페이지</span>
+        <span class="detail-value" id="pages"></span>
       </div>
 
     </div>
 
-    <div class="buttons">
+
+    <div class="detail-actions">
 
       <button
         class="edit"
@@ -584,6 +623,7 @@
   </div>
 
 </div>
+
 
 <script>
 
@@ -619,13 +659,6 @@ localStorage.setItem(
 );
 
 
-document
-  .getElementById("owner")
-  .textContent =
-    user +
-    "의 책장";
-
-
 const today =
   new Date();
 
@@ -648,31 +681,34 @@ let selectedBook =
   null;
 
 
-/* =====================
-   새 책 페이지 이동
-===================== */
+const englishMonths = [
+  "",
+  "JAN",
+  "FEB",
+  "MAR",
+  "APR",
+  "MAY",
+  "JUN",
+  "JUL",
+  "AUG",
+  "SEP",
+  "OCT",
+  "NOV",
+  "DEC"
+];
+
 
 document
   .getElementById("addBook")
-  .addEventListener(
-    "click",
+  .onclick =
     function() {
 
-      const target =
+      window.location.href =
         "./write.html?user=" +
         encodeURIComponent(user);
 
+    };
 
-      window.location.href =
-        target;
-
-    }
-  );
-
-
-/* =====================
-   월 이동
-===================== */
 
 document
   .getElementById("prev")
@@ -715,25 +751,9 @@ document
 loadBooks();
 
 
-/* =====================
-   책 불러오기
-===================== */
-
 async function loadBooks() {
 
-  document
-    .getElementById("monthTitle")
-    .textContent =
-      year +
-      "년 " +
-      month +
-      "월";
-
-
-  document
-    .getElementById("count")
-    .textContent =
-      "불러오는 중…";
+  updateMonthUI();
 
 
   try {
@@ -799,9 +819,43 @@ async function loadBooks() {
 }
 
 
-/* =====================
-   책등
-===================== */
+function updateMonthUI() {
+
+  document
+    .getElementById("monthNumber")
+    .textContent =
+      String(month)
+        .padStart(
+          2,
+          "0"
+        );
+
+
+  document
+    .getElementById("yearLabel")
+    .textContent =
+      year +
+      " / " +
+      englishMonths[month];
+
+
+  document
+    .getElementById("monthName")
+    .textContent =
+      user +
+      " · " +
+      year +
+      "." +
+      String(month).padStart(2, "0");
+
+
+  document
+    .getElementById("count")
+    .textContent =
+      "불러오는 중…";
+
+}
+
 
 function renderBooks(books) {
 
@@ -864,35 +918,28 @@ function renderBooks(books) {
         );
 
 
-      /*
-       * 실제 책 길이 / 두께를
-       * 화면 크기에 반영
-       */
-
       const screenHeight =
         clamp(
-          realLength * 0.95,
-          165,
-          230
+          realLength * 1.06,
+          205,
+          285
         );
 
 
       const screenWidth =
         clamp(
-          realThickness * 1.45,
-          21,
-          56
+          realThickness * 1.55,
+          25,
+          60
         );
 
 
       button.style.height =
-        screenHeight +
-        "px";
+        screenHeight + "px";
 
 
       button.style.width =
-        screenWidth +
-        "px";
+        screenWidth + "px";
 
 
       if (book.spineUrl) {
@@ -901,10 +948,6 @@ function renderBooks(books) {
           document.createElement(
             "img"
           );
-
-
-        image.className =
-          "spine-image";
 
 
         image.referrerPolicy =
@@ -926,7 +969,7 @@ function renderBooks(books) {
               "";
 
 
-            createFallback(
+            fallback(
               button,
               book,
               index
@@ -942,7 +985,7 @@ function renderBooks(books) {
 
       } else {
 
-        createFallback(
+        fallback(
           button,
           book,
           index
@@ -954,7 +997,7 @@ function renderBooks(books) {
       button.onclick =
         function() {
 
-          openBook(
+          openDetail(
             book
           );
 
@@ -971,20 +1014,18 @@ function renderBooks(books) {
 }
 
 
-function createFallback(
+function fallback(
   button,
   book,
   index
 ) {
 
   const colors = [
-    "#927068",
-    "#71806e",
-    "#ad895e",
-    "#736760",
-    "#a37b6e",
-    "#6c7b86",
-    "#8e7a68"
+    "#b5574d",
+    "#ebe4d5",
+    "#123d2b",
+    "#f1ede3",
+    "#d9b247"
   ];
 
 
@@ -1015,6 +1056,17 @@ function createFallback(
     book.title;
 
 
+  if (
+    index % colors.length === 0 ||
+    index % colors.length === 2
+  ) {
+
+    span.style.color =
+      "#fffdf8";
+
+  }
+
+
   wrap.appendChild(
     span
   );
@@ -1027,11 +1079,7 @@ function createFallback(
 }
 
 
-/* =====================
-   상세 팝업
-===================== */
-
-async function openBook(book) {
+async function openDetail(book) {
 
   selectedBook =
     { ...book };
@@ -1051,25 +1099,14 @@ async function openBook(book) {
 
   /*
    * 예전에 저장한 책이라
-   * 상세 정보가 비어 있으면
-   * YES24에서 한 번 더 검색
+   * 출간일/페이지가 비어 있으면
+   * 검색 결과에서 보충
    */
 
-  const missing =
+  if (
     !selectedBook.publishDate ||
-    !selectedBook.pages ||
-    !selectedBook.bookWidth ||
-    !selectedBook.bookLength ||
-    !selectedBook.bookHeight;
-
-
-  if (missing) {
-
-    document
-      .getElementById("publishDate")
-      .textContent =
-        "불러오는 중…";
-
+    !selectedBook.pages
+  ) {
 
     try {
 
@@ -1148,14 +1185,9 @@ async function openBook(book) {
 
       }
 
-
     } catch (error) {
 
       console.error(error);
-
-      fillDetail(
-        selectedBook
-      );
 
     }
 
@@ -1167,7 +1199,7 @@ async function openBook(book) {
 function fillDetail(book) {
 
   document
-    .getElementById("title")
+    .getElementById("detailTitle")
     .textContent =
       book.title || "";
 
@@ -1250,47 +1282,11 @@ function fillDetail(book) {
     .getElementById("pages")
     .textContent =
       book.pages
-        ? book.pages +
-          "쪽"
-        : "-";
-
-
-  const w =
-    Number(
-      book.bookWidth || 0
-    );
-
-
-  const l =
-    Number(
-      book.bookLength || 0
-    );
-
-
-  const h =
-    Number(
-      book.bookHeight || 0
-    );
-
-
-  document
-    .getElementById("size")
-    .textContent =
-      w && l && h
-        ? w +
-          " × " +
-          l +
-          " × " +
-          h +
-          " mm"
+        ? book.pages + "쪽"
         : "-";
 
 }
 
-
-/* =====================
-   수정
-===================== */
 
 document
   .getElementById("edit")
@@ -1317,10 +1313,6 @@ document
     };
 
 
-/* =====================
-   삭제
-===================== */
-
 document
   .getElementById("delete")
   .onclick =
@@ -1331,16 +1323,16 @@ document
       }
 
 
-      const okay =
-        confirm(
+      if (
+        !confirm(
           "「" +
           selectedBook.title +
           "」을 삭제할까요?"
-        );
+        )
+      ) {
 
-
-      if (!okay) {
         return;
+
       }
 
 
@@ -1432,10 +1424,6 @@ function closeModal() {
 }
 
 
-/* =====================
-   기타
-===================== */
-
 function clamp(
   value,
   min,
@@ -1461,10 +1449,7 @@ function formatDate(value) {
 
 
   return String(value)
-    .replace(
-      /-/g,
-      "."
-    );
+    .replace(/-/g, ".");
 
 }
 

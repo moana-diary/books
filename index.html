@@ -1,0 +1,590 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>우리의 책장</title>
+
+<style>
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family:
+    -apple-system,
+    BlinkMacSystemFont,
+    "Pretendard",
+    "Apple SD Gothic Neo",
+    sans-serif;
+  background: #ebe6df;
+  color: #443d37;
+}
+
+button,
+input {
+  font: inherit;
+}
+
+.app {
+  width: 100%;
+  max-width: 500px;
+  min-height: 100vh;
+  margin: auto;
+  padding: 58px 22px 40px;
+  background:
+    linear-gradient(
+      180deg,
+      #fbf9f5,
+      #f2ede6
+    );
+}
+
+.small {
+  margin-bottom: 9px;
+  color: #a09489;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 2px;
+}
+
+h1 {
+  margin: 0;
+  font-size: 36px;
+  letter-spacing: -1.5px;
+}
+
+.intro {
+  margin: 12px 0 36px;
+  color: #92877e;
+  font-size: 13px;
+  line-height: 1.7;
+}
+
+.preview {
+  margin-bottom: 40px;
+}
+
+.preview-books {
+  display: flex;
+  height: 125px;
+  align-items: flex-end;
+  justify-content: center;
+  gap: 5px;
+}
+
+.preview-books i {
+  display: block;
+  border-radius: 3px 3px 1px 1px;
+}
+
+.preview-books i:nth-child(1) {
+  width: 25px;
+  height: 85px;
+  background: #987067;
+}
+
+.preview-books i:nth-child(2) {
+  width: 29px;
+  height: 105px;
+  background: #76816d;
+}
+
+.preview-books i:nth-child(3) {
+  width: 22px;
+  height: 95px;
+  background: #b18b61;
+}
+
+.preview-books i:nth-child(4) {
+  width: 31px;
+  height: 115px;
+  background: #746860;
+}
+
+.preview-books i:nth-child(5) {
+  width: 26px;
+  height: 91px;
+  background: #a47d70;
+}
+
+.board {
+  height: 15px;
+  border-radius: 2px 2px 5px 5px;
+  background:
+    linear-gradient(
+      #b88b68,
+      #95694b
+    );
+  box-shadow:
+    0 7px 8px
+    rgba(70,50,36,.15);
+}
+
+.card {
+  padding: 22px;
+  border: 1px solid #e6ded7;
+  border-radius: 24px;
+  background: #fffdfa;
+}
+
+.card h2 {
+  margin: 0;
+  font-size: 18px;
+}
+
+.description {
+  margin: 7px 0 17px;
+  color: #9b9189;
+  font-size: 12px;
+}
+
+.names {
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+}
+
+.name {
+  width: 100%;
+  padding: 15px 16px;
+  border: 1px solid #e6ded7;
+  border-radius: 15px;
+  background: white;
+  color: #514a44;
+  text-align: left;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.name::after {
+  float: right;
+  content: "›";
+  color: #b3aaa2;
+  font-size: 19px;
+}
+
+.add {
+  width: 100%;
+  margin-top: 11px;
+  padding: 14px;
+  border: 1px dashed #b8aa9f;
+  border-radius: 15px;
+  background: #f1ebe5;
+  color: #766b62;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.status {
+  padding: 18px;
+  color: #999088;
+  text-align: center;
+  font-size: 12px;
+  line-height: 1.7;
+}
+
+.overlay {
+  position: fixed;
+  inset: 0;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  background: rgba(42,38,34,.4);
+}
+
+.overlay.show {
+  display: flex;
+}
+
+.modal {
+  width: 100%;
+  max-width: 380px;
+  padding: 24px;
+  border-radius: 24px;
+  background: #fbf9f5;
+}
+
+.modal h3 {
+  margin: 0 0 16px;
+}
+
+.modal input {
+  width: 100%;
+  height: 50px;
+  padding: 0 13px;
+  border: 1px solid #ddd4cc;
+  border-radius: 14px;
+  outline: none;
+}
+
+.actions {
+  display: flex;
+  gap: 8px;
+  margin-top: 13px;
+}
+
+.actions button {
+  flex: 1;
+  padding: 13px;
+  border: 0;
+  border-radius: 13px;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.cancel {
+  background: #eee7e1;
+  color: #756c64;
+}
+
+.save {
+  background: #82736a;
+  color: white;
+}
+</style>
+</head>
+
+<body>
+
+<main class="app">
+
+  <div class="small">
+    MONTHLY BOOKSHELF
+  </div>
+
+  <h1>
+    우리의 책장
+  </h1>
+
+  <p class="intro">
+    한 달 동안 읽은 책을<br>
+    한 권씩 책장에 모아두어요.
+  </p>
+
+
+  <div class="preview">
+
+    <div class="preview-books">
+      <i></i>
+      <i></i>
+      <i></i>
+      <i></i>
+      <i></i>
+    </div>
+
+    <div class="board"></div>
+
+  </div>
+
+
+  <section class="card">
+
+    <h2>
+      누구의 책장을 볼까요?
+    </h2>
+
+    <p class="description">
+      이름을 선택해주세요.
+    </p>
+
+
+    <div
+      class="names"
+      id="names"
+    >
+      <div class="status">
+        불러오는 중…
+      </div>
+    </div>
+
+
+    <button
+      class="add"
+      id="addButton"
+      type="button"
+    >
+      ＋ 새 이름 추가
+    </button>
+
+  </section>
+
+</main>
+
+
+<div
+  class="overlay"
+  id="overlay"
+>
+
+  <div class="modal">
+
+    <h3>
+      이름 추가
+    </h3>
+
+    <input
+      id="newName"
+      placeholder="이름"
+      maxlength="20"
+    >
+
+    <div class="actions">
+
+      <button
+        class="cancel"
+        id="cancel"
+        type="button"
+      >
+        취소
+      </button>
+
+      <button
+        class="save"
+        id="save"
+        type="button"
+      >
+        추가
+      </button>
+
+    </div>
+
+  </div>
+
+</div>
+
+
+<script>
+
+const API_URL =
+  "https://script.google.com/macros/s/AKfycbw-cPd8n-ccEu1m2q7lam22zmIcsmR83jL5AAJHEaNrYvqsZ7NbryXt0jBDxIwiTOze/exec";
+
+
+const names =
+  document.getElementById("names");
+
+const overlay =
+  document.getElementById("overlay");
+
+
+loadUsers();
+
+
+async function loadUsers() {
+
+  try {
+
+    const response =
+      await fetch(
+        API_URL +
+        "?action=users&t=" +
+        Date.now()
+      );
+
+
+    const data =
+      JSON.parse(
+        await response.text()
+      );
+
+
+    if (!data.success) {
+      throw new Error(data.message);
+    }
+
+
+    renderUsers(
+      data.users || []
+    );
+
+
+  } catch (error) {
+
+    names.innerHTML = `
+      <div class="status">
+        이름을 불러오지 못했어요.<br>
+        Apps Script 연결을 확인해주세요.
+      </div>
+    `;
+
+  }
+
+}
+
+
+function renderUsers(users) {
+
+  names.innerHTML = "";
+
+
+  if (!users.length) {
+
+    names.innerHTML = `
+      <div class="status">
+        아직 등록된 이름이 없어요.
+      </div>
+    `;
+
+    return;
+
+  }
+
+
+  users.forEach(
+    function(name) {
+
+      const button =
+        document.createElement(
+          "button"
+        );
+
+
+      button.type = "button";
+      button.className = "name";
+
+      button.textContent =
+        name + "의 책장";
+
+
+      button.onclick =
+        function() {
+
+          localStorage.setItem(
+            "currentBookUser",
+            name
+          );
+
+
+          location.href =
+            "shelf.html?user=" +
+            encodeURIComponent(name);
+
+        };
+
+
+      names.appendChild(
+        button
+      );
+
+    }
+  );
+
+}
+
+
+document
+  .getElementById("addButton")
+  .onclick =
+    function() {
+
+      overlay.classList.add(
+        "show"
+      );
+
+      document
+        .getElementById("newName")
+        .focus();
+
+    };
+
+
+document
+  .getElementById("cancel")
+  .onclick =
+    function() {
+
+      overlay.classList.remove(
+        "show"
+      );
+
+    };
+
+
+document
+  .getElementById("save")
+  .onclick =
+    addUser;
+
+
+async function addUser() {
+
+  const input =
+    document.getElementById(
+      "newName"
+    );
+
+
+  const name =
+    input.value.trim();
+
+
+  if (!name) {
+
+    alert(
+      "이름을 입력해주세요."
+    );
+
+    return;
+
+  }
+
+
+  try {
+
+    const response =
+      await fetch(
+        API_URL,
+        {
+          method: "POST",
+
+          headers: {
+            "Content-Type":
+              "text/plain;charset=utf-8"
+          },
+
+          body:
+            JSON.stringify({
+              action: "addUser",
+              name: name
+            })
+        }
+      );
+
+
+    const data =
+      JSON.parse(
+        await response.text()
+      );
+
+
+    if (!data.success) {
+      throw new Error(data.message);
+    }
+
+
+    input.value = "";
+
+    overlay.classList.remove(
+      "show"
+    );
+
+    loadUsers();
+
+
+  } catch (error) {
+
+    alert(
+      "이름을 추가하지 못했어요."
+    );
+
+  }
+
+}
+
+</script>
+
+</body>
+</html>

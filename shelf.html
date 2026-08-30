@@ -15,7 +15,7 @@
     content="no-referrer"
   >
 
-  <title>나의 책장</title>
+  <title>우리의 책장</title>
 
 
   <style>
@@ -24,10 +24,12 @@
       --cream: #f7f3e9;
       --paper: #fffdf7;
       --green: #0e4b37;
+      --green-dark: #093d2c;
       --ink: #20241f;
       --muted: #77766e;
       --yellow: #e9b936;
       --coral: #d97968;
+      --beige: #d5ba84;
       --line: #ddd6c7;
     }
 
@@ -70,23 +72,23 @@
 
       margin: 0 auto;
 
-      padding-bottom: 65px;
+      padding-bottom: 70px;
 
-      overflow: hidden;
+      overflow-x: hidden;
 
       background:
         radial-gradient(
           circle at 50% 13%,
           rgba(255,255,255,.5),
-          transparent 30%
+          transparent 31%
         ),
         var(--cream);
     }
 
 
-    /* =========================
+    /* =========================================
        HEADER
-    ========================= */
+    ========================================= */
 
     .header {
       display: flex;
@@ -98,8 +100,13 @@
 
 
     .back {
+      display: flex;
+
       width: 45px;
       height: 45px;
+
+      align-items: center;
+      justify-content: center;
 
       padding: 0;
 
@@ -111,10 +118,49 @@
       color: var(--green);
 
       font-size: 28px;
+      line-height: 1;
     }
 
 
-    .header-label {
+    .header-right {
+      display: flex;
+
+      align-items: center;
+
+      gap: 7px;
+    }
+
+
+    .header-circle {
+      width: 15px;
+      height: 15px;
+
+      border-radius: 50%;
+
+      background: var(--yellow);
+    }
+
+
+    .header-square {
+      width: 15px;
+      height: 15px;
+
+      background: var(--green);
+    }
+
+
+    /* =========================================
+       TITLE
+    ========================================= */
+
+    .title-area {
+      padding: 48px 29px 0;
+    }
+
+
+    .eyebrow {
+      margin-bottom: 11px;
+
       color: var(--green);
 
       font-size: 11px;
@@ -124,21 +170,14 @@
     }
 
 
-    /* =========================
-       TITLE
-    ========================= */
-
-    .title-area {
-      padding: 48px 29px 0;
-    }
-
-
     h1 {
       margin: 0;
 
       color: var(--green);
 
-      font-size: 42px;
+      font-size: 43px;
+      font-weight: 950;
+
       line-height: 1;
 
       letter-spacing: -3px;
@@ -146,7 +185,7 @@
 
 
     .subtitle {
-      margin: 11px 0 0;
+      margin: 12px 0 0;
 
       color: var(--muted);
 
@@ -154,9 +193,9 @@
     }
 
 
-    /* =========================
+    /* =========================================
        MONTH
-    ========================= */
+    ========================================= */
 
     .month-area {
       display: grid;
@@ -168,13 +207,18 @@
 
       align-items: center;
 
-      margin: 47px 29px 0;
+      margin: 46px 29px 0;
     }
 
 
     .month-button {
+      display: flex;
+
       width: 45px;
       height: 45px;
+
+      align-items: center;
+      justify-content: center;
 
       padding: 0;
 
@@ -184,7 +228,7 @@
 
       color: var(--green);
 
-      font-size: 32px;
+      font-size: 33px;
     }
 
 
@@ -196,28 +240,34 @@
     .month {
       color: var(--green);
 
-      font-size: 28px;
-      font-weight: 950;
+      font-family:
+        Georgia,
+        "Times New Roman",
+        serif;
+
+      font-size: 31px;
+      font-weight: 700;
 
       letter-spacing: -1.5px;
     }
 
 
     .count {
-      margin-top: 6px;
+      margin-top: 7px;
 
       color: var(--muted);
 
       font-size: 13px;
+      font-weight: 600;
     }
 
 
-    /* =========================
-       BOOKSHELF
-    ========================= */
+    /* =========================================
+       BOOK SHELF
+    ========================================= */
 
     .shelf-area {
-      padding: 54px 20px 0;
+      padding: 57px 19px 0;
     }
 
 
@@ -229,23 +279,26 @@
     .shelf-unit {
       position: relative;
 
-      margin-bottom: 42px;
+      width: 100%;
+
+      margin-bottom: 46px;
     }
 
 
     /*
-      책 개수 제한 없음.
+      책의 개수 제한은 없다.
 
-      들어가는 만큼 한 줄에 배치하고
-      화면을 넘기 직전에 JS가
-      다음 선반으로 넘긴다.
+      JS가 책들의 실제 너비를 계산해서
+      현재 선반을 넘기 직전에
+      다음 선반을 만든다.
     */
 
     .books-row {
       display: flex;
 
       width: 100%;
-      min-height: 235px;
+
+      min-height: 245px;
 
       align-items: flex-end;
       justify-content: flex-start;
@@ -258,9 +311,9 @@
     }
 
 
-    /* =========================
+    /* =========================================
        BOOK
-    ========================= */
+    ========================================= */
 
     .book {
       position: relative;
@@ -273,17 +326,18 @@
 
       border: 0;
 
-      border-radius:
-        2px 2px 0 0;
+      border-radius: 2px 2px 0 0;
 
       background: #ded5c3;
 
       box-shadow:
-        inset -1px 0
-        rgba(0,0,0,.13);
+        inset -1px 0 rgba(0,0,0,.12),
+        1px 2px 3px rgba(32,36,31,.08);
+
+      transform-origin: bottom center;
 
       transition:
-        transform .15s ease;
+        transform .14s ease;
     }
 
 
@@ -307,9 +361,9 @@
     }
 
 
-    /* =========================
-       자동 생성 책등
-    ========================= */
+    /* =========================================
+       FALLBACK SPINE
+    ========================================= */
 
     .fallback-spine {
       position: relative;
@@ -322,16 +376,16 @@
       align-items: center;
       justify-content: center;
 
-      padding: 8px 3px;
+      padding: 10px 3px;
 
-      color: #f8f1df;
+      overflow: hidden;
     }
 
 
     .fallback-spine::before {
       position: absolute;
 
-      top: 9px;
+      top: 10px;
       left: 22%;
       right: 22%;
 
@@ -339,7 +393,7 @@
 
       background: currentColor;
 
-      opacity: .4;
+      opacity: .45;
 
       content: "";
     }
@@ -350,7 +404,7 @@
 
       left: 24%;
       right: 24%;
-      bottom: 10px;
+      bottom: 11px;
 
       height: 5px;
 
@@ -367,29 +421,29 @@
 
 
     .fallback-title {
-      max-height: 78%;
+      max-height: 75%;
 
       overflow: hidden;
 
       font-size: 10px;
-      font-weight: 800;
+      font-weight: 850;
 
-      line-height: 1.18;
+      line-height: 1.15;
 
       writing-mode: vertical-rl;
       text-orientation: mixed;
     }
 
 
-    /* =========================
+    /* =========================================
        SHELF BOARD
-    ========================= */
+    ========================================= */
 
     .shelf-board {
       position: relative;
 
       width: 100%;
-      height: 18px;
+      height: 17px;
 
       border-radius: 10px;
 
@@ -409,14 +463,14 @@
       border-radius:
         0 0 5px 5px;
 
-      background: #d5ba84;
+      background: var(--beige);
 
       content: "";
     }
 
 
     .shelf-number {
-      margin-top: 13px;
+      margin-top: 14px;
 
       color: #aaa295;
 
@@ -429,16 +483,28 @@
     }
 
 
-    /* =========================
+    /* =========================================
        EMPTY
-    ========================= */
+    ========================================= */
 
     .empty {
-      padding: 70px 20px;
+      padding: 72px 20px 85px;
 
       color: var(--muted);
 
       text-align: center;
+    }
+
+
+    .empty-mark {
+      width: 29px;
+      height: 29px;
+
+      margin: 0 auto 17px;
+
+      border-radius: 50%;
+
+      background: var(--yellow);
     }
 
 
@@ -457,12 +523,27 @@
     }
 
 
-    /* =========================
-       ADD
-    ========================= */
+    /* =========================================
+       LOADING
+    ========================================= */
+
+    .loading {
+      padding: 85px 20px;
+
+      color: var(--muted);
+
+      text-align: center;
+
+      font-size: 13px;
+    }
+
+
+    /* =========================================
+       ADD BOOK
+    ========================================= */
 
     .add-area {
-      padding: 2px 29px 0;
+      padding: 0 29px;
     }
 
 
@@ -478,27 +559,14 @@
 
       font-size: 15px;
       font-weight: 900;
+
+      letter-spacing: -.3px;
     }
 
 
-    /* =========================
-       LOADING
-    ========================= */
-
-    .loading {
-      padding: 80px 20px;
-
-      color: var(--muted);
-
-      text-align: center;
-
-      font-size: 13px;
-    }
-
-
-    /* =========================
-       DETAIL
-    ========================= */
+    /* =========================================
+       DETAIL OVERLAY
+    ========================================= */
 
     .overlay {
       position: fixed;
@@ -513,7 +581,7 @@
       justify-content: center;
 
       background:
-        rgba(10,31,24,.48);
+        rgba(8,36,26,.52);
     }
 
 
@@ -526,9 +594,9 @@
       width: 100%;
       max-width: 520px;
 
-      max-height: 88vh;
+      max-height: 89vh;
 
-      padding: 18px 25px 31px;
+      padding: 17px 25px 31px;
 
       overflow-y: auto;
 
@@ -540,14 +608,14 @@
 
 
     .handle {
-      width: 45px;
+      width: 44px;
       height: 5px;
 
-      margin: 0 auto 27px;
+      margin: 0 auto 28px;
 
-      border-radius: 10px;
+      border-radius: 20px;
 
-      background: #d4cfc5;
+      background: #d5d0c6;
     }
 
 
@@ -555,45 +623,51 @@
       display: grid;
 
       grid-template-columns:
-        105px 1fr;
+        106px minmax(0, 1fr);
 
       gap: 18px;
     }
 
 
     .detail-cover {
-      width: 105px;
-      height: 151px;
+      width: 106px;
+      height: 153px;
 
       object-fit: cover;
 
-      background: #e9e4da;
+      background: #e8e3d8;
     }
 
 
     .detail-title {
-      margin-top: 5px;
+      margin-top: 4px;
+
+      color: var(--green);
 
       font-size: 23px;
       font-weight: 950;
 
-      line-height: 1.25;
+      line-height: 1.28;
 
       letter-spacing: -1px;
+
+      word-break: keep-all;
     }
 
 
     .detail-author {
-      margin-top: 12px;
+      margin-top: 11px;
 
-      color: #555950;
+      color: #50544d;
 
       font-size: 14px;
+
+      line-height: 1.5;
     }
 
 
     .detail-publisher {
-      margin-top: 5px;
+      margin-top: 4px;
 
       color: var(--muted);
 
@@ -602,30 +676,36 @@
 
 
     .rating-label {
-      margin-top: 22px;
+      margin-top: 20px;
 
-      color: var(--muted);
+      color: #9a958c;
 
-      font-size: 11px;
-      font-weight: 800;
+      font-size: 10px;
+      font-weight: 900;
+
+      letter-spacing: 1.3px;
     }
 
 
     .rating {
-      margin-top: 4px;
+      margin-top: 5px;
 
       color: var(--yellow);
 
-      font-size: 27px;
+      font-size: 25px;
 
       letter-spacing: 1px;
     }
 
 
+    /* =========================================
+       DETAIL INFO
+    ========================================= */
+
     .info {
       margin-top: 27px;
 
-      padding: 21px 0;
+      padding: 20px 0;
 
       border-top:
         1px solid var(--line);
@@ -662,13 +742,21 @@
 
 
     .info-value {
-      color: #565951;
+      color: #50544d;
+
+      font-weight: 600;
     }
 
 
-    /* =========================
+    /*
+      가로mm / 세로mm / 두께mm는
+      화면에 표시하지 않는다.
+    */
+
+
+    /* =========================================
        ACTIONS
-    ========================= */
+    ========================================= */
 
     .actions {
       display: grid;
@@ -724,14 +812,26 @@
     @media (max-width: 370px) {
 
       .shelf-area {
-        padding-left: 14px;
-        padding-right: 14px;
+        padding-left: 13px;
+        padding-right: 13px;
       }
 
 
       .books-row {
         padding-left: 7px;
         padding-right: 7px;
+      }
+
+
+      .title-area {
+        padding-left: 24px;
+        padding-right: 24px;
+      }
+
+
+      .month-area {
+        margin-left: 22px;
+        margin-right: 22px;
       }
 
     }
@@ -747,7 +847,9 @@
 <main class="app">
 
 
-  <!-- 상단 -->
+  <!-- =========================
+       HEADER
+  ========================== -->
 
   <header class="header">
 
@@ -755,21 +857,33 @@
       class="back"
       id="backButton"
       type="button"
+      aria-label="메인으로 돌아가기"
     >
       ‹
     </button>
 
 
-    <div class="header-label">
-      MONTHLY BOOKSHELF
+    <div class="header-right">
+
+      <span class="header-circle"></span>
+
+      <span class="header-square"></span>
+
     </div>
 
   </header>
 
 
-  <!-- 제목 -->
+
+  <!-- =========================
+       TITLE
+  ========================== -->
 
   <section class="title-area">
+
+    <div class="eyebrow">
+      MONTHLY READING ARCHIVE
+    </div>
 
     <h1 id="shelfTitle">
       나의 책장
@@ -782,7 +896,10 @@
   </section>
 
 
-  <!-- 월 이동 -->
+
+  <!-- =========================
+       MONTH
+  ========================== -->
 
   <section class="month-area">
 
@@ -790,6 +907,7 @@
       class="month-button"
       id="prevMonth"
       type="button"
+      aria-label="이전 달"
     >
       ‹
     </button>
@@ -805,7 +923,9 @@
       <div
         class="count"
         id="bookCount"
-      ></div>
+      >
+        불러오는 중…
+      </div>
 
     </div>
 
@@ -814,6 +934,7 @@
       class="month-button"
       id="nextMonth"
       type="button"
+      aria-label="다음 달"
     >
       ›
     </button>
@@ -821,7 +942,10 @@
   </section>
 
 
-  <!-- 책장 -->
+
+  <!-- =========================
+       SHELVES
+  ========================== -->
 
   <section class="shelf-area">
 
@@ -839,7 +963,10 @@
   </section>
 
 
-  <!-- 새 책 -->
+
+  <!-- =========================
+       ADD BOOK
+  ========================== -->
 
   <section class="add-area">
 
@@ -859,8 +986,8 @@
 
 
 <!-- =========================
-     책 상세 팝업
-========================= -->
+     DETAIL
+========================== -->
 
 <div
   class="overlay"
@@ -903,7 +1030,7 @@
 
 
         <div class="rating-label">
-          내 별점
+          MY RATING
         </div>
 
 
@@ -915,6 +1042,7 @@
       </div>
 
     </div>
+
 
 
     <div class="info">
@@ -942,9 +1070,7 @@
         <div
           class="info-value"
           id="detailPublishDate"
-        >
-          -
-        </div>
+        ></div>
 
       </div>
 
@@ -958,13 +1084,12 @@
         <div
           class="info-value"
           id="detailPages"
-        >
-          -
-        </div>
+        ></div>
 
       </div>
 
     </div>
+
 
 
     <div class="actions">
@@ -1006,13 +1131,18 @@
 <script>
 
 
-/* =========================
-   기본 설정
-========================= */
+/* =========================================================
+   API
+========================================================= */
 
 const API_URL =
   "https://script.google.com/macros/s/AKfycbw-cPd8n-ccEu1m2q7lam22zmIcsmR83jL5AAJHEaNrYvqsZ7NbryXt0jBDxIwiTOze/exec";
 
+
+
+/* =========================================================
+   USER
+========================================================= */
 
 const params =
   new URLSearchParams(
@@ -1043,9 +1173,9 @@ localStorage.setItem(
 
 
 
-/* =========================
-   날짜
-========================= */
+/* =========================================================
+   MONTH
+========================================================= */
 
 const today =
   new Date();
@@ -1082,14 +1212,13 @@ document
   user + "의 책장";
 
 
-
 loadBooks();
 
 
 
-/* =========================
-   책 목록 불러오기
-========================= */
+/* =========================================================
+   BOOKS LOAD
+========================================================= */
 
 async function loadBooks() {
 
@@ -1103,10 +1232,20 @@ async function loadBooks() {
 
 
   shelfList.innerHTML = `
+
     <div class="loading">
       책장을 불러오는 중…
     </div>
+
   `;
+
+
+  document
+    .getElementById(
+      "bookCount"
+    )
+    .textContent =
+    "불러오는 중…";
 
 
   try {
@@ -1126,34 +1265,28 @@ async function loadBooks() {
       );
 
 
+    const text =
+      await response.text();
+
+
     const data =
-      JSON.parse(
-        await response.text()
-      );
+      JSON.parse(text);
 
 
     if (!data.success) {
 
       throw new Error(
         data.message ||
-        "불러오기 실패"
+        "책 목록을 불러오지 못했습니다."
       );
 
     }
 
 
     currentBooks =
-      data.books || [];
-
-
-    /*
-      기존에 저장해서 두께 정보가 없는 책은
-      YES24 상세정보를 다시 확인한다.
-    */
-
-    await fillMissingThickness(
-      currentBooks
-    );
+      Array.isArray(data.books)
+        ? data.books
+        : [];
 
 
     document
@@ -1170,12 +1303,16 @@ async function loadBooks() {
 
   } catch (error) {
 
-    console.error(error);
+    console.error(
+      error
+    );
 
 
     shelfList.innerHTML = `
 
       <div class="empty">
+
+        <div class="empty-mark"></div>
 
         <div class="empty-title">
           책장을 불러오지 못했어요.
@@ -1189,105 +1326,13 @@ async function loadBooks() {
 
     `;
 
-  }
 
-}
-
-
-
-/* =========================
-   기존 책 두께 보완
-========================= */
-
-async function fillMissingThickness(
-  books
-) {
-
-  const targets =
-    books.filter(
-      function(book) {
-
-        return (
-          !Number(
-            book.bookThickness
-          ) &&
-          book.itemId
-        );
-
-      }
-    );
-
-
-  for (
-    const book of targets
-  ) {
-
-    try {
-
-      const response =
-        await fetch(
-          API_URL +
-          "?action=detail" +
-          "&itemId=" +
-          encodeURIComponent(
-            book.itemId
-          ) +
-          "&t=" +
-          Date.now()
-        );
-
-
-      const data =
-        JSON.parse(
-          await response.text()
-        );
-
-
-      if (
-        data.success &&
-        data.book
-      ) {
-
-        /*
-          YES24의 bookHeight 값이
-          책의 실제 두께.
-        */
-
-        book.bookThickness =
-          Number(
-            data.book.bookHeight ||
-            data.book.bookThickness ||
-            0
-          );
-
-
-        /*
-          기존 데이터에 책등 URL이 없으면
-          자동 책등 주소도 넣는다.
-        */
-
-        if (!book.spineUrl) {
-
-          book.spineUrl =
-            data.book.spineUrl ||
-            makeSpineUrl(
-              book.itemId
-            );
-
-        }
-
-      }
-
-
-    } catch (error) {
-
-      console.error(
-        "두께 정보 확인 실패:",
-        book.title,
-        error
-      );
-
-    }
+    document
+      .getElementById(
+        "bookCount"
+      )
+      .textContent =
+      "연결 오류";
 
   }
 
@@ -1295,15 +1340,15 @@ async function fillMissingThickness(
 
 
 
-/* ======================================
-   핵심
+/* =========================================================
+   SHELF PACKING
 
-   책 개수 제한 없음.
-
-   실제 두께를 순서대로 더하다가
-   모바일 선반 폭을 넘어가려고 하면
-   그 책부터 다음 선반으로 이동.
-====================================== */
+   ★ 권수 제한 없음
+   ★ 확대/축소 없음
+   ★ 가로 스크롤 없음
+   ★ 다음 책이 가로폭을 넘는 순간
+      그 책부터 새 선반으로 이동
+========================================================= */
 
 function packBooksIntoShelves(
   books,
@@ -1318,17 +1363,13 @@ function packBooksIntoShelves(
   let usedWidth = 0;
 
 
-  /*
-    책 사이 실제 간격
-  */
-
   const gap = 2;
 
 
   books.forEach(
     function(book) {
 
-      const bookWidth =
+      const width =
         getBookWidth(
           book
         );
@@ -1340,23 +1381,20 @@ function packBooksIntoShelves(
           : 0;
 
 
-      const nextTotal =
+      const requiredWidth =
         usedWidth +
         gapBefore +
-        bookWidth;
+        width;
 
 
       /*
-        다음 책을 현재 선반에 넣으면
-        화면 밖으로 넘어가는 경우.
-
-        지금까지 책은 현재 선반에 두고
-        해당 책부터 새 선반으로 이동한다.
+        현재 선반에 책이 하나 이상 있고
+        새 책을 넣으면 폭을 넘어가는 경우.
       */
 
       if (
         currentShelf.length > 0 &&
-        nextTotal >
+        requiredWidth >
         availableWidth
       ) {
 
@@ -1372,10 +1410,6 @@ function packBooksIntoShelves(
       }
 
 
-      /*
-        새 선반의 첫 책이면 gap 없음.
-      */
-
       const actualGap =
         currentShelf.length > 0
           ? gap
@@ -1389,15 +1423,11 @@ function packBooksIntoShelves(
 
       usedWidth +=
         actualGap +
-        bookWidth;
+        width;
 
     }
   );
 
-
-  /*
-    마지막 선반
-  */
 
   if (
     currentShelf.length > 0
@@ -1416,9 +1446,9 @@ function packBooksIntoShelves(
 
 
 
-/* =========================
-   책장 그리기
-========================= */
+/* =========================================================
+   RENDER SHELVES
+========================================================= */
 
 function renderShelves() {
 
@@ -1428,14 +1458,19 @@ function renderShelves() {
     );
 
 
-  shelfList.innerHTML = "";
+  shelfList.innerHTML =
+    "";
 
 
-  if (!currentBooks.length) {
+  if (
+    !currentBooks.length
+  ) {
 
     shelfList.innerHTML = `
 
       <div class="empty">
+
+        <div class="empty-mark"></div>
 
         <div class="empty-title">
           아직 책이 없어요.
@@ -1455,9 +1490,11 @@ function renderShelves() {
 
 
   /*
-    shelfList 전체 폭에서
-    books-row의 좌우 padding
-    10px씩 제외.
+    books-row 좌우 padding이
+    각각 10px.
+
+    따라서 실제 책들이 쓸 수 있는
+    폭은 전체 - 20px.
   */
 
   const availableWidth =
@@ -1523,17 +1560,17 @@ function renderShelves() {
         "shelf-board";
 
 
-      const number =
+      const shelfNumber =
         document.createElement(
           "div"
         );
 
 
-      number.className =
+      shelfNumber.className =
         "shelf-number";
 
 
-      number.textContent =
+      shelfNumber.textContent =
         String(
           shelfIndex + 1
         )
@@ -1554,7 +1591,7 @@ function renderShelves() {
 
 
       unit.appendChild(
-        number
+        shelfNumber
       );
 
 
@@ -1569,9 +1606,11 @@ function renderShelves() {
 
 
 
-/* =========================
-   실제 두께 → 책등 너비
-========================= */
+/* =========================================================
+   실제 책 두께 → 책등 너비
+
+   Q열 두께mm
+========================================================= */
 
 function getBookWidth(
   book
@@ -1579,42 +1618,40 @@ function getBookWidth(
 
   const thickness =
     Number(
-      book.bookThickness ||
       book.bookHeight ||
+      book.bookThickness ||
       0
     );
 
 
   if (
+    Number.isFinite(thickness) &&
     thickness > 0
   ) {
 
     /*
-      실제 mm 비율을 반영.
+      mm를 화면 px로 변환.
 
-      예:
-      10mm → 약 15px
-      20mm → 약 30px
-      30mm → 약 45px
+      10mm → 15px
+      20mm → 30px
+      30mm → 45px
 
-      선반을 채운다고 억지로
-      확대하지 않는다.
+      상대적인 실제 두께 차이는 유지.
     */
 
     return clamp(
       Math.round(
         thickness * 1.5
       ),
-      14,
-      65
+      13,
+      68
     );
 
   }
 
 
   /*
-    YES24에서도 두께를
-    얻지 못한 책의 기본값.
+    YES24 자체에 두께값이 없는 책.
   */
 
   return 27;
@@ -1623,9 +1660,56 @@ function getBookWidth(
 
 
 
-/* =========================
-   책 만들기
-========================= */
+/* =========================================================
+   실제 책 세로 길이 → 화면 책 높이
+
+   P열 세로mm
+
+   판형 숫자는 사용자에게 보여주지 않고
+   책장의 물리적인 비율에만 사용.
+========================================================= */
+
+function getBookHeight(
+  book
+) {
+
+  const length =
+    Number(
+      book.bookLength ||
+      0
+    );
+
+
+  if (
+    Number.isFinite(length) &&
+    length > 0
+  ) {
+
+    return clamp(
+      Math.round(
+        length * 1.03
+      ),
+      170,
+      236
+    );
+
+  }
+
+
+  /*
+    세로 길이를 얻지 못한 경우
+    고정된 자연스러운 기본 높이.
+  */
+
+  return 202;
+
+}
+
+
+
+/* =========================================================
+   CREATE BOOK
+========================================================= */
 
 function createBook(
   book
@@ -1645,10 +1729,6 @@ function createBook(
     "book";
 
 
-  /*
-    실제 두께 사용
-  */
-
   button.style.width =
     getBookWidth(
       book
@@ -1657,36 +1737,24 @@ function createBook(
 
 
   button.style.height =
-    getVisualHeight(
+    getBookHeight(
       book
     ) +
     "px";
 
 
-  /*
-    실제 책등 이미지
-  */
-
-  const image =
-    document.createElement(
-      "img"
-    );
-
-
-  image.referrerPolicy =
-    "no-referrer";
-
-
-  image.decoding =
-    "async";
+  button.setAttribute(
+    "aria-label",
+    book.title ||
+    "책 상세 보기"
+  );
 
 
   /*
-    1순위
-    시트에 저장된 책등 URL
+    저장되어 있는 책등 URL 우선.
 
-    2순위
-    YES24 상품번호로 자동 생성한 URL
+    없으면 YES24 상품번호를 이용해
+    /side 주소 자동 생성.
   */
 
   const spineUrl =
@@ -1696,136 +1764,14 @@ function createBook(
     );
 
 
-  if (spineUrl) {
+  if (
+    spineUrl
+  ) {
 
-    image.src =
-      spineUrl;
-
-
-    image.alt =
-      (book.title || "") +
-      " 책등";
-
-
-    /*
-      URL은 정상인데 YES24에서
-      '이미지 준비중' 등의
-      대체 이미지를 내려주는 경우.
-
-      실제 책등과 너무 다른 비율이면
-      가상 책등으로 변경한다.
-    */
-
-    image.addEventListener(
-      "load",
-      function() {
-
-        const naturalWidth =
-          image.naturalWidth;
-
-
-        const naturalHeight =
-          image.naturalHeight;
-
-
-        if (
-          !naturalWidth ||
-          !naturalHeight
-        ) {
-
-          return;
-
-        }
-
-
-        const ratio =
-          naturalWidth /
-          naturalHeight;
-
-
-        /*
-          책등은 일반적으로 매우 길쭉한
-          세로 이미지.
-
-          정사각형이나 표지처럼 넓은 이미지는
-          실제 책등이 아닐 가능성이 높다.
-        */
-
-        if (
-          ratio > 0.58
-        ) {
-
-          showFallbackSpine(
-            button,
-            book
-          );
-
-        }
-
-      }
-    );
-
-
-    /*
-      이미지 자체가 없는 경우
-    */
-
-    image.addEventListener(
-      "error",
-      function() {
-
-        const automaticUrl =
-          makeSpineUrl(
-            book.itemId
-          );
-
-
-        /*
-          기존 저장 URL이 실패했고
-          자동 /side URL과 다르면
-          /side를 한 번 더 시도.
-        */
-
-        if (
-          automaticUrl &&
-          image.dataset.retry !== "1" &&
-          normalizeUrl(
-            image.src
-          ) !==
-          normalizeUrl(
-            automaticUrl
-          )
-        ) {
-
-          image.dataset.retry =
-            "1";
-
-
-          image.src =
-            automaticUrl;
-
-
-          return;
-
-        }
-
-
-        /*
-          그것도 실패하면
-          자동 디자인 책등.
-        */
-
-        showFallbackSpine(
-          button,
-          book
-        );
-
-      }
-    );
-
-
-    button.appendChild(
-      image
+    attachSpineImage(
+      button,
+      book,
+      spineUrl
     );
 
 
@@ -1857,15 +1803,189 @@ function createBook(
 
 
 
-/* =========================
-   YES24 책등 자동 URL
-========================= */
+/* =========================================================
+   SPINE IMAGE
+========================================================= */
+
+function attachSpineImage(
+  button,
+  book,
+  url
+) {
+
+  const image =
+    document.createElement(
+      "img"
+    );
+
+
+  image.referrerPolicy =
+    "no-referrer";
+
+
+  image.decoding =
+    "async";
+
+
+  image.src =
+    url;
+
+
+  image.alt =
+    (
+      book.title ||
+      ""
+    ) +
+    " 책등";
+
+
+  /*
+    YES24는 실제 책등이 없는 상품도
+    요청 자체는 성공하면서
+    '이미지 준비중' 같은 일반 대체 이미지를
+    반환하는 경우가 있다.
+
+    브라우저 입장에서는 오류가 아니므로
+    onload에서 이미지 원본 비율도 확인한다.
+  */
+
+  image.addEventListener(
+    "load",
+    function() {
+
+      const naturalWidth =
+        Number(
+          image.naturalWidth
+        );
+
+
+      const naturalHeight =
+        Number(
+          image.naturalHeight
+        );
+
+
+      if (
+        !naturalWidth ||
+        !naturalHeight
+      ) {
+
+        return;
+
+      }
+
+
+      const ratio =
+        naturalWidth /
+        naturalHeight;
+
+
+      /*
+        정상적인 책등 이미지는
+        매우 길쭉한 세로형이다.
+
+        표지형/정사각형에 가까운
+        대체 이미지가 내려오면
+        자동 디자인 책등으로 교체.
+
+        완벽한 이미지 판별은 아니지만
+        '이미지 준비중' 화면이
+        그대로 책장에 꽂히는 것을
+        대부분 막을 수 있다.
+      */
+
+      if (
+        ratio > 0.62
+      ) {
+
+        showFallbackSpine(
+          button,
+          book
+        );
+
+      }
+
+    }
+  );
+
+
+  /*
+    URL 자체가 실패한 경우.
+  */
+
+  image.addEventListener(
+    "error",
+    function() {
+
+      const automaticUrl =
+        makeSpineUrl(
+          book.itemId
+        );
+
+
+      /*
+        저장되어 있던 URL이 실패했는데
+        YES24 공식 /side 주소와 다르면
+        공식 주소를 한 번 더 시도.
+      */
+
+      if (
+        automaticUrl &&
+        image.dataset.retry !== "1" &&
+        normalizeUrl(
+          image.src
+        ) !==
+        normalizeUrl(
+          automaticUrl
+        )
+      ) {
+
+        image.dataset.retry =
+          "1";
+
+
+        image.src =
+          automaticUrl;
+
+
+        return;
+
+      }
+
+
+      /*
+        그것도 안 되면
+        가상 책등.
+      */
+
+      showFallbackSpine(
+        button,
+        book
+      );
+
+    }
+  );
+
+
+  button.appendChild(
+    image
+  );
+
+}
+
+
+
+/* =========================================================
+   YES24 SIDE URL
+========================================================= */
 
 function makeSpineUrl(
   itemId
 ) {
 
-  if (!itemId) {
+  if (
+    !itemId
+  ) {
 
     return "";
 
@@ -1884,24 +2004,20 @@ function makeSpineUrl(
 
 
 
-/* =========================
-   실제 책등이 없는 경우
-========================= */
+/* =========================================================
+   FALLBACK SPINE
+========================================================= */
 
 function showFallbackSpine(
   button,
   book
 ) {
 
-  button.innerHTML = "";
+  button.innerHTML =
+    "";
 
 
-  /*
-    현재 웹 색상과 어울리는
-    자동 책등 팔레트.
-  */
-
-  const colors = [
+  const palettes = [
 
     {
       background:
@@ -1949,22 +2065,36 @@ function showFallbackSpine(
 
       text:
         "#0e4b37"
+    },
+
+    {
+      background:
+        "#9f695e",
+
+      text:
+        "#fff9ed"
+    },
+
+    {
+      background:
+        "#d6c29d",
+
+      text:
+        "#183e31"
     }
 
   ];
 
 
-  const colorIndex =
+  const index =
     getBookColorIndex(
       book,
-      colors.length
+      palettes.length
     );
 
 
-  const color =
-    colors[
-      colorIndex
-    ];
+  const palette =
+    palettes[index];
 
 
   const fallback =
@@ -1978,11 +2108,11 @@ function showFallbackSpine(
 
 
   fallback.style.background =
-    color.background;
+    palette.background;
 
 
   fallback.style.color =
-    color.text;
+    palette.text;
 
 
   const title =
@@ -1994,6 +2124,12 @@ function showFallbackSpine(
   title.className =
     "fallback-title";
 
+
+  /*
+    책등이 너무 얇으면 긴 제목이
+    알아보기 어려우므로
+    제목만 넣는다.
+  */
 
   title.textContent =
     book.title ||
@@ -2013,13 +2149,13 @@ function showFallbackSpine(
 
 
 
-/* =========================
-   자동 책등 색상 고정
-========================= */
+/* =========================================================
+   같은 책 = 항상 같은 fallback 색
+========================================================= */
 
 function getBookColorIndex(
   book,
-  length
+  paletteLength
 ) {
 
   const text =
@@ -2030,7 +2166,8 @@ function getBookColorIndex(
     );
 
 
-  let hash = 0;
+  let hash =
+    0;
 
 
   for (
@@ -2050,68 +2187,16 @@ function getBookColorIndex(
 
   return (
     hash %
-    length
+    paletteLength
   );
 
 }
 
 
 
-/* =========================
-   책 높이
-========================= */
-
-function getVisualHeight(
-  book
-) {
-
-  /*
-    현재는 화면에 판형 정보를
-    표시하지 않는 방향이므로
-    높이는 자연스럽게만 차이를 둔다.
-
-    랜덤은 사용하지 않아
-    새로고침해도 같은 책은
-    항상 같은 높이.
-  */
-
-  const title =
-    String(
-      book.title ||
-      ""
-    );
-
-
-  let value = 0;
-
-
-  for (
-    let i = 0;
-    i < title.length;
-    i++
-  ) {
-
-    value +=
-      title.charCodeAt(i);
-
-  }
-
-
-  return (
-    188 +
-    (
-      value %
-      28
-    )
-  );
-
-}
-
-
-
-/* =========================
-   월 표시
-========================= */
+/* =========================================================
+   MONTH UI
+========================================================= */
 
 function updateMonth() {
 
@@ -2121,9 +2206,12 @@ function updateMonth() {
     )
     .textContent =
     year +
-    "년 " +
-    month +
-    "월";
+    " · " +
+    String(month)
+      .padStart(
+        2,
+        "0"
+      );
 
 }
 
@@ -2146,11 +2234,16 @@ document
         month < 1
       ) {
 
-        month = 12;
+        month =
+          12;
+
 
         year--;
 
       }
+
+
+      updateAddress();
 
 
       loadBooks();
@@ -2177,11 +2270,16 @@ document
         month > 12
       ) {
 
-        month = 1;
+        month =
+          1;
+
 
         year++;
 
       }
+
+
+      updateAddress();
 
 
       loadBooks();
@@ -2191,9 +2289,43 @@ document
 
 
 
-/* =========================
-   모바일 화면 폭 변경
-========================= */
+/*
+  새로고침해도 현재 보고 있던
+  년/월이 유지되게 주소에 기록.
+*/
+
+function updateAddress() {
+
+  const next =
+    "./shelf.html" +
+    "?user=" +
+    encodeURIComponent(
+      user
+    ) +
+    "&year=" +
+    year +
+    "&month=" +
+    month;
+
+
+  window.history.replaceState(
+    null,
+    "",
+    next
+  );
+
+}
+
+
+
+/* =========================================================
+   RESIZE
+
+   아이폰 / 안드로이드 /
+   브라우저 폭이 바뀌면
+   어느 책부터 다음 선반으로 갈지
+   다시 계산.
+========================================================= */
 
 window.addEventListener(
   "resize",
@@ -2208,12 +2340,13 @@ window.addEventListener(
       setTimeout(
         function() {
 
-          /*
-            화면 폭이 바뀌면
-            선반별 책 배치를 다시 계산.
-          */
+          if (
+            currentBooks.length
+          ) {
 
-          renderShelves();
+            renderShelves();
+
+          }
 
         },
         150
@@ -2224,11 +2357,11 @@ window.addEventListener(
 
 
 
-/* =========================
-   상세 팝업
-========================= */
+/* =========================================================
+   DETAIL
+========================================================= */
 
-async function openDetail(
+function openDetail(
   book
 ) {
 
@@ -2300,16 +2433,6 @@ async function openDetail(
 
   document
     .getElementById(
-      "detailFinishDate"
-    )
-    .textContent =
-    formatDate(
-      book.finishDate
-    );
-
-
-  document
-    .getElementById(
       "detailRating"
     )
     .textContent =
@@ -2323,14 +2446,23 @@ async function openDetail(
 
   document
     .getElementById(
+      "detailFinishDate"
+    )
+    .textContent =
+    formatDate(
+      book.finishDate
+    );
+
+
+  document
+    .getElementById(
       "detailPublishDate"
     )
     .textContent =
-    book.publishDate
-      ? formatPublishDate(
-          book.publishDate
-        )
-      : "-";
+    formatPublishDate(
+      book.publishDate
+    ) ||
+    "-";
 
 
   document
@@ -2338,9 +2470,14 @@ async function openDetail(
       "detailPages"
     )
     .textContent =
-    book.pages
-      ? book.pages +
+    Number(
+      book.pages
+    ) > 0
+      ? Number(
+          book.pages
+        ) +
         "쪽"
+
       : "-";
 
 
@@ -2352,122 +2489,13 @@ async function openDetail(
       "show"
     );
 
-
-  /*
-    현재 books 응답에
-    출간일/페이지가 없는 경우
-    YES24 상세 API로 보완한다.
-  */
-
-  if (
-    !book.itemId ||
-    (
-      book.publishDate &&
-      book.pages
-    )
-  ) {
-
-    return;
-
-  }
-
-
-  try {
-
-    const response =
-      await fetch(
-        API_URL +
-        "?action=detail" +
-        "&itemId=" +
-        encodeURIComponent(
-          book.itemId
-        ) +
-        "&t=" +
-        Date.now()
-      );
-
-
-    const data =
-      JSON.parse(
-        await response.text()
-      );
-
-
-    if (
-      !data.success ||
-      !data.book
-    ) {
-
-      return;
-
-    }
-
-
-    const detail =
-      data.book;
-
-
-    /*
-      나중에 수정 화면에서도
-      활용할 수 있도록 메모리에 합침.
-    */
-
-    Object.assign(
-      book,
-      detail,
-      {
-        id:
-          book.id,
-
-        user:
-          book.user,
-
-        finishDate:
-          book.finishDate,
-
-        rating:
-          book.rating
-      }
-    );
-
-
-    document
-      .getElementById(
-        "detailPublishDate"
-      )
-      .textContent =
-      formatPublishDate(
-        detail.publishDate
-      ) ||
-      "-";
-
-
-    document
-      .getElementById(
-        "detailPages"
-      )
-      .textContent =
-      detail.pages
-        ? detail.pages +
-          "쪽"
-        : "-";
-
-
-  } catch (error) {
-
-    console.error(
-      error
-    );
-
-  }
-
 }
 
 
 
-/* =========================
-   수정
-========================= */
+/* =========================================================
+   EDIT
+========================================================= */
 
 document
   .getElementById(
@@ -2485,6 +2513,11 @@ document
 
       }
 
+
+      /*
+        현재 write.html 수정모드가
+        읽는 key와 동일.
+      */
 
       sessionStorage.setItem(
         "selectedBook",
@@ -2507,9 +2540,9 @@ document
 
 
 
-/* =========================
-   삭제
-========================= */
+/* =========================================================
+   DELETE
+========================================================= */
 
 document
   .getElementById(
@@ -2539,7 +2572,9 @@ document
         );
 
 
-      if (!ok) {
+      if (
+        !ok
+      ) {
 
         return;
 
@@ -2580,9 +2615,13 @@ document
           );
 
 
+        const text =
+          await response.text();
+
+
         const data =
           JSON.parse(
-            await response.text()
+            text
           );
 
 
@@ -2622,9 +2661,9 @@ document
 
 
 
-/* =========================
-   팝업 닫기
-========================= */
+/* =========================================================
+   CLOSE DETAIL
+========================================================= */
 
 function closeDetail() {
 
@@ -2673,9 +2712,9 @@ document
 
 
 
-/* =========================
-   메인으로
-========================= */
+/* =========================================================
+   NAVIGATION
+========================================================= */
 
 document
   .getElementById(
@@ -2692,10 +2731,6 @@ document
   );
 
 
-
-/* =========================
-   새 책 꽂기
-========================= */
 
 document
   .getElementById(
@@ -2717,9 +2752,9 @@ document
 
 
 
-/* =========================
+/* =========================================================
    HELPERS
-========================= */
+========================================================= */
 
 function clamp(
   value,
@@ -2764,24 +2799,24 @@ function makeStars(
   value
 ) {
 
-  let text = "";
+  const score =
+    clamp(
+      Math.round(
+        Number(value) || 0
+      ),
+      0,
+      5
+    );
 
 
-  for (
-    let i = 1;
-    i <= 5;
-    i++
-  ) {
-
-    text +=
-      i <= value
-        ? "★"
-        : "☆";
-
-  }
-
-
-  return text;
+  return (
+    "★".repeat(
+      score
+    ) +
+    "☆".repeat(
+      5 - score
+    )
+  );
 
 }
 
@@ -2791,20 +2826,51 @@ function formatDate(
   value
 ) {
 
-  if (!value) {
+  if (
+    !value
+  ) {
 
     return "-";
 
   }
 
 
-  return String(
-    value
-  )
-  .replace(
-    /-/g,
-    "."
-  );
+  const original =
+    String(value);
+
+
+  const match =
+    original.match(
+      /(\d{4})[.\-/](\d{1,2})[.\-/](\d{1,2})/
+    );
+
+
+  if (
+    match
+  ) {
+
+    return (
+      match[1] +
+      "." +
+      String(
+        match[2]
+      ).padStart(
+        2,
+        "0"
+      ) +
+      "." +
+      String(
+        match[3]
+      ).padStart(
+        2,
+        "0"
+      )
+    );
+
+  }
+
+
+  return original;
 
 }
 
@@ -2814,7 +2880,9 @@ function formatPublishDate(
   value
 ) {
 
-  if (!value) {
+  if (
+    !value
+  ) {
 
     return "";
 
@@ -2822,12 +2890,11 @@ function formatPublishDate(
 
 
   const original =
-    String(
-      value
-    );
+    String(value)
+      .trim();
 
 
-  const text =
+  const digits =
     original.replace(
       /\D/g,
       ""
@@ -2835,21 +2902,21 @@ function formatPublishDate(
 
 
   if (
-    text.length === 8
+    digits.length >= 8
   ) {
 
     return (
-      text.slice(
+      digits.slice(
         0,
         4
       ) +
       "." +
-      text.slice(
+      digits.slice(
         4,
         6
       ) +
       "." +
-      text.slice(
+      digits.slice(
         6,
         8
       )

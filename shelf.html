@@ -1175,7 +1175,7 @@
 ========================================================= */
 
 const API_URL =
-  "https://script.google.com/macros/s/AKfycbw-cPd8n-ccEu1m2q7lam22zmIcsmR83jL5AAJHEaNrYvqsZ7NbryXt0jBDxIwiTOze/exec";
+  "https://script.google.com/macros/s/AKfycbwZYQkLeKQ0C-IZyp4Wx7N-UEybymNhX2Cmp7BCRdxL6HMAzzJJN_iKxJFxfo1W2XBK/exec";
 
 
 
@@ -1326,14 +1326,7 @@ async function loadBooks() {
       Array.isArray(data.books)
         ? data.books
         : [];
-        alert(
-  currentBooks
-    .slice(0, 8)
-    .map(function(book) {
-      return book.title + " / 세로=" + book.bookLength;
-    })
-    .join("\n")
-);
+        
         console.log("책 데이터 확인", currentBooks);
 
     document

@@ -1,248 +1,388 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="referrer" content="no-referrer">
 
-<title>책 기록하기</title>
+  <title>나의 책장</title>
 
-<style>
-* {
-  box-sizing: border-box;
-}
+  <style>
+    * {
+      box-sizing: border-box;
+    }
 
-body {
-  margin: 0;
-  font-family:
-    -apple-system,
-    BlinkMacSystemFont,
-    "Pretendard",
-    "Apple SD Gothic Neo",
-    sans-serif;
-  background: #ebe6df;
-  color: #433c37;
-}
+    body {
+      margin: 0;
+      font-family:
+        -apple-system,
+        BlinkMacSystemFont,
+        "Pretendard",
+        "Apple SD Gothic Neo",
+        sans-serif;
+      background: #ebe6df;
+      color: #433c37;
+    }
 
-button,
-input,
-select {
-  font: inherit;
-}
+    button {
+      font: inherit;
+    }
 
-.app {
-  width: 100%;
-  max-width: 500px;
-  min-height: 100vh;
-  margin: auto;
-  padding-bottom: 40px;
-  background:
-    linear-gradient(
-      #fbf9f5,
-      #f2ede6
-    );
-}
+    .app {
+      width: 100%;
+      max-width: 520px;
+      min-height: 100vh;
+      margin: auto;
+      padding-bottom: 105px;
+      background:
+        linear-gradient(
+          180deg,
+          #fbf9f5,
+          #f2ede6
+        );
+    }
 
-.top {
-  padding: 18px 20px 5px;
-}
+    .top {
+      display: flex;
+      align-items: center;
+      padding: 18px 20px 0;
+    }
 
-.back {
-  display: flex;
-  width: 40px;
-  height: 40px;
-  align-items: center;
-  justify-content: center;
-  border-radius: 50%;
-  background: white;
-  color: #665d56;
-  text-decoration: none;
-  font-size: 23px;
-}
+    .back {
+      display: flex;
+      width: 40px;
+      height: 40px;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      background: white;
+      color: #675e57;
+      text-decoration: none;
+      font-size: 23px;
+    }
 
-.content {
-  padding: 18px 20px;
-}
+    .logo {
+      margin-left: auto;
+      color: #a0978f;
+      font-size: 10px;
+      font-weight: 800;
+      letter-spacing: 1.5px;
+    }
 
-.small {
-  color: #a0978f;
-  font-size: 10px;
-  font-weight: 800;
-  letter-spacing: 1.5px;
-}
+    .header {
+      padding: 28px 20px 8px;
+      text-align: center;
+    }
 
-h1 {
-  margin: 7px 0 8px;
-  font-size: 29px;
-  line-height: 1.3;
-}
+    .header h1 {
+      margin: 0;
+      font-size: 29px;
+      letter-spacing: -1.2px;
+    }
 
-.description {
-  margin: 0 0 23px;
-  color: #948b83;
-  font-size: 13px;
-}
+    .header p {
+      margin: 7px 0 0;
+      color: #9a918a;
+      font-size: 12px;
+    }
 
-.card {
-  margin-bottom: 14px;
-  padding: 19px;
-  border: 1px solid #e4ddd6;
-  border-radius: 22px;
-  background: #fffdfa;
-}
+    .month {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 17px;
+      margin-top: 18px;
+    }
 
-label {
-  display: block;
-  margin-bottom: 8px;
-  font-size: 13px;
-  font-weight: 800;
-}
+    .month button {
+      display: flex;
+      width: 38px;
+      height: 38px;
+      align-items: center;
+      justify-content: center;
+      border: 0;
+      background: transparent;
+      color: #736a63;
+      font-size: 25px;
+      cursor: pointer;
+    }
 
-input,
-select {
-  width: 100%;
-  height: 50px;
-  padding: 0 13px;
-  border: 1px solid #ddd4cd;
-  border-radius: 14px;
-  outline: none;
-  background: white;
-}
+    .month-info {
+      width: 170px;
+      text-align: center;
+    }
 
-.search {
-  display: flex;
-  gap: 8px;
-}
+    .month-info strong {
+      display: block;
+      font-size: 20px;
+    }
 
-.search button {
-  width: 70px;
-  flex-shrink: 0;
-  border: 0;
-  border-radius: 14px;
-  background: #817168;
-  color: white;
-  font-weight: 800;
-  cursor: pointer;
-}
+    .month-info span {
+      display: block;
+      margin-top: 5px;
+      color: #a19891;
+      font-size: 11px;
+    }
 
-.results {
-  margin-top: 13px;
-}
+    .shelf-area {
+      padding: 42px 16px 0;
+    }
 
-.result {
-  display: flex;
-  width: 100%;
-  gap: 11px;
-  padding: 11px 2px;
-  border: 0;
-  border-bottom: 1px solid #ebe4dd;
-  background: transparent;
-  text-align: left;
-  cursor: pointer;
-}
+    .books {
+      display: flex;
+      min-height: 240px;
+      align-items: flex-end;
+      gap: 3px;
+      padding: 0 8px;
+      overflow-x: auto;
+      scrollbar-width: none;
+    }
 
-.result img {
-  width: 48px;
-  height: 69px;
-  flex-shrink: 0;
-  border-radius: 4px;
-  object-fit: cover;
-}
+    .books::-webkit-scrollbar {
+      display: none;
+    }
 
-.result strong {
-  display: block;
-  margin: 3px 0;
-  font-size: 14px;
-}
+    .spine {
+      flex-shrink: 0;
+      padding: 0;
+      overflow: hidden;
+      border: 0;
+      border-radius: 3px 3px 1px 1px;
+      background: #8b7567;
+      box-shadow:
+        1px 1px 3px
+        rgba(52,40,32,.16);
+      cursor: pointer;
+      transition: transform .15s ease;
+    }
 
-.result span {
-  color: #948a82;
-  font-size: 11px;
-  line-height: 1.55;
-}
+    .spine:active {
+      transform: translateY(-6px);
+    }
 
-.selected {
-  display: none;
-  gap: 15px;
-  align-items: center;
-}
+    .spine-image {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: fill;
+    }
 
-.selected.show {
-  display: flex;
-}
+    .fallback {
+      display: flex;
+      width: 100%;
+      height: 100%;
+      align-items: center;
+      justify-content: center;
+      padding: 5px 3px;
+    }
 
-.selected img {
-  width: 78px;
-  height: 112px;
-  flex-shrink: 0;
-  border-radius: 5px;
-  object-fit: cover;
-}
+    .fallback span {
+      max-height: 94%;
+      overflow: hidden;
+      writing-mode: vertical-rl;
+      color: white;
+      font-size: 9px;
+      font-weight: 700;
+    }
 
-.selected h2 {
-  margin: 0 0 6px;
-  font-size: 18px;
-  line-height: 1.4;
-}
+    .wood {
+      position: relative;
+      height: 17px;
+      border-radius: 2px 2px 6px 6px;
+      background:
+        linear-gradient(
+          180deg,
+          #ba8c68,
+          #966b4d 60%,
+          #80583e
+        );
+      box-shadow:
+        0 8px 10px
+        rgba(64,45,32,.17);
+    }
 
-.selected p {
-  margin: 3px 0;
-  color: #928880;
-  font-size: 12px;
-}
+    .wood::after {
+      position: absolute;
+      right: 4%;
+      bottom: -6px;
+      left: 4%;
+      height: 6px;
+      border-radius: 0 0 6px 6px;
+      background: #714c35;
+      content: "";
+    }
 
-.field {
-  margin-bottom: 18px;
-}
+    .empty {
+      padding: 80px 10px 105px;
+      color: #9c948d;
+      text-align: center;
+      font-size: 13px;
+      line-height: 1.8;
+    }
 
-.field:last-child {
-  margin-bottom: 0;
-}
+    .add {
+      position: fixed;
+      left: 50%;
+      bottom: 22px;
+      width: calc(100% - 40px);
+      max-width: 470px;
+      padding: 16px;
+      transform: translateX(-50%);
+      border-radius: 17px;
+      background: #817168;
+      box-shadow:
+        0 8px 20px
+        rgba(66,49,39,.14);
+      color: white;
+      text-align: center;
+      text-decoration: none;
+      font-weight: 800;
+    }
 
-.stars {
-  display: flex;
-  gap: 4px;
-}
+    .overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 100;
+      display: none;
+      align-items: flex-end;
+      justify-content: center;
+      background: rgba(42,38,34,.4);
+      backdrop-filter: blur(4px);
+    }
 
-.star {
-  padding: 0;
-  border: 0;
-  background: transparent;
-  color: #d0c7bd;
-  font-size: 32px;
-  cursor: pointer;
-}
+    .overlay.show {
+      display: flex;
+    }
 
-.star.active {
-  color: #d29a43;
-}
+    .modal {
+      width: 100%;
+      max-width: 520px;
+      padding: 12px 22px 28px;
+      border-radius: 27px 27px 0 0;
+      background: #fbf9f5;
+    }
 
-.save {
-  width: 100%;
-  padding: 16px;
-  border: 0;
-  border-radius: 17px;
-  background: #817168;
-  color: white;
-  font-weight: 800;
-  cursor: pointer;
-}
+    .handle {
+      width: 40px;
+      height: 4px;
+      margin: 0 auto 23px;
+      border-radius: 5px;
+      background: #d6cfc9;
+    }
 
-.status {
-  padding: 15px;
-  color: #978e86;
-  text-align: center;
-  font-size: 12px;
-}
+    .modal-top {
+      display: flex;
+      gap: 18px;
+    }
 
-.message {
-  margin-top: 12px;
-  padding: 13px;
-  border-radius: 13px;
-  color: #9a5b54;
-  text-align: center;
-  font-size: 12px;
-}
-</style>
+    .cover {
+      width: 105px;
+      height: 150px;
+      flex-shrink: 0;
+      border-radius: 5px;
+      background: #e4ddd7;
+      object-fit: cover;
+      box-shadow:
+        0 6px 16px
+        rgba(49,37,28,.13);
+    }
+
+    .info {
+      min-width: 0;
+      flex: 1;
+    }
+
+    .info h2 {
+      margin: 2px 0 8px;
+      font-size: 20px;
+      line-height: 1.4;
+    }
+
+    .info .author {
+      color: #70675f;
+      font-size: 13px;
+    }
+
+    .info .publisher {
+      margin-top: 4px;
+      color: #9c938c;
+      font-size: 12px;
+    }
+
+    .rating-label {
+      display: block;
+      margin-top: 16px;
+      color: #a0978f;
+      font-size: 10px;
+      font-weight: 800;
+    }
+
+    .stars {
+      margin-top: 3px;
+      color: #d29a43;
+      font-size: 19px;
+      letter-spacing: 1px;
+    }
+
+    .details {
+      margin-top: 23px;
+      padding: 14px 0;
+      border-top: 1px solid #e5ded8;
+      border-bottom: 1px solid #e5ded8;
+    }
+
+    .row {
+      display: flex;
+      gap: 12px;
+      padding: 5px 0;
+      font-size: 12px;
+    }
+
+    .label {
+      width: 65px;
+      flex-shrink: 0;
+      color: #a09790;
+    }
+
+    .value {
+      color: #5d554f;
+    }
+
+    .buttons {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+      margin-top: 18px;
+    }
+
+    .buttons button {
+      padding: 13px;
+      border: 0;
+      border-radius: 13px;
+      font-weight: 800;
+      cursor: pointer;
+    }
+
+    .edit {
+      background: #817168;
+      color: white;
+    }
+
+    .delete {
+      background: #eee5df;
+      color: #9c5e58;
+    }
+
+    .close {
+      width: 100%;
+      margin-top: 7px;
+      padding: 12px;
+      border: 0;
+      background: transparent;
+      color: #99908a;
+      cursor: pointer;
+    }
+  </style>
 </head>
 
 <body>
@@ -253,159 +393,176 @@ select {
 
     <a
       class="back"
-      id="back"
+      href="index.html"
     >
       ‹
     </a>
 
-  </div>
-
-
-  <section class="content">
-
-    <div
-      class="small"
-      id="small"
-    >
-      ADD A BOOK
+    <div class="logo">
+      MONTHLY BOOKSHELF
     </div>
 
-    <h1 id="title">
-      새 책을<br>
-      책장에 꽂아요.
-    </h1>
+  </div>
 
-    <p class="description">
-      책을 검색하고 완독일과 별점을 기록해주세요.
+  <header class="header">
+
+    <h1 id="owner"></h1>
+
+    <p>
+      한 달 동안 읽은 책들
     </p>
 
+  </header>
 
-    <section
-      class="card"
-      id="searchCard"
-    >
+  <div class="month">
 
-      <label>
-        책 제목
-      </label>
-
-      <div class="search">
-
-        <input
-          id="query"
-          type="search"
-          placeholder="예: 채식주의자"
-        >
-
-        <button
-          id="searchButton"
-          type="button"
-        >
-          검색
-        </button>
-
-      </div>
-
-      <div
-        class="results"
-        id="results"
-      ></div>
-
-    </section>
-
-
-    <section
-      class="card selected"
-      id="selected"
-    >
-
-      <img
-        id="selectedCover"
-        alt="책 표지"
-      >
-
-      <div>
-
-        <h2 id="selectedTitle"></h2>
-
-        <p id="selectedAuthor"></p>
-
-        <p id="selectedPublisher"></p>
-
-        <p id="selectedExtra"></p>
-
-      </div>
-
-    </section>
-
-
-    <section class="card">
-
-      <div class="field">
-
-        <label>
-          읽은 사람
-        </label>
-
-        <select id="reader"></select>
-
-      </div>
-
-
-      <div class="field">
-
-        <label>
-          완독일
-        </label>
-
-        <input
-          id="finishDate"
-          type="date"
-        >
-
-      </div>
-
-
-      <div class="field">
-
-        <label>
-          별점
-        </label>
-
-        <div class="stars">
-
-          <button class="star" data-value="1" type="button">★</button>
-          <button class="star" data-value="2" type="button">★</button>
-          <button class="star" data-value="3" type="button">★</button>
-          <button class="star" data-value="4" type="button">★</button>
-          <button class="star" data-value="5" type="button">★</button>
-
-        </div>
-
-      </div>
-
-    </section>
-
-
-    <button
-      class="save"
-      id="saveButton"
-      type="button"
-    >
-      책장에 꽂기
+    <button id="prev" type="button">
+      ‹
     </button>
 
+    <div class="month-info">
+
+      <strong id="monthTitle"></strong>
+
+      <span id="count"></span>
+
+    </div>
+
+    <button id="next" type="button">
+      ›
+    </button>
+
+  </div>
+
+  <section class="shelf-area">
 
     <div
-      id="message"
-      class="message"
-      style="display:none;"
+      class="books"
+      id="books"
     ></div>
+
+    <div
+      class="empty"
+      id="empty"
+      style="display:none;"
+    >
+      이번 달에는 아직 책이 없어요.<br>
+      첫 책을 꽂아볼까요?
+    </div>
+
+    <div class="wood"></div>
 
   </section>
 
 </main>
 
+<a
+  class="add"
+  id="add"
+>
+  ＋ 새 책 꽂기
+</a>
+
+<div
+  class="overlay"
+  id="overlay"
+>
+
+  <div class="modal">
+
+    <div class="handle"></div>
+
+    <div class="modal-top">
+
+      <img
+        class="cover"
+        id="cover"
+        alt="책 표지"
+        referrerpolicy="no-referrer"
+      >
+
+      <div class="info">
+
+        <h2 id="title"></h2>
+
+        <div
+          class="author"
+          id="author"
+        ></div>
+
+        <div
+          class="publisher"
+          id="publisher"
+        ></div>
+
+        <span class="rating-label">
+          내 별점
+        </span>
+
+        <div
+          class="stars"
+          id="stars"
+        ></div>
+
+      </div>
+
+    </div>
+
+    <div class="details">
+
+      <div class="row">
+        <span class="label">완독일</span>
+        <span class="value" id="finishDate"></span>
+      </div>
+
+      <div class="row">
+        <span class="label">출간일</span>
+        <span class="value" id="publishDate"></span>
+      </div>
+
+      <div class="row">
+        <span class="label">페이지</span>
+        <span class="value" id="pages"></span>
+      </div>
+
+      <div class="row">
+        <span class="label">판형</span>
+        <span class="value" id="size"></span>
+      </div>
+
+    </div>
+
+    <div class="buttons">
+
+      <button
+        class="edit"
+        id="edit"
+        type="button"
+      >
+        수정
+      </button>
+
+      <button
+        class="delete"
+        id="delete"
+        type="button"
+      >
+        삭제
+      </button>
+
+    </div>
+
+    <button
+      class="close"
+      id="close"
+      type="button"
+    >
+      닫기
+    </button>
+
+  </div>
+
+</div>
 
 <script>
 
@@ -427,136 +584,103 @@ const user =
   "";
 
 
-const isEdit =
-  params.get("mode") ===
-  "edit";
+if (!user) {
+  location.href = "index.html";
+}
+
+
+localStorage.setItem(
+  "currentBookUser",
+  user
+);
+
+
+document
+  .getElementById("owner")
+  .textContent =
+    user + "의 책장";
+
+
+const today =
+  new Date();
+
+
+let year =
+  Number(
+    params.get("year")
+  ) ||
+  today.getFullYear();
+
+
+let month =
+  Number(
+    params.get("month")
+  ) ||
+  today.getMonth() + 1;
 
 
 let selectedBook = null;
-let editBook = null;
-let rating = 0;
 
 
 document
-  .getElementById("back")
+  .getElementById("add")
   .href =
-    "shelf.html?user=" +
+    "write.html?user=" +
     encodeURIComponent(user);
 
 
-setToday();
-setupStars();
-setupEdit();
-loadUsers();
-
-
 document
-  .getElementById("searchButton")
+  .getElementById("prev")
   .onclick =
-    searchBooks;
+    function() {
 
+      month--;
 
-document
-  .getElementById("query")
-  .addEventListener(
-    "keydown",
-    function(event) {
-
-      if (event.key === "Enter") {
-
-        event.preventDefault();
-        searchBooks();
-
+      if (month < 1) {
+        month = 12;
+        year--;
       }
 
-    }
-  );
+      loadBooks();
+
+    };
 
 
 document
-  .getElementById("saveButton")
+  .getElementById("next")
   .onclick =
-    saveBook;
+    function() {
+
+      month++;
+
+      if (month > 12) {
+        month = 1;
+        year++;
+      }
+
+      loadBooks();
+
+    };
 
 
-/* 수정모드 */
-
-function setupEdit() {
-
-  if (!isEdit) {
-    return;
-  }
+loadBooks();
 
 
-  const stored =
-    sessionStorage.getItem(
-      "editBook"
-    );
-
-
-  if (!stored) {
-    return;
-  }
-
-
-  editBook =
-    JSON.parse(stored);
-
-
-  selectedBook =
-    editBook;
-
+async function loadBooks() {
 
   document
-    .getElementById("searchCard")
-    .style.display =
-      "none";
-
-
-  document
-    .getElementById("small")
+    .getElementById("monthTitle")
     .textContent =
-      "EDIT BOOK";
+      year +
+      "년 " +
+      month +
+      "월";
 
 
   document
-    .getElementById("title")
-    .innerHTML =
-      "책 기록을<br>수정해요.";
-
-
-  document
-    .getElementById("saveButton")
+    .getElementById("count")
     .textContent =
-      "수정 내용 저장";
-
-
-  document
-    .getElementById("finishDate")
-    .value =
-      editBook.finishDate;
-
-
-  rating =
-    Number(
-      editBook.rating || 0
-    );
-
-
-  paintStars();
-  showSelected();
-
-}
-
-
-/* 사용자 */
-
-async function loadUsers() {
-
-  const select =
-    document.getElementById(
-      "reader"
-    );
+      "불러오는 중…";
 
 
   try {
@@ -564,111 +688,13 @@ async function loadUsers() {
     const response =
       await fetch(
         API_URL +
-        "?action=users&t=" +
-        Date.now()
-      );
-
-
-    const data =
-      JSON.parse(
-        await response.text()
-      );
-
-
-    select.innerHTML = "";
-
-
-    (data.users || [])
-      .forEach(
-        function(name) {
-
-          const option =
-            document.createElement(
-              "option"
-            );
-
-
-          option.value =
-            name;
-
-          option.textContent =
-            name;
-
-
-          const target =
-            isEdit &&
-            editBook
-              ? editBook.user
-              : user;
-
-
-          if (name === target) {
-            option.selected = true;
-          }
-
-
-          select.appendChild(
-            option
-          );
-
-        }
-      );
-
-
-  } catch (error) {
-
-    const option =
-      document.createElement(
-        "option"
-      );
-
-
-    option.value = user;
-    option.textContent = user;
-
-    select.appendChild(option);
-
-  }
-
-}
-
-
-/* 검색 */
-
-async function searchBooks() {
-
-  const query =
-    document
-      .getElementById("query")
-      .value
-      .trim();
-
-
-  if (!query) {
-    return;
-  }
-
-
-  const results =
-    document.getElementById(
-      "results"
-    );
-
-
-  results.innerHTML = `
-    <div class="status">
-      책을 찾고 있어요…
-    </div>
-  `;
-
-
-  try {
-
-    const response =
-      await fetch(
-        API_URL +
-        "?action=search&q=" +
-        encodeURIComponent(query) +
+        "?action=books" +
+        "&user=" +
+        encodeURIComponent(user) +
+        "&year=" +
+        year +
+        "&month=" +
+        month +
         "&t=" +
         Date.now()
       );
@@ -681,58 +707,71 @@ async function searchBooks() {
 
 
     if (!data.success) {
-
-      throw new Error(
-        data.message
-      );
-
+      throw new Error(data.message);
     }
 
 
-    renderResults(
-      data.books || []
-    );
+    const books =
+      data.books || [];
+
+
+    document
+      .getElementById("count")
+      .textContent =
+        books.length +
+        "권 읽었어요";
+
+
+    renderBooks(books);
 
 
   } catch (error) {
 
-    results.innerHTML = `
-      <div class="status">
-        검색하지 못했어요.
-      </div>
-    `;
+    console.error(error);
+
+    document
+      .getElementById("count")
+      .textContent =
+        "연결 오류";
 
   }
 
 }
 
 
-function renderResults(books) {
+function renderBooks(books) {
 
-  const results =
+  const container =
     document.getElementById(
-      "results"
+      "books"
     );
 
 
-  results.innerHTML = "";
+  const empty =
+    document.getElementById(
+      "empty"
+    );
+
+
+  container.innerHTML = "";
 
 
   if (!books.length) {
 
-    results.innerHTML = `
-      <div class="status">
-        검색 결과가 없어요.
-      </div>
-    `;
+    empty.style.display =
+      "block";
 
     return;
 
   }
 
 
+  empty.style.display =
+    "none";
+
+
   books.forEach(
-    function(book) {
+    function(book, index) {
 
       const button =
         document.createElement(
@@ -741,87 +780,115 @@ function renderResults(books) {
 
 
       button.className =
-        "result";
+        "spine";
 
       button.type =
         "button";
 
 
-      const size =
-        book.bookWidth &&
-        book.bookLength &&
-        book.bookHeight
-          ? book.bookWidth +
-            " × " +
-            book.bookLength +
-            " × " +
-            book.bookHeight +
-            " mm"
-          : "";
+      /*
+       * 실제 책 세로 크기와 두께를
+       * 책등 크기에 반영
+       */
+      const realLength =
+        Number(
+          book.bookLength || 195
+        );
 
 
-      button.innerHTML = `
-        <img
-          src="${escapeHtml(book.coverUrl || "")}"
-          alt=""
-        >
+      const realThickness =
+        Number(
+          book.bookHeight || 20
+        );
 
-        <div>
-          <strong>
-            ${escapeHtml(book.title || "")}
-          </strong>
 
-          <span>
-            ${escapeHtml(book.author || "")}
-            ${
-              book.publisher
-                ? " · " +
-                  escapeHtml(
-                    book.publisher
-                  )
-                : ""
-            }
-            <br>
+      const height =
+        clamp(
+          realLength * 0.95,
+          165,
+          230
+        );
 
-            ${
-              formatPublishDate(
-                book.publishDate
-              )
-            }
 
-            ${
-              book.pages
-                ? " · " +
-                  book.pages +
-                  "쪽"
-                : ""
-            }
+      const width =
+        clamp(
+          realThickness * 1.5,
+          20,
+          52
+        );
 
-            ${
-              size
-                ? "<br>" +
-                  escapeHtml(size)
-                : ""
-            }
-          </span>
-        </div>
-      `;
+
+      button.style.height =
+        height + "px";
+
+
+      button.style.width =
+        width + "px";
+
+
+      if (book.spineUrl) {
+
+        const image =
+          document.createElement(
+            "img"
+          );
+
+
+        image.className =
+          "spine-image";
+
+
+        image.referrerPolicy =
+          "no-referrer";
+
+
+        image.src =
+          book.spineUrl;
+
+
+        image.alt =
+          book.title;
+
+
+        image.onerror =
+          function() {
+
+            button.innerHTML = "";
+
+            fallback(
+              button,
+              book,
+              index
+            );
+
+          };
+
+
+        button.appendChild(
+          image
+        );
+
+
+      } else {
+
+        fallback(
+          button,
+          book,
+          index
+        );
+
+      }
 
 
       button.onclick =
         function() {
 
-          selectedBook =
-            book;
-
-          showSelected();
-
-          results.innerHTML = "";
+          openBook(book);
 
         };
 
 
-      results.appendChild(
+      container.appendChild(
         button
       );
 
@@ -831,63 +898,169 @@ function renderResults(books) {
 }
 
 
-/* 선택한 책 */
+function fallback(
+  button,
+  book,
+  index
+) {
 
-function showSelected() {
-
-  if (!selectedBook) {
-    return;
-  }
-
-
-  document
-    .getElementById("selectedCover")
-    .src =
-      selectedBook.coverUrl || "";
-
-
-  document
-    .getElementById("selectedTitle")
-    .textContent =
-      selectedBook.title || "";
+  const colors = [
+    "#927068",
+    "#71806e",
+    "#ad895e",
+    "#736760",
+    "#a37b6e",
+    "#6c7b86",
+    "#8e7a68"
+  ];
 
 
-  document
-    .getElementById("selectedAuthor")
-    .textContent =
-      selectedBook.author || "";
+  button.style.background =
+    colors[
+      index %
+      colors.length
+    ];
 
 
-  document
-    .getElementById("selectedPublisher")
-    .textContent =
-      selectedBook.publisher || "";
-
-
-  let extra =
-    formatPublishDate(
-      selectedBook.publishDate
+  const div =
+    document.createElement(
+      "div"
     );
 
 
-  if (selectedBook.pages) {
+  div.className =
+    "fallback";
 
-    extra +=
-      " · " +
-      selectedBook.pages +
-      "쪽";
 
-  }
+  const span =
+    document.createElement(
+      "span"
+    );
+
+
+  span.textContent =
+    book.title;
+
+
+  div.appendChild(span);
+
+  button.appendChild(div);
+
+}
+
+
+function openBook(book) {
+
+  selectedBook = book;
 
 
   document
-    .getElementById("selectedExtra")
+    .getElementById("title")
     .textContent =
-      extra;
+      book.title || "";
 
 
   document
-    .getElementById("selected")
+    .getElementById("author")
+    .textContent =
+      book.author || "";
+
+
+  document
+    .getElementById("publisher")
+    .textContent =
+      book.publisher || "";
+
+
+  const cover =
+    document.getElementById(
+      "cover"
+    );
+
+
+  cover.referrerPolicy =
+    "no-referrer";
+
+
+  cover.src =
+    book.coverUrl || "";
+
+
+  const rating =
+    Math.round(
+      Number(
+        book.rating || 0
+      )
+    );
+
+
+  document
+    .getElementById("stars")
+    .textContent =
+      "★".repeat(rating) +
+      "☆".repeat(
+        Math.max(
+          0,
+          5 - rating
+        )
+      );
+
+
+  document
+    .getElementById("finishDate")
+    .textContent =
+      formatDate(
+        book.finishDate
+      );
+
+
+  document
+    .getElementById("publishDate")
+    .textContent =
+      formatPublishDate(
+        book.publishDate
+      );
+
+
+  document
+    .getElementById("pages")
+    .textContent =
+      book.pages
+        ? book.pages + "쪽"
+        : "-";
+
+
+  const w =
+    Number(
+      book.bookWidth || 0
+    );
+
+  const l =
+    Number(
+      book.bookLength || 0
+    );
+
+  const h =
+    Number(
+      book.bookHeight || 0
+    );
+
+
+  document
+    .getElementById("size")
+    .textContent =
+      w && l && h
+        ? w +
+          " × " +
+          l +
+          " × " +
+          h +
+          " mm"
+        : "-";
+
+
+  document
+    .getElementById("overlay")
     .classList.add(
       "show"
     );
@@ -895,283 +1068,161 @@ function showSelected() {
 }
 
 
-/* 별점 */
+document
+  .getElementById("edit")
+  .onclick =
+    function() {
 
-function setupStars() {
-
-  document
-    .querySelectorAll(".star")
-    .forEach(
-      function(button) {
-
-        button.onclick =
-          function() {
-
-            rating =
-              Number(
-                button.dataset.value
-              );
-
-
-            paintStars();
-
-          };
-
+      if (!selectedBook) {
+        return;
       }
-    );
-
-}
 
 
-function paintStars() {
+      sessionStorage.setItem(
+        "editBook",
+        JSON.stringify(
+          selectedBook
+        )
+      );
 
-  document
-    .querySelectorAll(".star")
-    .forEach(
-      function(button) {
 
-        button.classList.toggle(
-          "active",
-          Number(
-            button.dataset.value
-          ) <= rating
+      location.href =
+        "write.html?mode=edit&user=" +
+        encodeURIComponent(user);
+
+    };
+
+
+document
+  .getElementById("delete")
+  .onclick =
+    async function() {
+
+      if (!selectedBook) {
+        return;
+      }
+
+
+      if (
+        !confirm(
+          "「" +
+          selectedBook.title +
+          "」을 삭제할까요?"
+        )
+      ) {
+        return;
+      }
+
+
+      try {
+
+        const response =
+          await fetch(
+            API_URL,
+            {
+              method: "POST",
+
+              headers: {
+                "Content-Type":
+                  "text/plain;charset=utf-8"
+              },
+
+              body:
+                JSON.stringify({
+                  action: "deleteBook",
+                  id: selectedBook.id
+                })
+            }
+          );
+
+
+        const data =
+          JSON.parse(
+            await response.text()
+          );
+
+
+        if (!data.success) {
+          throw new Error(data.message);
+        }
+
+
+        closeModal();
+
+        loadBooks();
+
+
+      } catch (error) {
+
+        console.error(error);
+
+        alert(
+          "삭제하지 못했어요."
         );
 
       }
-    );
 
-}
+    };
 
 
-/* 저장 */
+document
+  .getElementById("close")
+  .onclick =
+    closeModal;
 
-async function saveBook() {
 
-  if (!selectedBook) {
+document
+  .getElementById("overlay")
+  .onclick =
+    function(event) {
 
-    showMessage(
-      "먼저 책을 선택해주세요."
-    );
+      if (
+        event.target === this
+      ) {
 
-    return;
+        closeModal();
 
-  }
+      }
 
+    };
 
-  const reader =
-    document
-      .getElementById("reader")
-      .value;
 
-
-  const finishDate =
-    document
-      .getElementById("finishDate")
-      .value;
-
-
-  if (!finishDate) {
-
-    showMessage(
-      "완독일을 선택해주세요."
-    );
-
-    return;
-
-  }
-
-
-  if (!rating) {
-
-    showMessage(
-      "별점을 선택해주세요."
-    );
-
-    return;
-
-  }
-
-
-  const body = {
-
-    action:
-      isEdit
-        ? "updateBook"
-        : "saveBook",
-
-    id:
-      isEdit &&
-      editBook
-        ? editBook.id
-        : "",
-
-    user:
-      reader,
-
-    finishDate:
-      finishDate,
-
-    rating:
-      rating,
-
-    itemId:
-      selectedBook.itemId || "",
-
-    title:
-      selectedBook.title || "",
-
-    author:
-      selectedBook.author || "",
-
-    publisher:
-      selectedBook.publisher || "",
-
-    publishDate:
-      selectedBook.publishDate || "",
-
-    pages:
-      selectedBook.pages || 0,
-
-    coverUrl:
-      selectedBook.coverUrl || "",
-
-    spineUrl:
-      selectedBook.spineUrl || "",
-
-    bookWidth:
-      selectedBook.bookWidth || 0,
-
-    bookLength:
-      selectedBook.bookLength || 0,
-
-    bookHeight:
-      selectedBook.bookHeight || 0
-
-  };
-
-
-  const button =
-    document.getElementById(
-      "saveButton"
-    );
-
-
-  button.disabled = true;
-
-
-  try {
-
-    const response =
-      await fetch(
-        API_URL,
-        {
-          method: "POST",
-
-          headers: {
-            "Content-Type":
-              "text/plain;charset=utf-8"
-          },
-
-          body:
-            JSON.stringify(body)
-        }
-      );
-
-
-    const data =
-      JSON.parse(
-        await response.text()
-      );
-
-
-    if (!data.success) {
-
-      throw new Error(
-        data.message
-      );
-
-    }
-
-
-    sessionStorage.removeItem(
-      "editBook"
-    );
-
-
-    const date =
-      new Date(
-        finishDate +
-        "T12:00:00"
-      );
-
-
-    location.href =
-      "shelf.html?user=" +
-      encodeURIComponent(reader) +
-      "&year=" +
-      date.getFullYear() +
-      "&month=" +
-      (
-        date.getMonth() + 1
-      );
-
-
-  } catch (error) {
-
-    showMessage(
-      error.message ||
-      "저장하지 못했어요."
-    );
-
-
-    button.disabled = false;
-
-  }
-
-}
-
-
-function showMessage(text) {
-
-  const message =
-    document.getElementById(
-      "message"
-    );
-
-
-  message.style.display =
-    "block";
-
-  message.textContent =
-    text;
-
-}
-
-
-function setToday() {
-
-  const today =
-    new Date();
-
+function closeModal() {
 
   document
-    .getElementById("finishDate")
-    .value =
-      today.getFullYear() +
-      "-" +
-      String(
-        today.getMonth() + 1
-      ).padStart(
-        2,
-        "0"
-      ) +
-      "-" +
-      String(
-        today.getDate()
-      ).padStart(
-        2,
-        "0"
-      );
+    .getElementById("overlay")
+    .classList.remove(
+      "show"
+    );
+
+}
+
+
+function clamp(
+  value,
+  min,
+  max
+) {
+
+  return Math.max(
+    min,
+    Math.min(
+      max,
+      value
+    )
+  );
+
+}
+
+
+function formatDate(value) {
+
+  if (!value) {
+    return "-";
+  }
+
+  return String(value)
+    .replace(/-/g, ".");
 
 }
 
@@ -1199,21 +1250,7 @@ function formatPublishDate(value) {
   }
 
 
-  return text;
-
-}
-
-
-function escapeHtml(text) {
-
-  return String(
-    text || ""
-  )
-    .replace(/&/g,"&amp;")
-    .replace(/</g,"&lt;")
-    .replace(/>/g,"&gt;")
-    .replace(/"/g,"&quot;")
-    .replace(/'/g,"&#039;");
+  return text || "-";
 
 }
 

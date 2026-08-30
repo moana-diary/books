@@ -1,388 +1,388 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="referrer" content="no-referrer">
 
-<title>나의 책장</title>
+  <title>나의 책장</title>
 
-<style>
-* {
-  box-sizing: border-box;
-}
+  <style>
+    * {
+      box-sizing: border-box;
+    }
 
-body {
-  margin: 0;
-  font-family:
-    -apple-system,
-    BlinkMacSystemFont,
-    "Pretendard",
-    "Apple SD Gothic Neo",
-    sans-serif;
-  background: #ebe6df;
-  color: #433c37;
-}
+    body {
+      margin: 0;
+      font-family:
+        -apple-system,
+        BlinkMacSystemFont,
+        "Pretendard",
+        "Apple SD Gothic Neo",
+        sans-serif;
+      background: #ebe6df;
+      color: #433c37;
+    }
 
-button {
-  font: inherit;
-}
+    button {
+      font: inherit;
+    }
 
-.app {
-  width: 100%;
-  max-width: 520px;
-  min-height: 100vh;
-  margin: auto;
-  padding-bottom: 105px;
-  background:
-    linear-gradient(
-      180deg,
-      #fbf9f5,
-      #f2ede6
-    );
-}
+    .app {
+      width: 100%;
+      max-width: 520px;
+      min-height: 100vh;
+      margin: auto;
+      padding-bottom: 105px;
+      background:
+        linear-gradient(
+          180deg,
+          #fbf9f5,
+          #f2ede6
+        );
+    }
 
-.top {
-  display: flex;
-  align-items: center;
-  padding: 18px 20px 0;
-}
+    .top {
+      display: flex;
+      align-items: center;
+      padding: 18px 20px 0;
+    }
 
-.back {
-  display: flex;
-  width: 40px;
-  height: 40px;
-  align-items: center;
-  justify-content: center;
-  border-radius: 50%;
-  background: white;
-  color: #675e57;
-  text-decoration: none;
-  font-size: 23px;
-}
+    .back {
+      display: flex;
+      width: 40px;
+      height: 40px;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      background: white;
+      color: #675e57;
+      text-decoration: none;
+      font-size: 23px;
+    }
 
-.logo {
-  margin-left: auto;
-  color: #a0978f;
-  font-size: 10px;
-  font-weight: 800;
-  letter-spacing: 1.5px;
-}
+    .logo {
+      margin-left: auto;
+      color: #a0978f;
+      font-size: 10px;
+      font-weight: 800;
+      letter-spacing: 1.5px;
+    }
 
-.header {
-  padding: 28px 20px 8px;
-  text-align: center;
-}
+    .header {
+      padding: 28px 20px 8px;
+      text-align: center;
+    }
 
-.header h1 {
-  margin: 0;
-  font-size: 29px;
-  letter-spacing: -1.2px;
-}
+    .header h1 {
+      margin: 0;
+      font-size: 29px;
+      letter-spacing: -1.2px;
+    }
 
-.header p {
-  margin: 7px 0 0;
-  color: #9a918a;
-  font-size: 12px;
-}
+    .header p {
+      margin: 7px 0 0;
+      color: #9a918a;
+      font-size: 12px;
+    }
 
-.month {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 17px;
-  margin-top: 18px;
-}
+    .month {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 17px;
+      margin-top: 18px;
+    }
 
-.month button {
-  display: flex;
-  width: 38px;
-  height: 38px;
-  align-items: center;
-  justify-content: center;
-  border: 0;
-  background: transparent;
-  color: #736a63;
-  font-size: 25px;
-  cursor: pointer;
-}
+    .month button {
+      display: flex;
+      width: 38px;
+      height: 38px;
+      align-items: center;
+      justify-content: center;
+      border: 0;
+      background: transparent;
+      color: #736a63;
+      font-size: 25px;
+      cursor: pointer;
+    }
 
-.month-info {
-  width: 170px;
-  text-align: center;
-}
+    .month-info {
+      width: 170px;
+      text-align: center;
+    }
 
-.month-info strong {
-  display: block;
-  font-size: 20px;
-}
+    .month-info strong {
+      display: block;
+      font-size: 20px;
+    }
 
-.month-info span {
-  display: block;
-  margin-top: 5px;
-  color: #a19891;
-  font-size: 11px;
-}
+    .month-info span {
+      display: block;
+      margin-top: 5px;
+      color: #a19891;
+      font-size: 11px;
+    }
 
+    .shelf-area {
+      padding: 42px 16px 0;
+    }
 
-/* 책장 */
+    .books {
+      display: flex;
+      min-height: 240px;
+      align-items: flex-end;
+      gap: 3px;
+      padding: 0 8px;
+      overflow-x: auto;
+      scrollbar-width: none;
+    }
 
-.shelf-area {
-  padding: 42px 16px 0;
-}
+    .books::-webkit-scrollbar {
+      display: none;
+    }
 
-.books {
-  display: flex;
-  min-height: 240px;
-  align-items: flex-end;
-  gap: 3px;
-  padding: 0 8px;
-  overflow-x: auto;
-  scrollbar-width: none;
-}
+    .spine {
+      flex-shrink: 0;
+      padding: 0;
+      overflow: hidden;
+      border: 0;
+      border-radius: 3px 3px 1px 1px;
+      background: #8b7567;
+      box-shadow:
+        1px 1px 3px
+        rgba(52,40,32,.16);
+      cursor: pointer;
+      transition: transform .15s ease;
+    }
 
-.books::-webkit-scrollbar {
-  display: none;
-}
+    .spine:active {
+      transform: translateY(-6px);
+    }
 
-.spine {
-  flex-shrink: 0;
-  padding: 0;
-  overflow: hidden;
-  border: 0;
-  border-radius: 3px 3px 1px 1px;
-  background: #8b7567;
-  box-shadow:
-    1px 1px 3px
-    rgba(52,40,32,.16);
-  cursor: pointer;
-}
+    .spine-image {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: fill;
+    }
 
-.spine-image {
-  display: block;
-  width: 100%;
-  height: 100%;
-  object-fit: fill;
-}
+    .fallback {
+      display: flex;
+      width: 100%;
+      height: 100%;
+      align-items: center;
+      justify-content: center;
+      padding: 5px 3px;
+    }
 
-.fallback {
-  display: flex;
-  width: 100%;
-  height: 100%;
-  align-items: center;
-  justify-content: center;
-  padding: 5px 3px;
-}
+    .fallback span {
+      max-height: 94%;
+      overflow: hidden;
+      writing-mode: vertical-rl;
+      color: white;
+      font-size: 9px;
+      font-weight: 700;
+    }
 
-.fallback span {
-  max-height: 94%;
-  overflow: hidden;
-  writing-mode: vertical-rl;
-  color: white;
-  font-size: 9px;
-  font-weight: 700;
-}
+    .wood {
+      position: relative;
+      height: 17px;
+      border-radius: 2px 2px 6px 6px;
+      background:
+        linear-gradient(
+          180deg,
+          #ba8c68,
+          #966b4d 60%,
+          #80583e
+        );
+      box-shadow:
+        0 8px 10px
+        rgba(64,45,32,.17);
+    }
 
-.wood {
-  position: relative;
-  height: 17px;
-  border-radius: 2px 2px 6px 6px;
-  background:
-    linear-gradient(
-      180deg,
-      #ba8c68,
-      #966b4d 60%,
-      #80583e
-    );
-  box-shadow:
-    0 8px 10px
-    rgba(64,45,32,.17);
-}
+    .wood::after {
+      position: absolute;
+      right: 4%;
+      bottom: -6px;
+      left: 4%;
+      height: 6px;
+      border-radius: 0 0 6px 6px;
+      background: #714c35;
+      content: "";
+    }
 
-.wood::after {
-  position: absolute;
-  right: 4%;
-  bottom: -6px;
-  left: 4%;
-  height: 6px;
-  border-radius: 0 0 6px 6px;
-  background: #714c35;
-  content: "";
-}
+    .empty {
+      padding: 80px 10px 105px;
+      color: #9c948d;
+      text-align: center;
+      font-size: 13px;
+      line-height: 1.8;
+    }
 
-.empty {
-  padding: 80px 10px 105px;
-  color: #9c948d;
-  text-align: center;
-  font-size: 13px;
-  line-height: 1.8;
-}
+    .add {
+      position: fixed;
+      left: 50%;
+      bottom: 22px;
+      width: calc(100% - 40px);
+      max-width: 470px;
+      padding: 16px;
+      transform: translateX(-50%);
+      border-radius: 17px;
+      background: #817168;
+      box-shadow:
+        0 8px 20px
+        rgba(66,49,39,.14);
+      color: white;
+      text-align: center;
+      text-decoration: none;
+      font-weight: 800;
+    }
 
-.add {
-  position: fixed;
-  left: 50%;
-  bottom: 22px;
-  width: calc(100% - 40px);
-  max-width: 470px;
-  padding: 16px;
-  transform: translateX(-50%);
-  border-radius: 17px;
-  background: #817168;
-  box-shadow:
-    0 8px 20px
-    rgba(66,49,39,.14);
-  color: white;
-  text-align: center;
-  text-decoration: none;
-  font-weight: 800;
-}
+    .overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 100;
+      display: none;
+      align-items: flex-end;
+      justify-content: center;
+      background: rgba(42,38,34,.4);
+      backdrop-filter: blur(4px);
+    }
 
+    .overlay.show {
+      display: flex;
+    }
 
-/* 팝업 */
+    .modal {
+      width: 100%;
+      max-width: 520px;
+      padding: 12px 22px 28px;
+      border-radius: 27px 27px 0 0;
+      background: #fbf9f5;
+    }
 
-.overlay {
-  position: fixed;
-  inset: 0;
-  z-index: 100;
-  display: none;
-  align-items: flex-end;
-  justify-content: center;
-  background: rgba(42,38,34,.4);
-  backdrop-filter: blur(4px);
-}
+    .handle {
+      width: 40px;
+      height: 4px;
+      margin: 0 auto 23px;
+      border-radius: 5px;
+      background: #d6cfc9;
+    }
 
-.overlay.show {
-  display: flex;
-}
+    .modal-top {
+      display: flex;
+      gap: 18px;
+    }
 
-.modal {
-  width: 100%;
-  max-width: 520px;
-  padding: 12px 22px 28px;
-  border-radius: 27px 27px 0 0;
-  background: #fbf9f5;
-}
+    .cover {
+      width: 105px;
+      height: 150px;
+      flex-shrink: 0;
+      border-radius: 5px;
+      background: #e4ddd7;
+      object-fit: cover;
+      box-shadow:
+        0 6px 16px
+        rgba(49,37,28,.13);
+    }
 
-.handle {
-  width: 40px;
-  height: 4px;
-  margin: 0 auto 23px;
-  border-radius: 5px;
-  background: #d6cfc9;
-}
+    .info {
+      min-width: 0;
+      flex: 1;
+    }
 
-.modal-top {
-  display: flex;
-  gap: 18px;
-}
+    .info h2 {
+      margin: 2px 0 8px;
+      font-size: 20px;
+      line-height: 1.4;
+    }
 
-.cover {
-  width: 105px;
-  height: 150px;
-  flex-shrink: 0;
-  border-radius: 5px;
-  background: #e4ddd7;
-  object-fit: cover;
-  box-shadow:
-    0 6px 16px
-    rgba(49,37,28,.13);
-}
+    .info .author {
+      color: #70675f;
+      font-size: 13px;
+    }
 
-.info {
-  min-width: 0;
-  flex: 1;
-}
+    .info .publisher {
+      margin-top: 4px;
+      color: #9c938c;
+      font-size: 12px;
+    }
 
-.info h2 {
-  margin: 2px 0 8px;
-  font-size: 20px;
-  line-height: 1.4;
-}
+    .rating-label {
+      display: block;
+      margin-top: 16px;
+      color: #a0978f;
+      font-size: 10px;
+      font-weight: 800;
+    }
 
-.info .author {
-  color: #70675f;
-  font-size: 13px;
-}
+    .stars {
+      margin-top: 3px;
+      color: #d29a43;
+      font-size: 19px;
+      letter-spacing: 1px;
+    }
 
-.info .publisher {
-  margin-top: 4px;
-  color: #9c938c;
-  font-size: 12px;
-}
+    .details {
+      margin-top: 23px;
+      padding: 14px 0;
+      border-top: 1px solid #e5ded8;
+      border-bottom: 1px solid #e5ded8;
+    }
 
-.rating-label {
-  display: block;
-  margin-top: 16px;
-  color: #a0978f;
-  font-size: 10px;
-  font-weight: 800;
-}
+    .row {
+      display: flex;
+      gap: 12px;
+      padding: 5px 0;
+      font-size: 12px;
+    }
 
-.stars {
-  margin-top: 3px;
-  color: #d29a43;
-  font-size: 19px;
-  letter-spacing: 1px;
-}
+    .label {
+      width: 65px;
+      flex-shrink: 0;
+      color: #a09790;
+    }
 
-.details {
-  margin-top: 23px;
-  padding: 14px 0;
-  border-top: 1px solid #e5ded8;
-  border-bottom: 1px solid #e5ded8;
-}
+    .value {
+      color: #5d554f;
+    }
 
-.row {
-  display: flex;
-  gap: 12px;
-  padding: 5px 0;
-  font-size: 12px;
-}
+    .buttons {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+      margin-top: 18px;
+    }
 
-.label {
-  width: 65px;
-  flex-shrink: 0;
-  color: #a09790;
-}
+    .buttons button {
+      padding: 13px;
+      border: 0;
+      border-radius: 13px;
+      font-weight: 800;
+      cursor: pointer;
+    }
 
-.value {
-  color: #5d554f;
-}
+    .edit {
+      background: #817168;
+      color: white;
+    }
 
-.buttons {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 8px;
-  margin-top: 18px;
-}
+    .delete {
+      background: #eee5df;
+      color: #9c5e58;
+    }
 
-.buttons button {
-  padding: 13px;
-  border: 0;
-  border-radius: 13px;
-  font-weight: 800;
-  cursor: pointer;
-}
-
-.edit {
-  background: #817168;
-  color: white;
-}
-
-.delete {
-  background: #eee5df;
-  color: #9c5e58;
-}
-
-.close {
-  width: 100%;
-  margin-top: 7px;
-  padding: 12px;
-  border: 0;
-  background: transparent;
-  color: #99908a;
-  cursor: pointer;
-}
-</style>
+    .close {
+      width: 100%;
+      margin-top: 7px;
+      padding: 12px;
+      border: 0;
+      background: transparent;
+      color: #99908a;
+      cursor: pointer;
+    }
+  </style>
 </head>
 
 <body>
@@ -404,7 +404,6 @@ button {
 
   </div>
 
-
   <header class="header">
 
     <h1 id="owner"></h1>
@@ -415,13 +414,9 @@ button {
 
   </header>
 
-
   <div class="month">
 
-    <button
-      id="prev"
-      type="button"
-    >
+    <button id="prev" type="button">
       ‹
     </button>
 
@@ -433,15 +428,11 @@ button {
 
     </div>
 
-    <button
-      id="next"
-      type="button"
-    >
+    <button id="next" type="button">
       ›
     </button>
 
   </div>
-
 
   <section class="shelf-area">
 
@@ -465,14 +456,12 @@ button {
 
 </main>
 
-
 <a
   class="add"
   id="add"
 >
   ＋ 새 책 꽂기
 </a>
-
 
 <div
   class="overlay"
@@ -489,6 +478,7 @@ button {
         class="cover"
         id="cover"
         alt="책 표지"
+        referrerpolicy="no-referrer"
       >
 
       <div class="info">
@@ -518,7 +508,6 @@ button {
 
     </div>
 
-
     <div class="details">
 
       <div class="row">
@@ -543,7 +532,6 @@ button {
 
     </div>
 
-
     <div class="buttons">
 
       <button
@@ -564,7 +552,6 @@ button {
 
     </div>
 
-
     <button
       class="close"
       id="close"
@@ -576,7 +563,6 @@ button {
   </div>
 
 </div>
-
 
 <script>
 
@@ -741,6 +727,8 @@ async function loadBooks() {
 
   } catch (error) {
 
+    console.error(error);
+
     document
       .getElementById("count")
       .textContent =
@@ -799,8 +787,8 @@ function renderBooks(books) {
 
 
       /*
-       * 실제 세로 길이와 두께를
-       * 화면 비율에 반영
+       * 실제 책 세로 크기와 두께를
+       * 책등 크기에 반영
        */
       const realLength =
         Number(
@@ -849,8 +837,14 @@ function renderBooks(books) {
         image.className =
           "spine-image";
 
+
+        image.referrerPolicy =
+          "no-referrer";
+
+
         image.src =
           book.spineUrl;
+
 
         image.alt =
           book.title;
@@ -949,6 +943,7 @@ function fallback(
 
 
   div.appendChild(span);
+
   button.appendChild(div);
 
 }
@@ -977,10 +972,18 @@ function openBook(book) {
       book.publisher || "";
 
 
-  document
-    .getElementById("cover")
-    .src =
-      book.coverUrl || "";
+  const cover =
+    document.getElementById(
+      "cover"
+    );
+
+
+  cover.referrerPolicy =
+    "no-referrer";
+
+
+  cover.src =
+    book.coverUrl || "";
 
 
   const rating =
@@ -1145,10 +1148,13 @@ document
 
 
         closeModal();
+
         loadBooks();
 
 
       } catch (error) {
+
+        console.error(error);
 
         alert(
           "삭제하지 못했어요."
@@ -1217,6 +1223,7 @@ function formatDate(value) {
 
   return String(value)
     .replace(/-/g, ".");
+
 }
 
 

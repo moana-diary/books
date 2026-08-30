@@ -1,544 +1,502 @@
 <!DOCTYPE html>
 <html lang="ko">
+
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="referrer" content="no-referrer">
 
-  <title>새 책 추가</title>
+<meta charset="UTF-8">
 
-  <style>
-    :root {
-      --cream: #f6f2e9;
-      --paper: #fffdf8;
-      --green: #123d2b;
-      --ink: #171b18;
-      --muted: #77766e;
-      --mustard: #e4b63d;
-      --coral: #d98272;
-      --line: rgba(23, 27, 24, .18);
-    }
+<meta
+  name="viewport"
+  content="width=device-width, initial-scale=1.0"
+>
 
-    * {
-      box-sizing: border-box;
-    }
+<title>새 책 꽂기</title>
 
-    body {
-      margin: 0;
-      background: #e9e6df;
-      color: var(--ink);
-      font-family:
-        -apple-system,
-        BlinkMacSystemFont,
-        "Pretendard",
-        "Apple SD Gothic Neo",
-        sans-serif;
-    }
+<style>
 
-    button,
-    input,
-    select {
-      font: inherit;
-    }
+:root {
+  --cream: #f7f3e9;
+  --paper: #fffdf7;
+  --green: #0e4b37;
+  --ink: #20241f;
+  --muted: #77766e;
+  --yellow: #e9b936;
+  --coral: #d97968;
+  --line: #ded8ca;
+}
 
-    button {
-      cursor: pointer;
-    }
+* {
+  box-sizing: border-box;
+}
 
-    .app {
-      width: 100%;
-      max-width: 500px;
-      min-height: 100vh;
-      margin: 0 auto;
-      padding-bottom: 45px;
-      background: var(--cream);
-    }
+body {
+  margin: 0;
+  background: #ebe8e0;
+  color: var(--ink);
+  font-family:
+    -apple-system,
+    BlinkMacSystemFont,
+    "Pretendard",
+    "Apple SD Gothic Neo",
+    sans-serif;
+}
 
-    .top {
-      display: grid;
-      grid-template-columns: 44px 1fr 44px;
-      align-items: center;
-      padding: 22px 22px 0;
-    }
+button,
+input,
+select {
+  font: inherit;
+}
 
-    .back {
-      display: flex;
-      width: 42px;
-      height: 42px;
-      align-items: center;
-      justify-content: center;
-      color: var(--ink);
-      text-decoration: none;
-      font-size: 34px;
-      font-weight: 300;
-    }
+button {
+  cursor: pointer;
+}
 
-    .top-title {
-      color: var(--green);
-      text-align: center;
-      font-size: 16px;
-      font-weight: 900;
-    }
+.app {
+  width: 100%;
+  max-width: 520px;
+  min-height: 100vh;
+  margin: 0 auto;
+  padding: 27px 24px 60px;
+  background: var(--cream);
+}
 
-    .bookmark {
-      justify-self: end;
-      width: 22px;
-      height: 31px;
-      border: 2px solid var(--green);
-      border-bottom: 0;
-      position: relative;
-    }
 
-    .bookmark::after {
-      position: absolute;
-      left: 2px;
-      right: 2px;
-      bottom: -9px;
-      width: 14px;
-      height: 14px;
-      margin: auto;
-      transform: rotate(45deg);
-      border-right: 2px solid var(--green);
-      border-bottom: 2px solid var(--green);
-      background: var(--cream);
-      content: "";
-    }
+/* HEADER */
 
-    .content {
-      padding: 55px 22px 0;
-    }
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
 
-    .step-title {
-      display: flex;
-      align-items: center;
-      gap: 9px;
-      margin-bottom: 17px;
-      color: var(--green);
-      font-size: 16px;
-      font-weight: 900;
-    }
+.back {
+  width: 45px;
+  height: 45px;
+  padding: 0;
+  border: 1px solid var(--green);
+  border-radius: 50%;
+  background: transparent;
+  color: var(--green);
+  font-size: 27px;
+}
 
-    .step-number {
-      padding-bottom: 3px;
-      border-bottom: 3px solid var(--mustard);
-    }
+.header-mark {
+  display: flex;
+  gap: 7px;
+}
 
-    .square-mark {
-      width: 10px;
-      height: 10px;
-      background: var(--mustard);
-    }
+.circle {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: var(--yellow);
+}
 
-    .circle-mark {
-      width: 10px;
-      height: 10px;
-      border-radius: 50%;
-      background: var(--green);
-    }
+.square {
+  width: 16px;
+  height: 16px;
+  background: var(--green);
+}
 
-    /* 검색 */
 
-    .search-row {
-      display: flex;
-      gap: 8px;
-    }
+/* TITLE */
 
-    .search-input {
-      min-width: 0;
-      height: 52px;
-      flex: 1;
-      padding: 0 14px;
-      border: 1px solid var(--line);
-      border-radius: 0;
-      outline: none;
-      background: var(--paper);
-      color: var(--ink);
-    }
+.title-area {
+  margin-top: 54px;
+}
 
-    .search-button {
-      width: 74px;
-      border: 0;
-      background: var(--green);
-      color: white;
-      font-weight: 800;
-    }
+.eyebrow {
+  color: var(--green);
+  font-size: 12px;
+  font-weight: 900;
+  letter-spacing: 3px;
+}
 
-    .search-button:disabled {
-      opacity: .5;
-    }
+h1 {
+  margin: 9px 0 0;
+  color: var(--green);
+  font-size: 42px;
+  line-height: 1;
+  letter-spacing: -3px;
+}
 
-    .results {
-      margin-top: 13px;
-      border: 1px solid var(--line);
-      background: rgba(255,253,248,.5);
-    }
+.subtitle {
+  margin: 13px 0 0;
+  color: var(--muted);
+  font-size: 14px;
+}
 
-    .results:empty {
-      display: none;
-    }
 
-    .result {
-      display: flex;
-      width: 100%;
-      gap: 13px;
-      padding: 16px 13px;
-      border: 0;
-      border-bottom: 1px solid var(--line);
-      background: transparent;
-      text-align: left;
-    }
+/* SEARCH */
 
-    .result:last-child {
-      border-bottom: 0;
-    }
+.search-area {
+  display: flex;
+  gap: 7px;
+  margin-top: 34px;
+}
 
-    .result img {
-      width: 53px;
-      height: 76px;
-      flex-shrink: 0;
-      object-fit: cover;
-      background: #e9e4d9;
-    }
+.search-area input {
+  min-width: 0;
+  flex: 1;
+  height: 53px;
+  padding: 0 15px;
+  border: 1px solid var(--green);
+  border-radius: 0;
+  outline: none;
+  background: var(--paper);
+  font-size: 16px;
+}
 
-    .result-info {
-      min-width: 0;
-      flex: 1;
-    }
+.search-area button {
+  width: 75px;
+  border: 0;
+  background: var(--green);
+  color: white;
+  font-weight: 800;
+}
 
-    .result-title {
-      margin: 2px 0 6px;
-      color: var(--ink);
-      font-size: 14px;
-      font-weight: 900;
-      line-height: 1.4;
-    }
 
-    .result-meta {
-      color: var(--muted);
-      font-size: 11px;
-      line-height: 1.6;
-      white-space: pre-line;
-    }
+/* RESULTS */
 
-    .result-plus {
-      align-self: center;
-      color: var(--green);
-      font-family: Georgia, serif;
-      font-size: 28px;
-    }
+.results {
+  margin-top: 13px;
+}
 
-    .search-status {
-      padding: 21px;
-      color: var(--muted);
-      text-align: center;
-      font-size: 12px;
-    }
+.result {
+  display: grid;
+  grid-template-columns: 62px 1fr;
+  gap: 14px;
+  width: 100%;
+  padding: 13px 0;
+  border: 0;
+  border-bottom: 1px solid var(--line);
+  background: transparent;
+  text-align: left;
+}
 
-    /* Step 2 */
+.result img {
+  width: 62px;
+  height: 88px;
+  object-fit: cover;
+  background: #e8e3d7;
+}
 
-    .record-section {
-      margin-top: 50px;
-    }
+.result-title {
+  margin-top: 3px;
+  font-size: 16px;
+  font-weight: 900;
+  line-height: 1.35;
+}
 
-    .selected {
-      display: none;
-      align-items: center;
-      gap: 15px;
-      padding: 15px;
-      border: 1px solid var(--line);
-      background: var(--paper);
-    }
+.result-meta {
+  margin-top: 7px;
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.55;
+}
 
-    .selected.show {
-      display: flex;
-    }
+.message {
+  padding: 24px 0;
+  color: var(--muted);
+  text-align: center;
+  font-size: 13px;
+}
 
-    .selected img {
-      width: 70px;
-      height: 101px;
-      flex-shrink: 0;
-      object-fit: cover;
-      background: #e9e4da;
-    }
 
-    .selected-info {
-      min-width: 0;
-      flex: 1;
-    }
+/* SELECTED */
 
-    .selected-info h2 {
-      margin: 0 0 7px;
-      color: var(--green);
-      font-family:
-        Georgia,
-        "Noto Serif KR",
-        serif;
-      font-size: 20px;
-      line-height: 1.35;
-    }
+.selected {
+  display: none;
+  margin-top: 28px;
+}
 
-    .selected-info p {
-      margin: 3px 0;
-      color: var(--muted);
-      font-size: 11px;
-      line-height: 1.5;
-    }
+.selected.show {
+  display: block;
+}
 
-    .remove-book {
-      align-self: flex-start;
-      padding: 2px 5px;
-      border: 0;
-      background: transparent;
-      color: var(--ink);
-      font-size: 23px;
-    }
+.selected-book {
+  display: grid;
+  grid-template-columns: 91px 1fr;
+  gap: 18px;
+  padding-bottom: 26px;
+  border-bottom: 1px solid var(--line);
+}
 
-    .form {
-      margin-top: 12px;
-      padding: 18px 15px;
-      border: 1px solid var(--line);
-      background: rgba(255,253,248,.42);
-    }
+.selected-book img {
+  width: 91px;
+  height: 132px;
+  object-fit: cover;
+  background: #e7e1d4;
+}
 
-    .field {
-      display: grid;
-      grid-template-columns: 75px 1fr;
-      align-items: center;
-      gap: 10px;
-      margin-bottom: 13px;
-    }
+.selected-title {
+  margin: 7px 0 0;
+  font-size: 22px;
+  font-weight: 900;
+  line-height: 1.25;
+}
 
-    .field:last-child {
-      margin-bottom: 0;
-    }
+.selected-author {
+  margin-top: 9px;
+  color: #595b55;
+  font-size: 14px;
+}
 
-    .field label {
-      color: var(--ink);
-      font-size: 12px;
-      font-weight: 800;
-    }
+.selected-publisher {
+  margin-top: 5px;
+  color: var(--muted);
+  font-size: 13px;
+}
 
-    .field input,
-    .field select {
-      width: 100%;
-      height: 47px;
-      padding: 0 12px;
-      border: 1px solid var(--line);
-      border-radius: 0;
-      outline: none;
-      background: var(--paper);
-      color: var(--ink);
-    }
 
-    .stars {
-      display: flex;
-      gap: 5px;
-    }
+/* FORM */
 
-    .star {
-      padding: 0;
-      border: 0;
-      background: transparent;
-      color: #b9b4aa;
-      font-size: 31px;
-      line-height: 1;
-    }
+.form {
+  margin-top: 28px;
+}
 
-    .star.active {
-      color: var(--green);
-    }
+.field {
+  margin-bottom: 24px;
+}
 
-    .save {
-      width: 100%;
-      height: 57px;
-      margin-top: 17px;
-      border: 0;
-      background: var(--green);
-      color: white;
-      font-size: 14px;
-      font-weight: 900;
-    }
+.field label {
+  display: block;
+  margin-bottom: 9px;
+  color: var(--green);
+  font-size: 12px;
+  font-weight: 900;
+  letter-spacing: 1px;
+}
 
-    .save:disabled {
-      opacity: .5;
-    }
+.field select,
+.field input {
+  width: 100%;
+  height: 51px;
+  padding: 0 13px;
+  border: 1px solid var(--line);
+  border-radius: 0;
+  outline: none;
+  background: var(--paper);
+  font-size: 16px;
+}
 
-    .message {
-      display: none;
-      margin-top: 11px;
-      padding: 12px;
-      border-left: 5px solid var(--coral);
-      background: rgba(217,130,114,.1);
-      color: #7b433b;
-      font-size: 12px;
-    }
-  </style>
+
+/* STAR */
+
+.stars {
+  display: flex;
+  gap: 4px;
+}
+
+.star {
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: #d7d1c4;
+  font-size: 39px;
+  line-height: 1;
+}
+
+.star.on {
+  color: var(--yellow);
+}
+
+
+/* SAVE */
+
+.save {
+  width: 100%;
+  height: 58px;
+  margin-top: 12px;
+  border: 0;
+  background: var(--green);
+  color: white;
+  font-size: 16px;
+  font-weight: 900;
+}
+
+.cancel-edit {
+  width: 100%;
+  height: 50px;
+  margin-top: 8px;
+  border: 1px solid var(--green);
+  background: transparent;
+  color: var(--green);
+  font-weight: 800;
+}
+
+</style>
+
 </head>
+
 
 <body>
 
 <main class="app">
 
-  <div class="top">
+  <header class="header">
 
-    <a
+    <button
       class="back"
-      id="back"
-      href="./shelf.html"
+      id="backButton"
+      type="button"
     >
       ‹
-    </a>
+    </button>
 
-    <div
-      class="top-title"
-      id="topTitle"
-    >
-      새 책 추가
+    <div class="header-mark">
+      <span class="circle"></span>
+      <span class="square"></span>
     </div>
 
-    <div class="bookmark"></div>
-
-  </div>
+  </header>
 
 
-  <div class="content">
+  <section class="title-area">
 
-    <section
-      id="searchSection"
-    >
+    <div class="eyebrow">
+      ADD TO SHELF
+    </div>
 
-      <div class="step-title">
+    <h1 id="pageTitle">
+      새 책 꽂기
+    </h1>
 
-        <span class="step-number">
-          STEP 1.
-        </span>
+    <p class="subtitle">
+      읽은 책을 검색해서 책장에 꽂아보세요.
+    </p>
 
-        <span>
-          책 검색
-        </span>
-
-        <span class="square-mark"></span>
-
-      </div>
-
-      <div class="search-row">
-
-        <input
-          class="search-input"
-          id="query"
-          type="search"
-          placeholder="예: 채식주의자"
-        >
-
-        <button
-          class="search-button"
-          id="searchButton"
-          type="button"
-        >
-          검색
-        </button>
-
-      </div>
-
-      <div
-        class="results"
-        id="results"
-      ></div>
-
-    </section>
+  </section>
 
 
-    <section class="record-section">
+  <section id="searchSection">
 
-      <div class="step-title">
+    <div class="search-area">
 
-        <span class="step-number">
-          STEP 2.
-        </span>
-
-        <span>
-          기록하기
-        </span>
-
-        <span class="circle-mark"></span>
-
-      </div>
-
-
-      <div
-        class="selected"
-        id="selected"
+      <input
+        id="searchInput"
+        type="search"
+        placeholder="책 제목을 입력하세요"
       >
 
-        <img
-          id="selectedCover"
-          referrerpolicy="no-referrer"
-          alt="책 표지"
-        >
+      <button
+        id="searchButton"
+        type="button"
+      >
+        검색
+      </button>
 
-        <div class="selected-info">
+    </div>
 
-          <h2 id="selectedTitle"></h2>
+    <div
+      class="results"
+      id="results"
+    ></div>
 
-          <p id="selectedAuthor"></p>
+  </section>
 
-          <p id="selectedPublisher"></p>
 
-          <p id="selectedMeta"></p>
+  <section
+    class="selected"
+    id="selectedSection"
+  >
 
-        </div>
+    <div class="selected-book">
 
-        <button
-          class="remove-book"
-          id="removeBook"
-          type="button"
-        >
-          ×
-        </button>
+      <img
+        id="selectedCover"
+        alt=""
+      >
+
+      <div>
+
+        <div
+          class="selected-title"
+          id="selectedTitle"
+        ></div>
+
+        <div
+          class="selected-author"
+          id="selectedAuthor"
+        ></div>
+
+        <div
+          class="selected-publisher"
+          id="selectedPublisher"
+        ></div>
+
+      </div>
+
+    </div>
+
+
+    <div class="form">
+
+      <div class="field">
+
+        <label for="userSelect">
+          READER
+        </label>
+
+        <select id="userSelect"></select>
 
       </div>
 
 
-      <div class="form">
+      <div class="field">
 
-        <div class="field">
+        <label for="finishDate">
+          FINISHED
+        </label>
 
-          <label for="reader">
-            읽은 사람
-          </label>
+        <input
+          id="finishDate"
+          type="date"
+        >
 
-          <select id="reader"></select>
+      </div>
 
-        </div>
 
-        <div class="field">
+      <div class="field">
 
-          <label for="finishDate">
-            완독일
-          </label>
+        <label>
+          MY RATING
+        </label>
 
-          <input
-            id="finishDate"
-            type="date"
-          >
+        <div
+          class="stars"
+          id="stars"
+        >
 
-        </div>
+          <button
+            type="button"
+            class="star"
+            data-value="1"
+          >★</button>
 
-        <div class="field">
+          <button
+            type="button"
+            class="star"
+            data-value="2"
+          >★</button>
 
-          <label>
-            별점
-          </label>
+          <button
+            type="button"
+            class="star"
+            data-value="3"
+          >★</button>
 
-          <div class="stars">
+          <button
+            type="button"
+            class="star"
+            data-value="4"
+          >★</button>
 
-            <button class="star" data-value="1" type="button">★</button>
-            <button class="star" data-value="2" type="button">★</button>
-            <button class="star" data-value="3" type="button">★</button>
-            <button class="star" data-value="4" type="button">★</button>
-            <button class="star" data-value="5" type="button">★</button>
-
-          </div>
+          <button
+            type="button"
+            class="star"
+            data-value="5"
+          >★</button>
 
         </div>
 
@@ -553,14 +511,17 @@
         책장에 꽂기
       </button>
 
-      <div
-        class="message"
-        id="message"
-      ></div>
+      <button
+        class="cancel-edit"
+        id="cancelButton"
+        type="button"
+      >
+        취소
+      </button>
 
-    </section>
+    </div>
 
-  </div>
+  </section>
 
 </main>
 
@@ -573,211 +534,158 @@ const API_URL =
 
 const params =
   new URLSearchParams(
-    location.search
+    window.location.search
+  );
+
+const mode =
+  params.get("mode") || "new";
+
+const urlUser =
+  params.get("user") ||
+  localStorage.getItem("currentBookUser") ||
+  "";
+
+let selectedBook = null;
+let rating = 5;
+let editBook = null;
+
+
+const searchSection =
+  document.getElementById(
+    "searchSection"
+  );
+
+const selectedSection =
+  document.getElementById(
+    "selectedSection"
+  );
+
+const results =
+  document.getElementById(
+    "results"
+  );
+
+const searchInput =
+  document.getElementById(
+    "searchInput"
   );
 
 
-const user =
-  params.get("user") ||
-  localStorage.getItem(
-    "currentBookUser"
-  ) ||
-  "";
+init();
 
 
-if (!user) {
+async function init() {
 
-  window.location.href =
-    "./index.html";
+  setToday();
 
-}
+  await loadUsers();
 
+  setRating(5);
 
-localStorage.setItem(
-  "currentBookUser",
-  user
-);
+  if (mode === "edit") {
 
+    const stored =
+      sessionStorage.getItem(
+        "selectedBook"
+      );
 
-const isEdit =
-  params.get("mode") ===
-  "edit";
+    if (stored) {
 
+      try {
 
-let selectedBook =
-  null;
+        editBook =
+          JSON.parse(stored);
 
+        selectedBook = {
+          itemId:
+            editBook.itemId || "",
 
-let editBook =
-  null;
+          title:
+            editBook.title || "",
 
+          author:
+            editBook.author || "",
 
-let rating =
-  0;
+          publisher:
+            editBook.publisher || "",
 
+          isbn13:
+            editBook.isbn13 || "",
 
-document
-  .getElementById("back")
-  .href =
-    "./shelf.html?user=" +
-    encodeURIComponent(user);
+          coverUrl:
+            editBook.coverUrl || "",
 
+          spineUrl:
+            editBook.spineUrl || "",
 
-setToday();
+          bookHeight:
+            Number(
+              editBook.bookThickness ||
+              editBook.bookHeight ||
+              0
+            )
+        };
 
-setupStars();
+        document
+          .getElementById("pageTitle")
+          .textContent =
+          "책 기록 수정";
 
-setupEdit();
+        searchSection.style.display =
+          "none";
 
-loadUsers();
+        showSelected();
 
+        document
+          .getElementById("finishDate")
+          .value =
+          normalizeDate(
+            editBook.finishDate
+          );
 
-document
-  .getElementById("searchButton")
-  .onclick =
-    searchBooks;
+        setRating(
+          Number(editBook.rating || 0)
+        );
 
+      } catch (error) {
 
-document
-  .getElementById("query")
-  .addEventListener(
-    "keydown",
-    function(event) {
-
-      if (event.key === "Enter") {
-
-        event.preventDefault();
-
-        searchBooks();
+        console.error(error);
 
       }
 
     }
-  );
-
-
-document
-  .getElementById("removeBook")
-  .onclick =
-    function() {
-
-      if (isEdit) {
-        return;
-      }
-
-
-      selectedBook =
-        null;
-
-
-      document
-        .getElementById("selected")
-        .classList.remove(
-          "show"
-        );
-
-    };
-
-
-document
-  .getElementById("saveButton")
-  .onclick =
-    saveBook;
-
-
-function setupEdit() {
-
-  if (!isEdit) {
-    return;
-  }
-
-
-  const stored =
-    sessionStorage.getItem(
-      "editBook"
-    );
-
-
-  if (!stored) {
-
-    showMessage(
-      "수정할 책 정보를 찾지 못했어요."
-    );
-
-    return;
 
   }
 
-
-  try {
-
-    editBook =
-      JSON.parse(stored);
+}
 
 
-    selectedBook =
-      { ...editBook };
+function setToday() {
 
+  const now = new Date();
 
-    document
-      .getElementById("topTitle")
-      .textContent =
-        "기록 수정";
+  const y =
+    now.getFullYear();
 
+  const m =
+    String(
+      now.getMonth() + 1
+    ).padStart(2, "0");
 
-    document
-      .getElementById("searchSection")
-      .style.display =
-        "none";
+  const d =
+    String(
+      now.getDate()
+    ).padStart(2, "0");
 
-
-    document
-      .getElementById("removeBook")
-      .style.display =
-        "none";
-
-
-    document
-      .getElementById("saveButton")
-      .textContent =
-        "수정 내용 저장";
-
-
-    document
-      .getElementById("finishDate")
-      .value =
-        normalizeDate(
-          editBook.finishDate
-        );
-
-
-    rating =
-      Number(
-        editBook.rating || 0
-      );
-
-
-    paintStars();
-
-    showSelectedBook();
-
-
-  } catch (error) {
-
-    console.error(error);
-
-  }
+  document
+    .getElementById("finishDate")
+    .value =
+    y + "-" + m + "-" + d;
 
 }
 
 
 async function loadUsers() {
-
-  const select =
-    document.getElementById(
-      "reader"
-    );
-
 
   try {
 
@@ -788,183 +696,87 @@ async function loadUsers() {
         Date.now()
       );
 
-
     const data =
       JSON.parse(
         await response.text()
       );
 
-
-    if (!data.success) {
-
-      throw new Error(
-        data.message
+    const select =
+      document.getElementById(
+        "userSelect"
       );
 
-    }
-
-
-    select.innerHTML =
-      "";
-
+    select.innerHTML = "";
 
     (data.users || [])
-      .forEach(
-        function(item) {
+      .forEach(function(user) {
 
-          const name =
-            typeof item === "string"
-              ? item
-              : item.name;
+        const name =
+          typeof user === "string"
+            ? user
+            : user.name;
 
+        if (!name) return;
 
-          if (!name) {
-            return;
-          }
-
-
-          const option =
-            document.createElement(
-              "option"
-            );
-
-
-          option.value =
-            name;
-
-
-          option.textContent =
-            name;
-
-
-          const target =
-            isEdit &&
-            editBook
-              ? editBook.user
-              : user;
-
-
-          if (
-            name === target
-          ) {
-
-            option.selected =
-              true;
-
-          }
-
-
-          select.appendChild(
-            option
+        const option =
+          document.createElement(
+            "option"
           );
 
+        option.value = name;
+        option.textContent = name;
+
+        if (name === urlUser) {
+          option.selected = true;
         }
-      );
 
+        select.appendChild(option);
 
-    if (
-      select.options.length === 0 &&
-      user
-    ) {
-
-      const option =
-        document.createElement(
-          "option"
-        );
-
-
-      option.value =
-        user;
-
-
-      option.textContent =
-        user;
-
-
-      select.appendChild(
-        option
-      );
-
-    }
-
+      });
 
   } catch (error) {
 
     console.error(error);
-
-
-    select.innerHTML =
-      "";
-
-
-    const option =
-      document.createElement(
-        "option"
-      );
-
-
-    option.value =
-      user;
-
-
-    option.textContent =
-      user;
-
-
-    select.appendChild(
-      option
-    );
 
   }
 
 }
 
 
-async function searchBooks() {
+document
+  .getElementById("searchButton")
+  .addEventListener(
+    "click",
+    searchBooks
+  );
 
-  const query =
-    document
-      .getElementById("query")
-      .value
-      .trim();
 
+searchInput.addEventListener(
+  "keydown",
+  function(event) {
 
-  if (!query) {
+    if (event.key === "Enter") {
 
-    showMessage(
-      "책 제목을 입력해주세요."
-    );
+      event.preventDefault();
+      searchBooks();
 
-    return;
+    }
 
   }
+);
 
 
-  const results =
-    document.getElementById(
-      "results"
-    );
+async function searchBooks() {
 
+  const q =
+    searchInput.value.trim();
 
-  const searchButton =
-    document.getElementById(
-      "searchButton"
-    );
+  if (!q) {
+    return;
+  }
 
-
-  hideMessage();
-
-
-  results.innerHTML = `
-    <div class="search-status">
-      YES24에서 찾는 중…
-    </div>
-  `;
-
-
-  searchButton.disabled =
-    true;
-
+  results.innerHTML =
+    '<div class="message">검색 중…</div>';
 
   try {
 
@@ -972,48 +784,32 @@ async function searchBooks() {
       await fetch(
         API_URL +
         "?action=search&q=" +
-        encodeURIComponent(query) +
+        encodeURIComponent(q) +
         "&t=" +
         Date.now()
       );
-
 
     const data =
       JSON.parse(
         await response.text()
       );
 
-
     if (!data.success) {
-
       throw new Error(
-        data.message
+        data.message || "검색 실패"
       );
-
     }
-
 
     renderResults(
       data.books || []
     );
 
-
   } catch (error) {
 
     console.error(error);
 
-
-    results.innerHTML = `
-      <div class="search-status">
-        검색하지 못했어요.
-      </div>
-    `;
-
-
-  } finally {
-
-    searchButton.disabled =
-      false;
+    results.innerHTML =
+      '<div class="message">검색하지 못했어요.</div>';
 
   }
 
@@ -1022,518 +818,352 @@ async function searchBooks() {
 
 function renderResults(books) {
 
-  const results =
-    document.getElementById(
-      "results"
-    );
-
-
-  results.innerHTML =
-    "";
-
+  results.innerHTML = "";
 
   if (!books.length) {
 
-    results.innerHTML = `
-      <div class="search-status">
-        검색 결과가 없어요.
-      </div>
-    `;
+    results.innerHTML =
+      '<div class="message">검색 결과가 없어요.</div>';
 
     return;
 
   }
 
+  books.forEach(function(book) {
 
-  books.forEach(
-    function(book) {
+    const button =
+      document.createElement(
+        "button"
+      );
 
-      const button =
-        document.createElement(
-          "button"
-        );
+    button.type = "button";
+    button.className = "result";
 
+    const img =
+      document.createElement("img");
 
-      button.type =
-        "button";
+    img.src =
+      book.coverUrl || "";
 
+    img.alt =
+      book.title || "";
 
-      button.className =
-        "result";
+    const text =
+      document.createElement("div");
 
+    const title =
+      document.createElement("div");
 
-      const image =
-        document.createElement(
-          "img"
-        );
+    title.className =
+      "result-title";
 
-
-      image.referrerPolicy =
-        "no-referrer";
-
-
-      image.src =
-        book.coverUrl || "";
-
-
-      image.alt =
-        book.title || "";
+    title.textContent =
+      book.title || "";
 
 
-      const info =
-        document.createElement(
-          "div"
-        );
+    const meta =
+      document.createElement("div");
+
+    meta.className =
+      "result-meta";
+
+    meta.textContent =
+      [
+        book.author,
+        book.publisher
+      ]
+      .filter(Boolean)
+      .join(" · ");
 
 
-      info.className =
-        "result-info";
+    text.appendChild(title);
+    text.appendChild(meta);
+
+    button.appendChild(img);
+    button.appendChild(text);
 
 
-      const title =
-        document.createElement(
-          "div"
-        );
+    button.addEventListener(
+      "click",
+      function() {
 
-
-      title.className =
-        "result-title";
-
-
-      title.textContent =
-        book.title || "";
-
-
-      const meta =
-        document.createElement(
-          "div"
-        );
-
-
-      meta.className =
-        "result-meta";
-
-
-      let metaText =
-        book.author || "";
-
-
-      if (book.publisher) {
-
-        metaText +=
-          "  |  " +
-          book.publisher;
+        selectBook(book);
 
       }
+    );
 
 
-      if (
-        book.publishDate ||
-        book.pages
-      ) {
+    results.appendChild(button);
 
-        metaText +=
-          "\n";
-
-
-        if (book.publishDate) {
-
-          metaText +=
-            formatPublishDate(
-              book.publishDate
-            );
-
-        }
-
-
-        if (book.pages) {
-
-          if (book.publishDate) {
-
-            metaText +=
-              "  |  ";
-
-          }
-
-
-          metaText +=
-            book.pages +
-            "쪽";
-
-        }
-
-      }
-
-
-      meta.textContent =
-        metaText;
-
-
-      const plus =
-        document.createElement(
-          "div"
-        );
-
-
-      plus.className =
-        "result-plus";
-
-
-      plus.textContent =
-        "+";
-
-
-      info.appendChild(
-        title
-      );
-
-
-      info.appendChild(
-        meta
-      );
-
-
-      button.appendChild(
-        image
-      );
-
-
-      button.appendChild(
-        info
-      );
-
-
-      button.appendChild(
-        plus
-      );
-
-
-      button.onclick =
-        function() {
-
-          selectedBook =
-            { ...book };
-
-
-          showSelectedBook();
-
-
-          results.innerHTML =
-            "";
-
-        };
-
-
-      results.appendChild(
-        button
-      );
-
-    }
-  );
+  });
 
 }
 
 
-function showSelectedBook() {
+async function selectBook(book) {
 
-  if (!selectedBook) {
+  /*
+    검색 결과에도 두께가 들어오지만
+    상세 API에 값이 더 정확히 들어오는
+    경우가 있어서 한 번 확인한다.
+  */
+
+  selectedBook = {
+    ...book
+  };
+
+  showSelected();
+
+  if (!book.itemId) {
     return;
   }
 
+  try {
 
-  const cover =
-    document.getElementById(
+    const response =
+      await fetch(
+        API_URL +
+        "?action=detail&itemId=" +
+        encodeURIComponent(
+          book.itemId
+        ) +
+        "&t=" +
+        Date.now()
+      );
+
+    const data =
+      JSON.parse(
+        await response.text()
+      );
+
+    if (
+      data.success &&
+      data.book
+    ) {
+
+      selectedBook = {
+        ...selectedBook,
+        ...data.book
+      };
+
+      showSelected();
+
+    }
+
+  } catch (error) {
+
+    console.error(error);
+
+  }
+
+}
+
+
+function showSelected() {
+
+  if (!selectedBook) return;
+
+  selectedSection
+    .classList
+    .add("show");
+
+  document
+    .getElementById(
       "selectedCover"
-    );
-
-
-  cover.referrerPolicy =
-    "no-referrer";
-
-
-  cover.src =
-    selectedBook.coverUrl ||
-    "";
-
+    )
+    .src =
+    selectedBook.coverUrl || "";
 
   document
-    .getElementById("selectedTitle")
+    .getElementById(
+      "selectedTitle"
+    )
     .textContent =
-      selectedBook.title ||
-      "";
-
+    selectedBook.title || "";
 
   document
-    .getElementById("selectedAuthor")
+    .getElementById(
+      "selectedAuthor"
+    )
     .textContent =
-      selectedBook.author ||
-      "";
-
+    selectedBook.author || "";
 
   document
-    .getElementById("selectedPublisher")
+    .getElementById(
+      "selectedPublisher"
+    )
     .textContent =
-      selectedBook.publisher ||
-      "";
-
-
-  let meta =
-    "";
-
-
-  if (
-    selectedBook.publishDate
-  ) {
-
-    meta +=
-      formatPublishDate(
-        selectedBook.publishDate
-      );
-
-  }
-
-
-  if (
-    selectedBook.pages
-  ) {
-
-    if (meta) {
-
-      meta +=
-        "  |  ";
-
-    }
-
-
-    meta +=
-      selectedBook.pages +
-      "쪽";
-
-  }
-
-
-  document
-    .getElementById("selectedMeta")
-    .textContent =
-      meta;
-
-
-  document
-    .getElementById("selected")
-    .classList.add(
-      "show"
-    );
+    selectedBook.publisher || "";
 
 }
 
 
-function setupStars() {
+document
+  .querySelectorAll(".star")
+  .forEach(function(button) {
 
-  document
-    .querySelectorAll(
-      ".star"
-    )
-    .forEach(
-      function(button) {
+    button.addEventListener(
+      "click",
+      function() {
 
-        button.onclick =
-          function() {
-
-            rating =
-              Number(
-                button.dataset.value
-              );
-
-
-            paintStars();
-
-          };
-
-      }
-    );
-
-}
-
-
-function paintStars() {
-
-  document
-    .querySelectorAll(
-      ".star"
-    )
-    .forEach(
-      function(button) {
-
-        button.classList.toggle(
-          "active",
+        setRating(
           Number(
             button.dataset.value
-          ) <= rating
+          )
         );
 
       }
     );
 
+  });
+
+
+function setRating(value) {
+
+  rating =
+    Math.max(
+      0,
+      Math.min(5, value)
+    );
+
+  document
+    .querySelectorAll(".star")
+    .forEach(function(button) {
+
+      const value =
+        Number(
+          button.dataset.value
+        );
+
+      button.classList.toggle(
+        "on",
+        value <= rating
+      );
+
+    });
+
 }
+
+
+document
+  .getElementById("saveButton")
+  .addEventListener(
+    "click",
+    saveBook
+  );
 
 
 async function saveBook() {
 
   if (!selectedBook) {
 
-    showMessage(
-      "먼저 책을 선택해주세요."
-    );
-
+    alert("책을 먼저 선택해주세요.");
     return;
 
   }
 
-
-  const reader =
+  const user =
     document
-      .getElementById("reader")
+      .getElementById(
+        "userSelect"
+      )
       .value;
-
 
   const finishDate =
     document
-      .getElementById("finishDate")
+      .getElementById(
+        "finishDate"
+      )
       .value;
 
+  if (!user) {
 
-  if (!reader) {
-
-    showMessage(
-      "읽은 사람을 선택해주세요."
-    );
-
+    alert("사용자를 선택해주세요.");
     return;
 
   }
-
 
   if (!finishDate) {
 
-    showMessage(
-      "완독일을 선택해주세요."
-    );
-
+    alert("완독일을 선택해주세요.");
     return;
 
   }
-
-
-  if (!rating) {
-
-    showMessage(
-      "별점을 선택해주세요."
-    );
-
-    return;
-
-  }
-
-
-  hideMessage();
 
 
   const body = {
 
     action:
-      isEdit
+      mode === "edit"
         ? "updateBook"
         : "saveBook",
 
-    id:
-      isEdit &&
-      editBook
-        ? editBook.id
-        : "",
-
     user:
-      reader,
+      user,
 
     finishDate:
       finishDate,
 
-    rating:
-      rating,
-
-    itemId:
-      selectedBook.itemId ||
-      "",
-
     title:
-      selectedBook.title ||
-      "",
+      selectedBook.title || "",
 
     author:
-      selectedBook.author ||
-      "",
+      selectedBook.author || "",
 
     publisher:
-      selectedBook.publisher ||
-      "",
+      selectedBook.publisher || "",
 
-    publishDate:
-      selectedBook.publishDate ||
-      "",
+    isbn13:
+      selectedBook.isbn13 || "",
 
-    pages:
-      Number(
-        selectedBook.pages ||
-        0
-      ),
+    itemId:
+      selectedBook.itemId || "",
 
     coverUrl:
-      selectedBook.coverUrl ||
-      "",
+      selectedBook.coverUrl || "",
 
     spineUrl:
       selectedBook.spineUrl ||
-      "",
+      makeSpineUrl(
+        selectedBook.itemId
+      ),
+
+    rating:
+      rating,
 
     /*
-     * 화면에는 판형을 표시하지 않지만
-     * 책등 크기를 위해 저장은 유지
-     */
-
-    bookWidth:
-      Number(
-        selectedBook.bookWidth ||
-        0
-      ),
-
-    bookLength:
-      Number(
-        selectedBook.bookLength ||
-        0
-      ),
-
-    bookHeight:
+      화면에는 판형을 보여주지 않는다.
+      책장 너비 계산을 위해 두께만 저장.
+    */
+    bookThickness:
       Number(
         selectedBook.bookHeight ||
+        selectedBook.bookThickness ||
         0
       )
 
   };
 
 
-  const button =
+  if (
+    mode === "edit" &&
+    editBook
+  ) {
+
+    body.id =
+      editBook.id;
+
+  }
+
+
+  const saveButton =
     document.getElementById(
       "saveButton"
     );
 
-
-  button.disabled =
-    true;
-
-
-  button.textContent =
-    isEdit
-      ? "수정 중…"
-      : "책장에 꽂는 중…";
+  saveButton.disabled = true;
+  saveButton.textContent =
+    "저장 중…";
 
 
   try {
@@ -1550,75 +1180,50 @@ async function saveBook() {
           },
 
           body:
-            JSON.stringify(
-              body
-            )
+            JSON.stringify(body)
         }
       );
-
 
     const data =
       JSON.parse(
         await response.text()
       );
 
-
     if (!data.success) {
 
       throw new Error(
-        data.message
+        data.message ||
+        "저장 실패"
       );
 
     }
 
-
     sessionStorage.removeItem(
-      "editBook"
+      "selectedBook"
     );
-
 
     localStorage.setItem(
       "currentBookUser",
-      reader
+      user
     );
-
-
-    const date =
-      new Date(
-        finishDate +
-        "T12:00:00"
-      );
-
 
     window.location.href =
       "./shelf.html?user=" +
-      encodeURIComponent(reader) +
-      "&year=" +
-      date.getFullYear() +
-      "&month=" +
-      (
-        date.getMonth() + 1
-      );
-
+      encodeURIComponent(user);
 
   } catch (error) {
 
     console.error(error);
 
-
-    showMessage(
-      error.message ||
-      "저장하지 못했어요."
+    alert(
+      "책을 저장하지 못했어요."
     );
 
+    saveButton.disabled = false;
 
-    button.disabled =
-      false;
-
-
-    button.textContent =
-      isEdit
-        ? "수정 내용 저장"
+    saveButton.textContent =
+      mode === "edit"
+        ? "수정 저장"
         : "책장에 꽂기";
 
   }
@@ -1626,123 +1231,54 @@ async function saveBook() {
 }
 
 
-function setToday() {
+function makeSpineUrl(itemId) {
 
-  const today =
-    new Date();
+  if (!itemId) return "";
 
-
-  document
-    .getElementById("finishDate")
-    .value =
-      today.getFullYear() +
-      "-" +
-      String(
-        today.getMonth() + 1
-      ).padStart(
-        2,
-        "0"
-      ) +
-      "-" +
-      String(
-        today.getDate()
-      ).padStart(
-        2,
-        "0"
-      );
+  return (
+    "https://image.yes24.com/goods/detail/" +
+    encodeURIComponent(itemId) +
+    "/side"
+  );
 
 }
 
 
 function normalizeDate(value) {
 
-  if (!value) {
-    return "";
-  }
+  if (!value) return "";
+
+  return String(value)
+    .replace(/\./g, "-")
+    .replace(/\//g, "-")
+    .slice(0, 10);
+
+}
 
 
-  const numbers =
-    String(value)
-      .match(/\d+/g);
+function goBack() {
+
+  window.location.href =
+    "./shelf.html?user=" +
+    encodeURIComponent(urlUser);
+
+}
 
 
-  if (
-    !numbers ||
-    numbers.length < 3
-  ) {
-
-    return "";
-
-  }
-
-
-  return (
-    numbers[0] +
-    "-" +
-    String(numbers[1])
-      .padStart(2, "0") +
-    "-" +
-    String(numbers[2])
-      .padStart(2, "0")
+document
+  .getElementById("backButton")
+  .addEventListener(
+    "click",
+    goBack
   );
 
-}
 
-
-function formatPublishDate(value) {
-
-  const text =
-    String(
-      value || ""
-    );
-
-
-  if (
-    /^\d{8}$/.test(text)
-  ) {
-
-    return (
-      text.slice(0,4) +
-      "." +
-      text.slice(4,6) +
-      "." +
-      text.slice(6,8)
-    );
-
-  }
-
-
-  return text;
-
-}
-
-
-function showMessage(text) {
-
-  const message =
-    document.getElementById(
-      "message"
-    );
-
-
-  message.style.display =
-    "block";
-
-
-  message.textContent =
-    text;
-
-}
-
-
-function hideMessage() {
-
-  document
-    .getElementById("message")
-    .style.display =
-      "none";
-
-}
+document
+  .getElementById("cancelButton")
+  .addEventListener(
+    "click",
+    goBack
+  );
 
 </script>
 

@@ -1,493 +1,570 @@
 <!DOCTYPE html>
 <html lang="ko">
+
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="referrer" content="no-referrer">
 
-  <title>우리의 책장</title>
+<meta charset="UTF-8">
 
-  <style>
-    :root {
-      --cream: #f6f2e9;
-      --paper: #fffdf8;
-      --green: #123d2b;
-      --ink: #171b18;
-      --muted: #77766e;
-      --mustard: #e4b63d;
-      --coral: #d98272;
-      --line: rgba(23, 27, 24, .18);
-    }
+<meta
+  name="viewport"
+  content="width=device-width, initial-scale=1.0"
+>
 
-    * {
-      box-sizing: border-box;
-    }
+<title>나의 책장</title>
 
-    body {
-      margin: 0;
-      background: #e9e6df;
-      color: var(--ink);
-      font-family:
-        -apple-system,
-        BlinkMacSystemFont,
-        "Pretendard",
-        "Apple SD Gothic Neo",
-        sans-serif;
-    }
+<style>
 
-    button {
-      font: inherit;
-      cursor: pointer;
-    }
+:root {
+  --cream: #f7f3e9;
+  --paper: #fffdf7;
+  --green: #0e4b37;
+  --ink: #20241f;
+  --muted: #77766e;
+  --yellow: #e9b936;
+  --coral: #d97968;
+  --line: #ddd6c7;
+}
 
-    .app {
-      width: 100%;
-      max-width: 520px;
-      min-height: 100vh;
-      margin: 0 auto;
-      padding-bottom: 120px;
-      background: var(--cream);
-    }
+* {
+  box-sizing: border-box;
+}
 
-    .top {
-      display: grid;
-      grid-template-columns: 44px 1fr 44px;
-      align-items: center;
-      padding: 22px 22px 0;
-    }
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
 
-    .back {
-      display: flex;
-      width: 42px;
-      height: 42px;
-      align-items: center;
-      justify-content: center;
-      border: 0;
-      background: transparent;
-      color: var(--ink);
-      text-decoration: none;
-      font-size: 34px;
-      font-weight: 300;
-    }
+body {
+  background: #ebe8e0;
+  color: var(--ink);
+  font-family:
+    -apple-system,
+    BlinkMacSystemFont,
+    "Pretendard",
+    "Apple SD Gothic Neo",
+    sans-serif;
+}
 
-    .top-title {
-      color: var(--green);
-      text-align: center;
-      font-size: 16px;
-      font-weight: 900;
-    }
+button {
+  font: inherit;
+  cursor: pointer;
+}
 
-    .grid-icon {
-      display: grid;
-      width: 23px;
-      height: 23px;
-      grid-template-columns: 1fr 1fr;
-      gap: 4px;
-      justify-self: end;
-    }
+.app {
+  width: 100%;
+  max-width: 520px;
+  min-height: 100vh;
+  margin: 0 auto;
+  padding-bottom: 65px;
+  overflow: hidden;
+  background:
+    radial-gradient(
+      circle at 50% 13%,
+      rgba(255,255,255,.5),
+      transparent 30%
+    ),
+    var(--cream);
+}
 
-    .grid-icon i {
-      border: 2px solid var(--green);
-    }
 
-    .month-wrap {
-      padding: 62px 30px 0;
-    }
+/* HEADER */
 
-    .month-row {
-      display: flex;
-      align-items: flex-end;
-      gap: 20px;
-    }
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 28px 25px 0;
+}
 
-    .month-number {
-      color: var(--green);
-      font-family:
-        Georgia,
-        "Times New Roman",
-        serif;
-      font-size: 100px;
-      line-height: .75;
-      letter-spacing: -8px;
-    }
+.back {
+  width: 45px;
+  height: 45px;
+  padding: 0;
+  border: 1px solid var(--green);
+  border-radius: 50%;
+  background: transparent;
+  color: var(--green);
+  font-size: 28px;
+}
 
-    .month-meta {
-      padding-bottom: 4px;
-    }
+.header-label {
+  color: var(--green);
+  font-size: 11px;
+  font-weight: 900;
+  letter-spacing: 3px;
+}
 
-    .month-meta strong {
-      display: block;
-      color: var(--ink);
-      font-size: 18px;
-      font-weight: 700;
-    }
 
-    .month-meta span {
-      display: block;
-      margin-top: 7px;
-      font-size: 13px;
-      font-weight: 700;
-    }
+/* TITLE */
 
-    .coral-dot {
-      width: 35px;
-      height: 35px;
-      margin-left: auto;
-      margin-bottom: 5px;
-      border-radius: 50%;
-      background: var(--coral);
-    }
+.title-area {
+  padding: 48px 29px 0;
+}
 
-    .month-nav {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      margin-top: 30px;
-      padding-bottom: 12px;
-      border-bottom: 1px solid var(--green);
-    }
+h1 {
+  margin: 0;
+  color: var(--green);
+  font-size: 42px;
+  line-height: 1;
+  letter-spacing: -3px;
+}
 
-    .month-nav button {
-      padding: 7px 10px;
-      border: 0;
-      background: transparent;
-      color: var(--green);
-      font-size: 26px;
-    }
+.subtitle {
+  margin: 11px 0 0;
+  color: var(--muted);
+  font-size: 14px;
+}
 
-    .month-name {
-      color: var(--muted);
-      font-size: 11px;
-      font-weight: 800;
-      letter-spacing: 1.5px;
-    }
 
-    /* 책장 */
+/* MONTH */
 
-    .shelf-area {
-      padding: 70px 20px 0;
-    }
+.month-area {
+  display: grid;
+  grid-template-columns: 48px 1fr 48px;
+  align-items: center;
+  margin: 47px 29px 0;
+}
 
-    .books {
-      display: flex;
-      min-height: 285px;
-      align-items: flex-end;
-      gap: 2px;
-      padding: 0 8px;
-      overflow-x: auto;
-      scrollbar-width: none;
-    }
+.month-button {
+  width: 45px;
+  height: 45px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: var(--green);
+  font-size: 32px;
+}
 
-    .books::-webkit-scrollbar {
-      display: none;
-    }
+.month-center {
+  text-align: center;
+}
 
-    .spine {
-      flex-shrink: 0;
-      padding: 0;
-      overflow: hidden;
-      border: 0;
-      border-radius: 3px 3px 1px 1px;
-      background: #ebe6d9;
-      box-shadow:
-        2px 3px 6px rgba(26, 30, 25, .15);
-      transition: transform .16s ease;
-    }
+.month {
+  color: var(--green);
+  font-size: 28px;
+  font-weight: 950;
+  letter-spacing: -1.5px;
+}
 
-    .spine:active {
-      transform: translateY(-7px);
-    }
+.count {
+  margin-top: 6px;
+  color: var(--muted);
+  font-size: 13px;
+}
 
-    .spine img {
-      display: block;
-      width: 100%;
-      height: 100%;
-      object-fit: fill;
-    }
 
-    .fallback {
-      display: flex;
-      width: 100%;
-      height: 100%;
-      align-items: center;
-      justify-content: center;
-      padding: 8px 3px;
-    }
+/* BOOKSHELF */
 
-    .fallback span {
-      max-height: 92%;
-      overflow: hidden;
-      writing-mode: vertical-rl;
-      color: var(--ink);
-      font-size: 11px;
-      font-weight: 800;
-    }
+.shelf-area {
+  padding: 54px 20px 0;
+}
 
-    .shelf-line {
-      height: 8px;
-      border-radius: 2px;
-      background: var(--green);
-      box-shadow:
-        0 5px 8px rgba(21, 54, 40, .1);
-    }
+.shelf-list {
+  width: 100%;
+}
 
-    .empty {
-      padding: 100px 15px 115px;
-      color: var(--muted);
-      text-align: center;
-      font-size: 13px;
-    }
+.shelf-unit {
+  position: relative;
+  margin-bottom: 39px;
+}
 
-    /* 새 책 */
 
-    .add-book {
-      position: fixed;
-      right: max(24px, calc((100vw - 520px) / 2 + 24px));
-      bottom: 28px;
-      z-index: 30;
-      display: flex;
-      width: 112px;
-      height: 112px;
-      align-items: center;
-      justify-content: center;
-      flex-direction: column;
-      border: 0;
-      border-radius: 50%;
-      background: var(--green);
-      color: white;
-      box-shadow:
-        0 10px 24px rgba(18,61,43,.2);
-    }
+/*
+  책들이 들어가는 실제 공간.
 
-    .add-book .plus {
-      font-size: 43px;
-      font-weight: 200;
-      line-height: .8;
-    }
+  JS가 이 영역의 너비를 측정한 다음
+  실제 책등 너비를 더해서
+  몇 권까지 들어가는지 계산한다.
+*/
 
-    .add-book .text {
-      margin-top: 10px;
-      font-size: 12px;
-      font-weight: 800;
-    }
+.books-row {
+  display: flex;
+  min-height: 225px;
+  align-items: flex-end;
+  justify-content: flex-start;
+  padding: 0 12px;
+  overflow: hidden;
+}
 
-    /* 상세 */
 
-    .overlay {
-      position: fixed;
-      inset: 0;
-      z-index: 100;
-      display: none;
-      align-items: flex-end;
-      justify-content: center;
-      background: rgba(15, 26, 20, .52);
-    }
+/* BOOK */
 
-    .overlay.show {
-      display: flex;
-    }
+.book {
+  position: relative;
+  flex: 0 0 auto;
+  height: 202px;
+  padding: 0;
+  overflow: hidden;
+  border: 0;
+  border-radius: 2px 2px 0 0;
+  background: #ded5c3;
+  box-shadow:
+    inset -1px 0 rgba(0,0,0,.14);
+}
 
-    .modal {
-      width: 100%;
-      max-width: 520px;
-      max-height: 89vh;
-      overflow-y: auto;
-      padding: 30px 25px 28px;
-      background: var(--cream);
-      border-top: 7px solid var(--green);
-    }
 
-    .detail-number {
-      margin-bottom: 19px;
-      color: var(--coral);
-      font-family: Georgia, serif;
-      font-size: 13px;
-      font-weight: 700;
-      letter-spacing: 1px;
-    }
+/*
+  실제 책등 이미지.
+  책 전체가 잘리지 않게 fill 사용.
+*/
 
-    .detail-top {
-      display: flex;
-      gap: 19px;
-      align-items: flex-start;
-    }
+.book img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: fill;
+}
 
-    .cover {
-      width: 106px;
-      height: 153px;
-      flex-shrink: 0;
-      border: 1px solid var(--line);
-      object-fit: cover;
-      background: #e6e1d5;
-    }
 
-    .detail-info {
-      min-width: 0;
-      flex: 1;
-    }
+/* 책등 이미지가 아예 없을 때 */
 
-    .detail-info h2 {
-      margin: 0 0 9px;
-      color: var(--green);
-      font-family:
-        Georgia,
-        "Noto Serif KR",
-        serif;
-      font-size: 26px;
-      line-height: 1.25;
-    }
+.fallback-spine {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  align-items: center;
+  justify-content: center;
+  padding: 7px 3px;
+  background: var(--green);
+  color: #f8f1df;
+}
 
-    .author {
-      font-size: 13px;
-      line-height: 1.5;
-    }
+.fallback-title {
+  overflow: hidden;
+  font-size: 11px;
+  font-weight: 800;
+  line-height: 1.15;
+  writing-mode: vertical-rl;
+  text-orientation: mixed;
+  white-space: nowrap;
+}
 
-    .publisher {
-      margin-top: 4px;
-      color: var(--muted);
-      font-size: 12px;
-    }
 
-    .rating-label {
-      display: block;
-      margin-top: 17px;
-      color: var(--muted);
-      font-size: 10px;
-      font-weight: 900;
-      letter-spacing: 1px;
-    }
+/* 선반 */
 
-    .stars {
-      margin-top: 5px;
-      color: var(--green);
-      font-size: 21px;
-      letter-spacing: 2px;
-    }
+.shelf-board {
+  position: relative;
+  width: 100%;
+  height: 18px;
+  border-radius: 10px;
+  background: var(--green);
+}
 
-    .detail-table {
-      margin-top: 25px;
-      padding: 16px 0;
-      border-top: 1px solid var(--ink);
-      border-bottom: 1px solid var(--line);
-    }
+.shelf-board::after {
+  position: absolute;
+  left: 13px;
+  right: 13px;
+  bottom: -7px;
+  height: 7px;
+  border-radius: 0 0 5px 5px;
+  background: #d5ba84;
+  content: "";
+}
 
-    .detail-row {
-      display: grid;
-      grid-template-columns: 80px 1fr;
-      padding: 7px 0;
-      font-size: 13px;
-    }
 
-    .detail-label {
-      color: var(--muted);
-      font-weight: 700;
-    }
+/* EMPTY */
 
-    .detail-value {
-      font-weight: 600;
-    }
+.empty {
+  padding: 70px 20px;
+  color: var(--muted);
+  text-align: center;
+}
 
-    .detail-actions {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 8px;
-      margin-top: 18px;
-    }
+.empty-title {
+  color: var(--green);
+  font-size: 19px;
+  font-weight: 900;
+}
 
-    .detail-actions button {
-      height: 50px;
-      border: 1px solid var(--green);
-      font-weight: 800;
-    }
+.empty-text {
+  margin-top: 8px;
+  font-size: 13px;
+}
 
-    .edit {
-      background: var(--green);
-      color: white;
-    }
 
-    .delete {
-      background: transparent;
-      color: var(--green);
-    }
+/* ADD */
 
-    .close {
-      width: 100%;
-      padding: 15px;
-      margin-top: 7px;
-      border: 0;
-      background: transparent;
-      color: var(--muted);
-    }
-  </style>
+.add-area {
+  padding: 2px 29px 0;
+}
+
+.add-button {
+  width: 100%;
+  height: 59px;
+  border: 0;
+  background: var(--green);
+  color: white;
+  font-size: 15px;
+  font-weight: 900;
+}
+
+
+/* LOADING */
+
+.loading {
+  padding: 80px 20px;
+  color: var(--muted);
+  text-align: center;
+  font-size: 13px;
+}
+
+
+/* DETAIL OVERLAY */
+
+.overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: none;
+  align-items: flex-end;
+  justify-content: center;
+  background: rgba(10,31,24,.48);
+}
+
+.overlay.show {
+  display: flex;
+}
+
+.detail {
+  width: 100%;
+  max-width: 520px;
+  max-height: 88vh;
+  padding: 18px 25px 31px;
+  overflow-y: auto;
+  border-radius: 28px 28px 0 0;
+  background: var(--paper);
+}
+
+.handle {
+  width: 45px;
+  height: 5px;
+  margin: 0 auto 27px;
+  border-radius: 10px;
+  background: #d4cfc5;
+}
+
+.detail-top {
+  display: grid;
+  grid-template-columns: 105px 1fr;
+  gap: 18px;
+}
+
+.detail-cover {
+  width: 105px;
+  height: 151px;
+  object-fit: cover;
+  background: #e9e4da;
+}
+
+.detail-title {
+  margin-top: 5px;
+  font-size: 23px;
+  font-weight: 950;
+  line-height: 1.25;
+  letter-spacing: -1px;
+}
+
+.detail-author {
+  margin-top: 12px;
+  color: #555950;
+  font-size: 14px;
+}
+
+.detail-publisher {
+  margin-top: 5px;
+  color: var(--muted);
+  font-size: 13px;
+}
+
+.rating-label {
+  margin-top: 22px;
+  color: var(--muted);
+  font-size: 11px;
+  font-weight: 800;
+}
+
+.rating {
+  margin-top: 4px;
+  color: var(--yellow);
+  font-size: 27px;
+  letter-spacing: 1px;
+}
+
+.info {
+  margin-top: 27px;
+  padding: 21px 0;
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+}
+
+.info-row {
+  display: grid;
+  grid-template-columns: 82px 1fr;
+  gap: 10px;
+  margin-bottom: 12px;
+  font-size: 13px;
+}
+
+.info-row:last-child {
+  margin-bottom: 0;
+}
+
+.info-label {
+  color: #99948b;
+  font-weight: 700;
+}
+
+.info-value {
+  color: #565951;
+}
+
+
+/* INTRO */
+
+.intro {
+  display: none;
+  padding: 23px 0 0;
+}
+
+.intro.show {
+  display: block;
+}
+
+.intro-label {
+  margin-bottom: 9px;
+  color: var(--green);
+  font-size: 12px;
+  font-weight: 900;
+}
+
+.intro-text {
+  color: #5e6059;
+  font-size: 13px;
+  line-height: 1.75;
+}
+
+
+/* ACTION */
+
+.actions {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  margin-top: 27px;
+}
+
+.action {
+  height: 52px;
+  border: 0;
+  font-weight: 900;
+}
+
+.edit {
+  background: var(--green);
+  color: white;
+}
+
+.delete {
+  background: #eee7dc;
+  color: #a05750;
+}
+
+.close {
+  width: 100%;
+  height: 48px;
+  margin-top: 5px;
+  border: 0;
+  background: transparent;
+  color: #8c887f;
+  font-weight: 700;
+}
+
+
+@media (max-width: 370px) {
+
+  .shelf-area {
+    padding-left: 14px;
+    padding-right: 14px;
+  }
+
+  .books-row {
+    padding-left: 9px;
+    padding-right: 9px;
+  }
+
+}
+
+</style>
+
 </head>
+
 
 <body>
 
 <main class="app">
 
-  <div class="top">
+  <header class="header">
 
-    <a
+    <button
       class="back"
-      href="./index.html"
+      id="backButton"
+      type="button"
     >
       ‹
-    </a>
+    </button>
 
-    <div class="top-title">
-      우리의 책장
+    <div class="header-label">
+      MONTHLY BOOKSHELF
     </div>
 
-    <div class="grid-icon">
-      <i></i><i></i><i></i><i></i>
-    </div>
-
-  </div>
+  </header>
 
 
-  <section class="month-wrap">
+  <section class="title-area">
 
-    <div class="month-row">
+    <h1 id="shelfTitle">
+      나의 책장
+    </h1>
+
+    <p class="subtitle">
+      한 달 동안 읽은 책들
+    </p>
+
+  </section>
+
+
+  <section class="month-area">
+
+    <button
+      class="month-button"
+      id="prevMonth"
+      type="button"
+    >
+      ‹
+    </button>
+
+    <div class="month-center">
 
       <div
-        class="month-number"
-        id="monthNumber"
+        class="month"
+        id="monthLabel"
       ></div>
-
-      <div class="month-meta">
-
-        <strong id="yearLabel"></strong>
-
-        <span id="count"></span>
-
-      </div>
-
-      <div class="coral-dot"></div>
-
-    </div>
-
-    <div class="month-nav">
-
-      <button
-        id="prev"
-        type="button"
-      >
-        ‹
-      </button>
 
       <div
-        class="month-name"
-        id="monthName"
+        class="count"
+        id="bookCount"
       ></div>
 
-      <button
-        id="next"
-        type="button"
-      >
-        ›
-      </button>
-
     </div>
+
+    <button
+      class="month-button"
+      id="nextMonth"
+      type="button"
+    >
+      ›
+    </button>
 
   </section>
 
@@ -495,76 +572,75 @@
   <section class="shelf-area">
 
     <div
-      class="books"
-      id="books"
-    ></div>
-
-    <div
-      class="empty"
-      id="empty"
-      style="display:none;"
+      class="shelf-list"
+      id="shelfList"
     >
-      이번 달에는 아직 책이 없어요.
+      <div class="loading">
+        책장을 불러오는 중…
+      </div>
     </div>
 
-    <div class="shelf-line"></div>
+  </section>
+
+
+  <section class="add-area">
+
+    <button
+      class="add-button"
+      id="addBook"
+      type="button"
+    >
+      ＋ 새 책 꽂기
+    </button>
 
   </section>
 
 </main>
 
 
-<button
-  class="add-book"
-  id="addBook"
-  type="button"
->
-  <span class="plus">＋</span>
-  <span class="text">새 책 꽂기</span>
-</button>
-
+<!-- 상세 팝업 -->
 
 <div
   class="overlay"
   id="overlay"
 >
 
-  <div class="modal">
+  <div class="detail">
 
-    <div class="detail-number">
-      READING RECORD
-    </div>
+    <div class="handle"></div>
 
     <div class="detail-top">
 
       <img
-        class="cover"
-        id="cover"
-        referrerpolicy="no-referrer"
-        alt="책 표지"
+        class="detail-cover"
+        id="detailCover"
+        alt=""
       >
 
-      <div class="detail-info">
-
-        <h2 id="detailTitle"></h2>
+      <div>
 
         <div
-          class="author"
-          id="author"
+          class="detail-title"
+          id="detailTitle"
         ></div>
 
         <div
-          class="publisher"
-          id="publisher"
+          class="detail-author"
+          id="detailAuthor"
         ></div>
 
-        <span class="rating-label">
-          MY RATING
-        </span>
+        <div
+          class="detail-publisher"
+          id="detailPublisher"
+        ></div>
+
+        <div class="rating-label">
+          내 별점
+        </div>
 
         <div
-          class="stars"
-          id="stars"
+          class="rating"
+          id="detailRating"
         ></div>
 
       </div>
@@ -572,39 +648,86 @@
     </div>
 
 
-    <div class="detail-table">
+    <div class="info">
 
-      <div class="detail-row">
-        <span class="detail-label">완독일</span>
-        <span class="detail-value" id="finishDate"></span>
+      <div class="info-row">
+
+        <div class="info-label">
+          완독일
+        </div>
+
+        <div
+          class="info-value"
+          id="detailFinishDate"
+        ></div>
+
       </div>
 
-      <div class="detail-row">
-        <span class="detail-label">출간일</span>
-        <span class="detail-value" id="publishDate"></span>
+
+      <div class="info-row">
+
+        <div class="info-label">
+          출간일
+        </div>
+
+        <div
+          class="info-value"
+          id="detailPublishDate"
+        >
+          -
+        </div>
+
       </div>
 
-      <div class="detail-row">
-        <span class="detail-label">페이지</span>
-        <span class="detail-value" id="pages"></span>
+
+      <div class="info-row">
+
+        <div class="info-label">
+          페이지
+        </div>
+
+        <div
+          class="info-value"
+          id="detailPages"
+        >
+          -
+        </div>
+
       </div>
 
     </div>
 
 
-    <div class="detail-actions">
+    <div
+      class="intro"
+      id="intro"
+    >
+
+      <div class="intro-label">
+        책 소개
+      </div>
+
+      <div
+        class="intro-text"
+        id="introText"
+      ></div>
+
+    </div>
+
+
+    <div class="actions">
 
       <button
-        class="edit"
-        id="edit"
+        class="action edit"
+        id="editButton"
         type="button"
       >
         수정
       </button>
 
       <button
-        class="delete"
-        id="delete"
+        class="action delete"
+        id="deleteButton"
         type="button"
       >
         삭제
@@ -614,7 +737,7 @@
 
     <button
       class="close"
-      id="close"
+      id="closeButton"
       type="button"
     >
       닫기
@@ -633,9 +756,8 @@ const API_URL =
 
 const params =
   new URLSearchParams(
-    location.search
+    window.location.search
   );
-
 
 const user =
   params.get("user") ||
@@ -645,115 +767,50 @@ const user =
   "";
 
 
-if (!user) {
-
-  window.location.href =
-    "./index.html";
-
-}
-
-
-localStorage.setItem(
-  "currentBookUser",
-  user
-);
-
-
-const today =
+let currentDate =
   new Date();
 
+currentDate.setDate(1);
 
-let year =
-  Number(
-    params.get("year")
-  ) ||
-  today.getFullYear();
+let currentBooks = [];
+let selectedBook = null;
 
-
-let month =
-  Number(
-    params.get("month")
-  ) ||
-  today.getMonth() + 1;
-
-
-let selectedBook =
-  null;
-
-
-const englishMonths = [
-  "",
-  "JAN",
-  "FEB",
-  "MAR",
-  "APR",
-  "MAY",
-  "JUN",
-  "JUL",
-  "AUG",
-  "SEP",
-  "OCT",
-  "NOV",
-  "DEC"
-];
+let resizeTimer = null;
 
 
 document
-  .getElementById("addBook")
-  .onclick =
-    function() {
-
-      window.location.href =
-        "./write.html?user=" +
-        encodeURIComponent(user);
-
-    };
-
-
-document
-  .getElementById("prev")
-  .onclick =
-    function() {
-
-      month--;
-
-      if (month < 1) {
-
-        month = 12;
-        year--;
-
-      }
-
-      loadBooks();
-
-    };
-
-
-document
-  .getElementById("next")
-  .onclick =
-    function() {
-
-      month++;
-
-      if (month > 12) {
-
-        month = 1;
-        year++;
-
-      }
-
-      loadBooks();
-
-    };
+  .getElementById("shelfTitle")
+  .textContent =
+  user
+    ? user + "의 책장"
+    : "나의 책장";
 
 
 loadBooks();
 
 
+/* ================================
+   LOAD
+================================ */
+
 async function loadBooks() {
 
-  updateMonthUI();
+  updateMonth();
+
+  const shelfList =
+    document.getElementById(
+      "shelfList"
+    );
+
+  shelfList.innerHTML =
+    '<div class="loading">책장을 불러오는 중…</div>';
+
+
+  const year =
+    currentDate.getFullYear();
+
+  const month =
+    currentDate.getMonth() + 1;
 
 
   try {
@@ -772,340 +829,86 @@ async function loadBooks() {
         Date.now()
       );
 
-
     const data =
       JSON.parse(
         await response.text()
       );
 
-
     if (!data.success) {
 
       throw new Error(
-        data.message
+        data.message ||
+        "불러오기 실패"
       );
 
     }
 
-
-    const books =
+    currentBooks =
       data.books || [];
 
 
-    document
-      .getElementById("count")
-      .textContent =
-        books.length +
-        "권 읽었어요";
+    /*
+      예전에 저장한 책에는 책두께가 없다.
 
+      그런 책만 YES24 상세정보를 조회해서
+      화면에서 실제 두께를 사용한다.
+    */
 
-    renderBooks(
-      books
+    await fillMissingThickness(
+      currentBooks
     );
+
+
+    document
+      .getElementById(
+        "bookCount"
+      )
+      .textContent =
+      currentBooks.length +
+      "권 읽었어요";
+
+
+    renderShelves();
 
 
   } catch (error) {
 
     console.error(error);
 
-
-    document
-      .getElementById("count")
-      .textContent =
-        "연결 오류";
+    shelfList.innerHTML =
+      '<div class="empty">책장을 불러오지 못했어요.</div>';
 
   }
 
 }
 
 
-function updateMonthUI() {
-
-  document
-    .getElementById("monthNumber")
-    .textContent =
-      String(month)
-        .padStart(
-          2,
-          "0"
-        );
-
-
-  document
-    .getElementById("yearLabel")
-    .textContent =
-      year +
-      " / " +
-      englishMonths[month];
-
-
-  document
-    .getElementById("monthName")
-    .textContent =
-      user +
-      " · " +
-      year +
-      "." +
-      String(month).padStart(2, "0");
-
-
-  document
-    .getElementById("count")
-    .textContent =
-      "불러오는 중…";
-
-}
-
-
-function renderBooks(books) {
-
-  const container =
-    document.getElementById(
-      "books"
-    );
-
-
-  const empty =
-    document.getElementById(
-      "empty"
-    );
-
-
-  container.innerHTML =
-    "";
-
-
-  if (!books.length) {
-
-    empty.style.display =
-      "block";
-
-    return;
-
-  }
-
-
-  empty.style.display =
-    "none";
-
-
-  books.forEach(
-    function(book, index) {
-
-      const button =
-        document.createElement(
-          "button"
-        );
-
-
-      button.type =
-        "button";
-
-
-      button.className =
-        "spine";
-
-
-      const realLength =
-        Number(
-          book.bookLength || 195
-        );
-
-
-      const realThickness =
-        Number(
-          book.bookHeight || 20
-        );
-
-
-      const screenHeight =
-        clamp(
-          realLength * 1.06,
-          205,
-          285
-        );
-
-
-      const screenWidth =
-        clamp(
-          realThickness * 1.55,
-          25,
-          60
-        );
-
-
-      button.style.height =
-        screenHeight + "px";
-
-
-      button.style.width =
-        screenWidth + "px";
-
-
-      if (book.spineUrl) {
-
-        const image =
-          document.createElement(
-            "img"
-          );
-
-
-        image.referrerPolicy =
-          "no-referrer";
-
-
-        image.src =
-          book.spineUrl;
-
-
-        image.alt =
-          book.title;
-
-
-        image.onerror =
-          function() {
-
-            button.innerHTML =
-              "";
-
-
-            fallback(
-              button,
-              book,
-              index
-            );
-
-          };
-
-
-        button.appendChild(
-          image
-        );
-
-
-      } else {
-
-        fallback(
-          button,
-          book,
-          index
-        );
-
-      }
-
-
-      button.onclick =
-        function() {
-
-          openDetail(
-            book
-          );
-
-        };
-
-
-      container.appendChild(
-        button
-      );
-
-    }
-  );
-
-}
-
-
-function fallback(
-  button,
-  book,
-  index
+/* ================================
+   기존 책 두께 보완
+================================ */
+
+async function fillMissingThickness(
+  books
 ) {
 
-  const colors = [
-    "#b5574d",
-    "#ebe4d5",
-    "#123d2b",
-    "#f1ede3",
-    "#d9b247"
-  ];
+  const targets =
+    books.filter(function(book) {
 
+      return (
+        !Number(book.bookThickness) &&
+        book.itemId
+      );
 
-  button.style.background =
-    colors[
-      index %
-      colors.length
-    ];
-
-
-  const wrap =
-    document.createElement(
-      "div"
-    );
-
-
-  wrap.className =
-    "fallback";
-
-
-  const span =
-    document.createElement(
-      "span"
-    );
-
-
-  span.textContent =
-    book.title;
-
-
-  if (
-    index % colors.length === 0 ||
-    index % colors.length === 2
-  ) {
-
-    span.style.color =
-      "#fffdf8";
-
-  }
-
-
-  wrap.appendChild(
-    span
-  );
-
-
-  button.appendChild(
-    wrap
-  );
-
-}
-
-
-async function openDetail(book) {
-
-  selectedBook =
-    { ...book };
-
-
-  fillDetail(
-    selectedBook
-  );
-
-
-  document
-    .getElementById("overlay")
-    .classList.add(
-      "show"
-    );
+    });
 
 
   /*
-   * 예전에 저장한 책이라
-   * 출간일/페이지가 비어 있으면
-   * 검색 결과에서 보충
-   */
+    한꺼번에 너무 많은 요청을 보내지 않도록
+    순서대로 처리.
+  */
 
-  if (
-    !selectedBook.publishDate ||
-    !selectedBook.pages
+  for (
+    const book of targets
   ) {
 
     try {
@@ -1113,73 +916,37 @@ async function openDetail(book) {
       const response =
         await fetch(
           API_URL +
-          "?action=search&q=" +
+          "?action=detail&itemId=" +
           encodeURIComponent(
-            selectedBook.title
+            book.itemId
           ) +
           "&t=" +
           Date.now()
         );
-
 
       const data =
         JSON.parse(
           await response.text()
         );
 
-
       if (
         data.success &&
-        Array.isArray(data.books)
+        data.book
       ) {
 
-        let matched =
-          data.books.find(
-            function(item) {
-
-              return (
-                String(item.itemId) ===
-                String(
-                  selectedBook.itemId
-                )
-              );
-
-            }
+        book.bookThickness =
+          Number(
+            data.book.bookHeight ||
+            0
           );
 
+        if (!book.spineUrl) {
 
-        if (!matched) {
-
-          matched =
-            data.books.find(
-              function(item) {
-
-                return (
-                  item.title ===
-                  selectedBook.title
-                );
-
-              }
+          book.spineUrl =
+            data.book.spineUrl ||
+            makeSpineUrl(
+              book.itemId
             );
-
-        }
-
-
-        if (matched) {
-
-          selectedBook = {
-            ...selectedBook,
-            ...matched,
-            id: book.id,
-            user: book.user,
-            finishDate: book.finishDate,
-            rating: book.rating
-          };
-
-
-          fillDetail(
-            selectedBook
-          );
 
         }
 
@@ -1196,110 +963,758 @@ async function openDetail(book) {
 }
 
 
-function fillDetail(book) {
+/* ================================
+   SHELF
+================================ */
 
-  document
-    .getElementById("detailTitle")
-    .textContent =
-      book.title || "";
+function renderShelves() {
 
-
-  document
-    .getElementById("author")
-    .textContent =
-      book.author || "";
-
-
-  document
-    .getElementById("publisher")
-    .textContent =
-      book.publisher || "";
-
-
-  const cover =
+  const shelfList =
     document.getElementById(
-      "cover"
+      "shelfList"
     );
 
-
-  cover.referrerPolicy =
-    "no-referrer";
+  shelfList.innerHTML = "";
 
 
-  if (book.coverUrl) {
+  if (!currentBooks.length) {
 
-    cover.src =
-      book.coverUrl;
+    shelfList.innerHTML = `
 
-    cover.style.display =
-      "block";
+      <div class="empty">
 
-  } else {
+        <div class="empty-title">
+          아직 책이 없어요.
+        </div>
 
-    cover.style.display =
-      "none";
+        <div class="empty-text">
+          읽은 책을 한 권 꽂아보세요.
+        </div>
+
+      </div>
+
+    `;
+
+    return;
 
   }
 
 
-  const rating =
-    Math.round(
-      Number(
-        book.rating || 0
-      )
+  /*
+    현재 모바일 화면에서
+    실제 사용할 수 있는 너비.
+  */
+
+  const availableWidth =
+    Math.max(
+      220,
+      shelfList.clientWidth - 24
     );
 
 
-  document
-    .getElementById("stars")
-    .textContent =
-      "★".repeat(rating) +
-      "☆".repeat(
-        Math.max(
-          0,
-          5 - rating
-        )
+  /*
+    책을 선반별로 나눈다.
+  */
+
+  const shelves =
+    packBooks(
+      currentBooks,
+      availableWidth
+    );
+
+
+  shelves.forEach(
+    function(books) {
+
+      const unit =
+        document.createElement(
+          "div"
+        );
+
+      unit.className =
+        "shelf-unit";
+
+
+      const row =
+        document.createElement(
+          "div"
+        );
+
+      row.className =
+        "books-row";
+
+
+      books.forEach(
+        function(book) {
+
+          row.appendChild(
+            createBook(book)
+          );
+
+        }
       );
 
 
+      const board =
+        document.createElement(
+          "div"
+        );
+
+      board.className =
+        "shelf-board";
+
+
+      unit.appendChild(row);
+      unit.appendChild(board);
+
+      shelfList.appendChild(unit);
+
+    }
+  );
+
+}
+
+
+/* ================================
+   책을 몇 번째 선반에 놓을지 계산
+================================ */
+
+function packBooks(
+  books,
+  availableWidth
+) {
+
+  const shelves = [];
+
+  let row = [];
+  let usedWidth = 0;
+
+
+  books.forEach(function(book) {
+
+    const width =
+      getBookWidth(book);
+
+
+    /*
+      현재 줄에 추가하면
+      화면을 넘는 경우
+      새 선반을 만든다.
+    */
+
+    if (
+      row.length > 0 &&
+      usedWidth + width >
+      availableWidth
+    ) {
+
+      shelves.push(row);
+
+      row = [];
+      usedWidth = 0;
+
+    }
+
+
+    row.push(book);
+
+    usedWidth += width;
+
+  });
+
+
+  if (row.length) {
+    shelves.push(row);
+  }
+
+
+  return shelves;
+
+}
+
+
+/* ================================
+   실제 두께 → 화면 너비
+================================ */
+
+function getBookWidth(book) {
+
+  const thickness =
+    Number(
+      book.bookThickness || 0
+    );
+
+
+  /*
+    YES24의 책 두께는 mm.
+
+    예:
+    12mm → 얇은 책
+    20mm → 일반 단행본
+    35mm → 두꺼운 책
+
+    화면에서는 모바일 가독성을 위해
+    완전히 1:1이 아니라 약간 확대한다.
+  */
+
+  if (thickness > 0) {
+
+    return clamp(
+      Math.round(
+        thickness * 1.15
+      ),
+      15,
+      58
+    );
+
+  }
+
+
+  /*
+    두께 정보를 얻을 수 없는 책만
+    기본 23px.
+  */
+
+  return 23;
+
+}
+
+
+function clamp(
+  value,
+  min,
+  max
+) {
+
+  return Math.max(
+    min,
+    Math.min(max, value)
+  );
+
+}
+
+
+/* ================================
+   BOOK
+================================ */
+
+function createBook(book) {
+
+  const button =
+    document.createElement(
+      "button"
+    );
+
+  button.type = "button";
+  button.className = "book";
+
+
+  const width =
+    getBookWidth(book);
+
+
+  button.style.width =
+    width + "px";
+
+
+  /*
+    판형은 화면에 표시하지 않는다.
+
+    책 높이는 너무 들쑥날쑥하지 않게
+    제목을 기준으로 살짝 차이만 준다.
+  */
+
+  button.style.height =
+    getVisualHeight(book) +
+    "px";
+
+
+  const image =
+    document.createElement(
+      "img"
+    );
+
+
+  /*
+    저장된 책등 URL 우선.
+
+    없으면 YES24가 안내한 주소 규칙:
+    image.yes24.com/goods/detail/상품번호/side
+  */
+
+  const spineUrl =
+    book.spineUrl ||
+    makeSpineUrl(
+      book.itemId
+    );
+
+
+  if (spineUrl) {
+
+    image.src =
+      spineUrl;
+
+    image.alt =
+      book.title + " 책등";
+
+    image.addEventListener(
+      "error",
+      function() {
+
+        /*
+          저장되어 있던 URL이 실패했는데
+          그 URL이 자동 생성 주소와 다르다면
+          YES24 /side 주소를 한 번 더 시도.
+        */
+
+        const fallbackUrl =
+          makeSpineUrl(
+            book.itemId
+          );
+
+
+        if (
+          fallbackUrl &&
+          image.dataset.retry !== "1" &&
+          image.src !== fallbackUrl
+        ) {
+
+          image.dataset.retry = "1";
+          image.src = fallbackUrl;
+          return;
+
+        }
+
+
+        /*
+          YES24에도 책등 이미지가 없는 경우
+        */
+
+        showFallbackSpine(
+          button,
+          book
+        );
+
+      }
+    );
+
+
+    button.appendChild(image);
+
+  } else {
+
+    showFallbackSpine(
+      button,
+      book
+    );
+
+  }
+
+
+  button.addEventListener(
+    "click",
+    function() {
+
+      openDetail(book);
+
+    }
+  );
+
+
+  return button;
+
+}
+
+
+/* ================================
+   YES24 책등 URL
+================================ */
+
+function makeSpineUrl(itemId) {
+
+  if (!itemId) return "";
+
+  /*
+    YES24가 안내한 방식
+
+    상품 페이지:
+    m.yes24.com/Goods/Detail/108422348
+
+    책등:
+    image.yes24.com/goods/detail/108422348/side
+  */
+
+  return (
+    "https://image.yes24.com/goods/detail/" +
+    encodeURIComponent(itemId) +
+    "/side"
+  );
+
+}
+
+
+/* ================================
+   책등 없는 책
+================================ */
+
+function showFallbackSpine(
+  button,
+  book
+) {
+
+  button.innerHTML = "";
+
+
+  const fallback =
+    document.createElement(
+      "div"
+    );
+
+  fallback.className =
+    "fallback-spine";
+
+
+  const title =
+    document.createElement(
+      "span"
+    );
+
+  title.className =
+    "fallback-title";
+
+  title.textContent =
+    book.title || "BOOK";
+
+
+  fallback.appendChild(title);
+
+  button.appendChild(fallback);
+
+}
+
+
+/* ================================
+   책 높이
+================================ */
+
+function getVisualHeight(book) {
+
+  /*
+    이번 요청에서는 판형 정보를
+    사용하지 않기로 했으므로
+    높이는 장식적인 작은 차이만 준다.
+
+    랜덤을 쓰면 새로고침할 때마다
+    바뀌기 때문에 제목 문자열로 고정.
+  */
+
+  const title =
+    String(book.title || "");
+
+  let value = 0;
+
+  for (
+    let i = 0;
+    i < title.length;
+    i++
+  ) {
+
+    value +=
+      title.charCodeAt(i);
+
+  }
+
+  return (
+    184 +
+    (value % 29)
+  );
+
+}
+
+
+/* ================================
+   MONTH
+================================ */
+
+function updateMonth() {
+
   document
-    .getElementById("finishDate")
+    .getElementById(
+      "monthLabel"
+    )
     .textContent =
-      formatDate(
-        book.finishDate
-      );
-
-
-  document
-    .getElementById("publishDate")
-    .textContent =
-      formatPublishDate(
-        book.publishDate
-      );
-
-
-  document
-    .getElementById("pages")
-    .textContent =
-      book.pages
-        ? book.pages + "쪽"
-        : "-";
+    currentDate.getFullYear() +
+    "년 " +
+    (
+      currentDate.getMonth() + 1
+    ) +
+    "월";
 
 }
 
 
 document
-  .getElementById("edit")
-  .onclick =
+  .getElementById("prevMonth")
+  .addEventListener(
+    "click",
     function() {
 
-      if (!selectedBook) {
-        return;
-      }
+      currentDate.setMonth(
+        currentDate.getMonth() - 1
+      );
+
+      loadBooks();
+
+    }
+  );
+
+
+document
+  .getElementById("nextMonth")
+  .addEventListener(
+    "click",
+    function() {
+
+      currentDate.setMonth(
+        currentDate.getMonth() + 1
+      );
+
+      loadBooks();
+
+    }
+  );
+
+
+/* ================================
+   화면 크기 변경
+================================ */
+
+window.addEventListener(
+  "resize",
+  function() {
+
+    clearTimeout(
+      resizeTimer
+    );
+
+    resizeTimer =
+      setTimeout(
+        function() {
+
+          /*
+            화면 가로폭이 바뀌면
+            선반별 책 배치를 다시 계산.
+          */
+
+          renderShelves();
+
+        },
+        150
+      );
+
+  }
+);
+
+
+/* ================================
+   DETAIL
+================================ */
+
+async function openDetail(book) {
+
+  selectedBook = book;
+
+
+  document
+    .getElementById(
+      "detailCover"
+    )
+    .src =
+    book.coverUrl || "";
+
+
+  document
+    .getElementById(
+      "detailTitle"
+    )
+    .textContent =
+    book.title || "";
+
+
+  document
+    .getElementById(
+      "detailAuthor"
+    )
+    .textContent =
+    book.author || "";
+
+
+  document
+    .getElementById(
+      "detailPublisher"
+    )
+    .textContent =
+    book.publisher || "";
+
+
+  document
+    .getElementById(
+      "detailFinishDate"
+    )
+    .textContent =
+    formatDate(
+      book.finishDate
+    );
+
+
+  document
+    .getElementById(
+      "detailRating"
+    )
+    .textContent =
+    makeStars(
+      Number(book.rating || 0)
+    );
+
+
+  document
+    .getElementById(
+      "detailPublishDate"
+    )
+    .textContent = "-";
+
+
+  document
+    .getElementById(
+      "detailPages"
+    )
+    .textContent = "-";
+
+
+  document
+    .getElementById(
+      "intro"
+    )
+    .classList
+    .remove("show");
+
+
+  document
+    .getElementById(
+      "introText"
+    )
+    .textContent = "";
+
+
+  document
+    .getElementById(
+      "overlay"
+    )
+    .classList
+    .add("show");
+
+
+  if (!book.itemId) {
+    return;
+  }
+
+
+  try {
+
+    const response =
+      await fetch(
+        API_URL +
+        "?action=detail&itemId=" +
+        encodeURIComponent(
+          book.itemId
+        ) +
+        "&t=" +
+        Date.now()
+      );
+
+    const data =
+      JSON.parse(
+        await response.text()
+      );
+
+
+    if (
+      !data.success ||
+      !data.book
+    ) {
+      return;
+    }
+
+
+    const detail =
+      data.book;
+
+
+    document
+      .getElementById(
+        "detailPublishDate"
+      )
+      .textContent =
+      formatPublishDate(
+        detail.publishDate
+      ) || "-";
+
+
+    document
+      .getElementById(
+        "detailPages"
+      )
+      .textContent =
+      detail.pages
+        ? detail.pages + "쪽"
+        : "-";
+
+
+    if (
+      detail.bookIntroduction
+    ) {
+
+      document
+        .getElementById(
+          "introText"
+        )
+        .textContent =
+        detail.bookIntroduction;
+
+
+      document
+        .getElementById(
+          "intro"
+        )
+        .classList
+        .add("show");
+
+    }
+
+  } catch (error) {
+
+    console.error(error);
+
+  }
+
+}
+
+
+/* ================================
+   EDIT / DELETE
+================================ */
+
+document
+  .getElementById("editButton")
+  .addEventListener(
+    "click",
+    function() {
+
+      if (!selectedBook) return;
 
 
       sessionStorage.setItem(
-        "editBook",
+        "selectedBook",
         JSON.stringify(
           selectedBook
         )
@@ -1310,30 +1725,25 @@ document
         "./write.html?mode=edit&user=" +
         encodeURIComponent(user);
 
-    };
+    }
+  );
 
 
 document
-  .getElementById("delete")
-  .onclick =
+  .getElementById("deleteButton")
+  .addEventListener(
+    "click",
     async function() {
 
-      if (!selectedBook) {
-        return;
-      }
+      if (!selectedBook) return;
 
 
-      if (
-        !confirm(
-          "「" +
-          selectedBook.title +
-          "」을 삭제할까요?"
-        )
-      ) {
+      const ok =
+        confirm(
+          "이 책 기록을 삭제할까요?"
+        );
 
-        return;
-
-      }
+      if (!ok) return;
 
 
       try {
@@ -1367,13 +1777,14 @@ document
         if (!data.success) {
 
           throw new Error(
-            data.message
+            data.message ||
+            "삭제 실패"
           );
 
         }
 
 
-        closeModal();
+        closeDetail();
 
         loadBooks();
 
@@ -1388,65 +1799,115 @@ document
 
       }
 
-    };
+    }
+  );
 
 
-document
-  .getElementById("close")
-  .onclick =
-    closeModal;
+/* ================================
+   CLOSE
+================================ */
 
-
-document
-  .getElementById("overlay")
-  .onclick =
-    function(event) {
-
-      if (
-        event.target === this
-      ) {
-
-        closeModal();
-
-      }
-
-    };
-
-
-function closeModal() {
+function closeDetail() {
 
   document
-    .getElementById("overlay")
-    .classList.remove(
-      "show"
-    );
+    .getElementById(
+      "overlay"
+    )
+    .classList
+    .remove("show");
 
 }
 
 
-function clamp(
-  value,
-  min,
-  max
-) {
-
-  return Math.max(
-    min,
-    Math.min(
-      max,
-      value
-    )
+document
+  .getElementById("closeButton")
+  .addEventListener(
+    "click",
+    closeDetail
   );
+
+
+document
+  .getElementById("overlay")
+  .addEventListener(
+    "click",
+    function(event) {
+
+      if (
+        event.target ===
+        document.getElementById(
+          "overlay"
+        )
+      ) {
+
+        closeDetail();
+
+      }
+
+    }
+  );
+
+
+/* ================================
+   NAVIGATION
+================================ */
+
+document
+  .getElementById("backButton")
+  .addEventListener(
+    "click",
+    function() {
+
+      window.location.href =
+        "./index.html";
+
+    }
+  );
+
+
+document
+  .getElementById("addBook")
+  .addEventListener(
+    "click",
+    function() {
+
+      window.location.href =
+        "./write.html?user=" +
+        encodeURIComponent(user);
+
+    }
+  );
+
+
+/* ================================
+   HELPERS
+================================ */
+
+function makeStars(value) {
+
+  let text = "";
+
+  for (
+    let i = 1;
+    i <= 5;
+    i++
+  ) {
+
+    text +=
+      i <= value
+        ? "★"
+        : "☆";
+
+  }
+
+  return text;
 
 }
 
 
 function formatDate(value) {
 
-  if (!value) {
-    return "-";
-  }
-
+  if (!value) return "-";
 
   return String(value)
     .replace(/-/g, ".");
@@ -1456,15 +1917,13 @@ function formatDate(value) {
 
 function formatPublishDate(value) {
 
+  if (!value) return "";
+
   const text =
-    String(
-      value || ""
-    );
+    String(value)
+      .replace(/\D/g, "");
 
-
-  if (
-    /^\d{8}$/.test(text)
-  ) {
+  if (text.length === 8) {
 
     return (
       text.slice(0,4) +
@@ -1476,12 +1935,12 @@ function formatPublishDate(value) {
 
   }
 
-
-  return text || "-";
+  return value;
 
 }
 
 </script>
 
 </body>
+
 </html>

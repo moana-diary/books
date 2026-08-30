@@ -218,8 +218,10 @@ h1 {
 
 
 /*
-  한 줄의 책.
   한 칸당 최대 10권.
+
+  10권이 있으면 실제 두께의 상대비율을
+  유지하면서 가로폭을 전부 사용한다.
 */
 
 .books-row {
@@ -231,7 +233,7 @@ h1 {
   align-items: flex-end;
   justify-content: flex-start;
 
-  gap: 1px;
+  gap: 0;
 
   padding: 0 10px;
 
@@ -261,7 +263,7 @@ h1 {
 
   box-shadow:
     inset -1px 0
-    rgba(0,0,0,.14);
+    rgba(0,0,0,.13);
 
   transition:
     transform .15s ease;
@@ -273,9 +275,7 @@ h1 {
 }
 
 
-/*
-  실제 YES24 책등
-*/
+/* 실제 YES24 책등 */
 
 .book img {
   display: block;
@@ -287,9 +287,13 @@ h1 {
 }
 
 
-/* 책등 이미지 없는 경우 */
+/* =========================
+   가상 책등
+========================= */
 
 .fallback-spine {
+  position: relative;
+
   display: flex;
 
   width: 100%;
@@ -298,22 +302,59 @@ h1 {
   align-items: center;
   justify-content: center;
 
-  padding: 7px 3px;
-
-  background: var(--green);
+  padding: 8px 3px;
 
   color: #f8f1df;
 }
 
+
+/* 책등 윗부분 작은 장식 */
+
+.fallback-spine::before {
+  position: absolute;
+
+  top: 9px;
+  left: 23%;
+  right: 23%;
+
+  height: 2px;
+
+  background: currentColor;
+
+  opacity: .45;
+
+  content: "";
+}
+
+
+/* 책등 아래 작은 장식 */
+
+.fallback-spine::after {
+  position: absolute;
+
+  left: 24%;
+  right: 24%;
+  bottom: 10px;
+
+  height: 5px;
+
+  border-top: 1px solid currentColor;
+  border-bottom: 1px solid currentColor;
+
+  opacity: .5;
+
+  content: "";
+}
+
 .fallback-title {
-  max-height: 92%;
+  max-height: 78%;
 
   overflow: hidden;
 
   font-size: 10px;
   font-weight: 800;
 
-  line-height: 1.15;
+  line-height: 1.18;
 
   writing-mode: vertical-rl;
   text-orientation: mixed;
@@ -613,13 +654,11 @@ h1 {
 
 .edit {
   background: var(--green);
-
   color: white;
 }
 
 .delete {
   background: #eee7dc;
-
   color: #a05750;
 }
 
@@ -733,11 +772,9 @@ h1 {
       class="shelf-list"
       id="shelfList"
     >
-
       <div class="loading">
         책장을 불러오는 중…
       </div>
-
     </div>
 
   </section>
@@ -943,7 +980,7 @@ loadBooks();
 
 
 /* =========================
-   LOAD BOOKS
+   LOAD
 ========================= */
 
 async function loadBooks() {
@@ -1010,8 +1047,8 @@ async function loadBooks() {
 
 
     /*
-      옛날에 등록해 두께가 없는 책은
-      YES24 상세정보에서 두께를 보완
+      예전 기록 중 책두께가 없는 책은
+      YES24 상세 API로 두께를 보완.
     */
 
     await fillMissingThickness(
@@ -1020,10 +1057,12 @@ async function loadBooks() {
 
 
     document
-      .getElementById("bookCount")
+      .getElementById(
+        "bookCount"
+      )
       .textContent =
       currentBooks.length +
-      "권 읽었어요!";
+      "권 읽었어요";
 
 
     renderShelves();
@@ -1046,7 +1085,7 @@ async function loadBooks() {
 
 
 /* =========================
-   두께 정보 보완
+   두께 보완
 ========================= */
 
 async function fillMissingThickness(
@@ -1129,14 +1168,15 @@ async function fillMissingThickness(
 
 
 /* =========================
-   한 칸 = 최대 10권
+   10권씩 나누기
 ========================= */
 
 function splitIntoShelves(
   books
 ) {
 
-  const shelves = [];
+  const shelves =
+    [];
 
 
   for (
@@ -1161,7 +1201,7 @@ function splitIntoShelves(
 
 
 /* =========================
-   선반 렌더링
+   RENDER
 ========================= */
 
 function renderShelves() {
@@ -1199,10 +1239,6 @@ function renderShelves() {
   }
 
 
-  /*
-    무조건 10권 단위로 나눈다.
-  */
-
   const shelves =
     splitIntoShelves(
       currentBooks
@@ -1236,8 +1272,14 @@ function renderShelves() {
 
 
       /*
-        한 선반에 들어갈 10권의
-        실제 두께 비율 계산
+        실제 책 두께 비율 계산.
+
+        ★ 10권인 칸:
+        반드시 선반 가로폭 전체를 사용.
+
+        ★ 10권 미만:
+        실제 비율 그대로 사용하되
+        화면을 넘는 경우만 축소.
       */
 
       const widths =
@@ -1256,7 +1298,8 @@ function renderShelves() {
           const bookElement =
             createBook(
               book,
-              widths[index]
+              widths[index],
+              index
             );
 
 
@@ -1323,7 +1366,8 @@ function renderShelves() {
 
 
 /* =========================
-   실제 두께 계산
+   핵심:
+   책 10권이면 선반 꽉 채우기
 ========================= */
 
 function calculateShelfWidths(
@@ -1332,18 +1376,19 @@ function calculateShelfWidths(
 ) {
 
   /*
-    좌우 padding + 책 사이 간격 여유
+    books-row 좌우 padding이
+    각각 10px이므로 20px 제외.
   */
 
   const usableWidth =
     Math.max(
-      240,
-      containerWidth - 28
+      220,
+      containerWidth - 20
     );
 
 
   /*
-    먼저 실제 책 두께를 px로 변환
+    각 책의 실제 두께 비율.
   */
 
   const rawWidths =
@@ -1358,14 +1403,7 @@ function calculateShelfWidths(
     );
 
 
-  const gapTotal =
-    Math.max(
-      0,
-      books.length - 1
-    );
-
-
-  const total =
+  const rawTotal =
     rawWidths.reduce(
       function(sum, value) {
 
@@ -1373,42 +1411,90 @@ function calculateShelfWidths(
 
       },
       0
-    ) +
-    gapTotal;
+    );
+
+
+  if (!rawTotal) {
+
+    return books.map(
+      function() {
+
+        return usableWidth /
+          Math.max(
+            books.length,
+            1
+          );
+
+      }
+    );
+
+  }
 
 
   /*
-    10권이 한 화면보다 넓으면
-    전부 같은 비율로 축소.
+    ★ 정확히 10권이면
 
-    따라서
-    얇은 책 : 두꺼운 책
-    비율은 유지됨.
+    실제 두께 비율을 유지하면서
+    선반 가로폭 전체에 맞춤.
+
+    예:
+      얇은책 15
+      일반책 20
+      두꺼운책 35
+
+    이 비율 자체는 유지됨.
   */
 
-  let scale = 1;
-
-
   if (
-    total > usableWidth
+    books.length === 10
   ) {
 
-    scale =
+    const scale =
       usableWidth /
-      total;
+      rawTotal;
+
+
+    return rawWidths.map(
+      function(width) {
+
+        return width * scale;
+
+      }
+    );
 
   }
+
+
+  /*
+    ★ 마지막 칸처럼 10권 미만
+
+    화면에 들어가면 실제 크기대로.
+  */
+
+  if (
+    rawTotal <= usableWidth
+  ) {
+
+    return rawWidths;
+
+  }
+
+
+  /*
+    10권 미만인데도
+    너무 두꺼워 화면을 넘는 경우만
+    비율을 유지하며 축소.
+  */
+
+  const scale =
+    usableWidth /
+    rawTotal;
 
 
   return rawWidths.map(
     function(width) {
 
-      return Math.max(
-        10,
-        Math.round(
-          width * scale
-        )
-      );
+      return width * scale;
 
     }
   );
@@ -1417,7 +1503,7 @@ function calculateShelfWidths(
 
 
 /* =========================
-   실제 책 두께 → 기본 px
+   실제 두께 → 상대 너비
 ========================= */
 
 function getRawBookWidth(
@@ -1435,29 +1521,17 @@ function getRawBookWidth(
     thickness > 0
   ) {
 
-    /*
-      예:
-      10mm → 약 16px
-      20mm → 약 32px
-      30mm → 약 48px
-
-      이후 10권 전체가
-      화면보다 크면 비례 축소.
-    */
-
     return clamp(
-      Math.round(
-        thickness * 1.6
-      ),
+      thickness * 1.6,
       14,
-      62
+      65
     );
 
   }
 
 
   /*
-    실제 두께를 얻지 못한 경우
+    두께를 못 구한 책
   */
 
   return 27;
@@ -1466,12 +1540,13 @@ function getRawBookWidth(
 
 
 /* =========================
-   책 생성
+   BOOK
 ========================= */
 
 function createBook(
   book,
-  width
+  width,
+  index
 ) {
 
   const button =
@@ -1510,14 +1585,9 @@ function createBook(
     "no-referrer";
 
 
-  /*
-    1순위:
-    저장되어 있는 책등
+  image.decoding =
+    "async";
 
-    2순위:
-    YES24 상품번호로
-    /side 주소 자동 생성
-  */
 
   const spineUrl =
     book.spineUrl ||
@@ -1537,6 +1607,73 @@ function createBook(
       " 책등";
 
 
+    /*
+      URL은 정상인데
+      YES24에서 '이미지 준비중'
+      대체이미지를 보내는 경우가 있음.
+
+      그래서 onerror뿐 아니라
+      onload에서도 원본 이미지 비율을 확인.
+    */
+
+    image.addEventListener(
+      "load",
+      function() {
+
+        const naturalWidth =
+          image.naturalWidth;
+
+
+        const naturalHeight =
+          image.naturalHeight;
+
+
+        if (
+          !naturalWidth ||
+          !naturalHeight
+        ) {
+
+          return;
+
+        }
+
+
+        const ratio =
+          naturalWidth /
+          naturalHeight;
+
+
+        /*
+          실제 책등은 보통
+          세로가 훨씬 긴 형태.
+
+          YES24 이미지 준비중 같은
+          일반 대체 이미지는
+          지나치게 넓거나 정사각형에 가까움.
+
+          그런 경우 자동 책등으로 교체.
+        */
+
+        if (
+          ratio > 0.58
+        ) {
+
+          showFallbackSpine(
+            button,
+            book,
+            index
+          );
+
+        }
+
+      }
+    );
+
+
+    /*
+      아예 이미지가 존재하지 않는 경우
+    */
+
     image.addEventListener(
       "error",
       function() {
@@ -1548,14 +1685,16 @@ function createBook(
 
 
         /*
-          기존 URL과 자동 URL이
-          다른 경우 한 번 더 시도
+          저장돼 있던 URL이 실패했지만
+          자동 /side 주소와 다르면
+          /side 주소로 한 번 더 시도.
         */
 
         if (
           automaticUrl &&
           image.dataset.retry !== "1" &&
-          image.src !== automaticUrl
+          normalizeUrl(image.src) !==
+          normalizeUrl(automaticUrl)
         ) {
 
           image.dataset.retry =
@@ -1571,14 +1710,10 @@ function createBook(
         }
 
 
-        /*
-          YES24에도 책등 이미지가
-          없는 경우
-        */
-
         showFallbackSpine(
           button,
-          book
+          book,
+          index
         );
 
       }
@@ -1594,7 +1729,8 @@ function createBook(
 
     showFallbackSpine(
       button,
-      book
+      book,
+      index
     );
 
   }
@@ -1618,7 +1754,7 @@ function createBook(
 
 
 /* =========================
-   YES24 /side
+   YES24 /side 주소
 ========================= */
 
 function makeSpineUrl(
@@ -1642,16 +1778,63 @@ function makeSpineUrl(
 
 
 /* =========================
-   책등 이미지 없을 때
+   자동 책등
 ========================= */
 
 function showFallbackSpine(
   button,
-  book
+  book,
+  index
 ) {
 
   button.innerHTML =
     "";
+
+
+  const colors = [
+
+    {
+      background: "#0e4b37",
+      text: "#f7f3e9"
+    },
+
+    {
+      background: "#e8ddc4",
+      text: "#20241f"
+    },
+
+    {
+      background: "#d97968",
+      text: "#20241f"
+    },
+
+    {
+      background: "#e9b936",
+      text: "#20241f"
+    },
+
+    {
+      background: "#24362d",
+      text: "#f7f3e9"
+    },
+
+    {
+      background: "#eee9dc",
+      text: "#0e4b37"
+    }
+
+  ];
+
+
+  const colorIndex =
+    getBookColorIndex(
+      book,
+      colors.length
+    );
+
+
+  const color =
+    colors[colorIndex];
 
 
   const fallback =
@@ -1662,6 +1845,14 @@ function showFallbackSpine(
 
   fallback.className =
     "fallback-spine";
+
+
+  fallback.style.background =
+    color.background;
+
+
+  fallback.style.color =
+    color.text;
 
 
   const title =
@@ -1691,8 +1882,48 @@ function showFallbackSpine(
 }
 
 
+/* 같은 책은 항상 같은 색 */
+
+function getBookColorIndex(
+  book,
+  length
+) {
+
+  const text =
+    String(
+      book.itemId ||
+      book.title ||
+      ""
+    );
+
+
+  let hash =
+    0;
+
+
+  for (
+    let i = 0;
+    i < text.length;
+    i++
+  ) {
+
+    hash =
+      (
+        hash * 31 +
+        text.charCodeAt(i)
+      ) >>> 0;
+
+  }
+
+
+  return hash %
+    length;
+
+}
+
+
 /* =========================
-   높이
+   책 높이
 ========================= */
 
 function getVisualHeight(
@@ -1793,7 +2024,7 @@ document
 
 
 /* =========================
-   화면 크기가 달라질 때
+   화면 크기 변경
 ========================= */
 
 window.addEventListener(
@@ -1810,8 +2041,8 @@ window.addEventListener(
         function() {
 
           /*
-            10권이라는 기준은 유지하고
-            책 두께 축척만 다시 계산
+            아이폰 가로폭이 달라져도
+            다시 선반 폭에 맞춰 계산.
           */
 
           renderShelves();
@@ -1836,11 +2067,17 @@ async function openDetail(
     book;
 
 
-  document
-    .getElementById(
+  const cover =
+    document.getElementById(
       "detailCover"
-    )
-    .src =
+    );
+
+
+  cover.referrerPolicy =
+    "no-referrer";
+
+
+  cover.src =
     book.coverUrl ||
     "";
 
@@ -2224,6 +2461,26 @@ function clamp(
 }
 
 
+function normalizeUrl(
+  value
+) {
+
+  return String(
+    value ||
+    ""
+  )
+    .replace(
+      /^https?:\/\//,
+      ""
+    )
+    .replace(
+      /\/+$/,
+      ""
+    );
+
+}
+
+
 function makeStars(
   value
 ) {
@@ -2260,11 +2517,12 @@ function formatDate(
   }
 
 
-  return String(value)
-    .replace(
-      /-/g,
-      "."
-    );
+  return String(
+    value
+  ).replace(
+    /-/g,
+    "."
+  );
 
 }
 
@@ -2279,11 +2537,12 @@ function formatPublishDate(
 
 
   const text =
-    String(value)
-      .replace(
-        /\D/g,
-        ""
-      );
+    String(
+      value
+    ).replace(
+      /\D/g,
+      ""
+    );
 
 
   if (
